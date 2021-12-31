@@ -1,0 +1,17 @@
+.nav_bar_wrapper{
+    justify-content: flex-end;
+}
+
+.nav_bar_wrapper a{
+    padding-right: 20px;
+    font-size: large;
+    text-decoration: none;
+}
+.navbar>.container{
+    padding:0px 20px;
+    max-width: 100%;
+}
+.logut-span{
+    cursor: pointer;
+    color:  #0d6efd;;
+}
