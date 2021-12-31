@@ -15,9 +15,9 @@ function Header({setCust}) {
 
     return (
         <div>
-            <Navbar bg="light" variant="light">
+            <Navbar bg="dark" variant="light">
                 <Container>
-                    <Navbar.Brand>Hair Saloon</Navbar.Brand>
+                    <Navbar.Brand className="text-white">Hair Saloon</Navbar.Brand>
                     <Nav className="justify-content-end nav_bar_wrapper">
                         <Link to="/" >Home</Link>
                         {

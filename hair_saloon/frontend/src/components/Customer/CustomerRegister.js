@@ -1,16 +1,21 @@
 import React, { useState } from 'react'
 // import "./CustomerRegister.css"
 import { useHistory } from 'react-router-dom'
+import { Button, Row, Col,Form } from 'react-bootstrap';
 
-function CustomerRegister({setCust}) {
+
+
+
+
+function CustomerRegister({ setCust }) {
     const history = useHistory()
 
     const [customer, setCustomer] = useState({
-        name:"",
-        mobile_num:"",
+        name: "",
+        mobile_num: "",
         email: "",
         password: "",
-        location:""
+        location: ""
     })
 
     function handlechange(e) {
@@ -26,7 +31,7 @@ function CustomerRegister({setCust}) {
 
     async function register() {
 
-        const { name,mobile_num,email, password,location } = customer;
+        const { name, mobile_num, email, password, location } = customer;
         if (name && mobile_num && email && password && location) {
             var res = await fetch("http://localhost:9700/customer/customerRegister", {
                 method: "POST",
@@ -35,11 +40,11 @@ function CustomerRegister({setCust}) {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    name:name,
+                    name: name,
                     email: email,
-                    mobile_num:mobile_num,
+                    mobile_num: mobile_num,
                     password: password,
-                    location:location
+                    location: location
                 })
             })
 
@@ -60,28 +65,50 @@ function CustomerRegister({setCust}) {
                 }
             }
         }
-        else
-        {
+        else {
             alert("Input fields can't be blank.");
         }
 
     }
 
     return (
-        <div className="CustomerRegister">
+
+        <div className='border border-primary' >
 
             <h1>Customer Register</h1>
-            <input type="text" placeholder="Enter Your Email" name="email" value={customer.email} onChange={handlechange} />
-            <br />
-            <input type="text" placeholder="Enter Your Name" name="name" value={customer.name} onChange={handlechange} />
-            <br />
-            <input type="text" placeholder="Enter Your Mobile Number" name="mobile_num" value={customer.mobile_num} onChange={handlechange} />
-            <br />
-            <input type="text" placeholder="Enter Your Location Number" name="location" value={customer.location} onChange={handlechange} />
-            <br />
-            <input type="password" placeholder="Enter Your Password" name="password" value={customer.password} onChange={handlechange} />
-            <br />
-            <button type="submit" onClick={register}> Register</button>
+            
+                <div className="form-group">
+                    <label>Email address</label>
+                    <br/>
+                    <input  type="text"  name="email" className=' rounded' value={customer.email} onChange={handlechange} />
+                </div>
+                <div className="form-group col-auto">
+                    <label>User Name </label>
+                    <br/>
+                    <input className='rounded' type="text" name="name" value={customer.name} onChange={handlechange} />
+                </div>
+                <div className="form-group">
+                    <label>Mobile Number </label>
+                    <br/>
+                    <input type="text" className='rounded'  name="mobile_num" value={customer.mobile_num} onChange={handlechange}/>
+                </div>
+                <div className="form-group">
+                    <label>Password</label>
+                    <br/>
+                    <input type="password" className='rounded'  name="password" value={customer.password} onChange={handlechange} />
+                </div>
+                <div className="form-group">
+                    <label>Location</label>
+                    <br/>
+                    <input type="text" className='rounded' name="location"  value={customer.location} onChange={handlechange} />
+                </div>
+                <br/>
+                <Button as={Col} variant="primary" onClick={register}>Register</Button>
+                <p className="text-right">
+                    Already Loged In Click <a href='/customerlogin'>Here</a>
+                </p>
+               
+            
         </div>
     )
 }

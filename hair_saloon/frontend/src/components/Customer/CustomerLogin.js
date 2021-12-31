@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 // import "./CustomerLogin.css";
 import { useHistory } from 'react-router-dom';
+import { Button, Row, Col, Form } from 'react-bootstrap';
 
-function CustomerLogin({setCust}) {
+
+function CustomerLogin({ setCust }) {
     const history = useHistory()
 
     const [customer, setCustomer] = useState({
@@ -54,22 +56,34 @@ function CustomerLogin({setCust}) {
                 }
             }
         }
-        else
-        {
+        else {
             alert("Input fields can't be blank.");
         }
 
     }
 
     return (
-        <div className="CustomerLogin">
 
+
+        <div className='border border-primary bg-light'>
             <h1>Customer Login</h1>
-            <input type="text" placeholder="Enter Your Email" name="email" value={customer.email} onChange={handlechange} />
+
+            <div className="form-group">
+                <label>Email address</label>
+                <br />
+                <input type="text" className='rounded' name="email" value={customer.email} onChange={handlechange} />
+            </div>
+            <div className="form-group">
+                <label>Password</label>
+                <br />
+                <input type="password" className='rounded' name="password" value={customer.password} onChange={handlechange} />
+            </div>
             <br />
-            <input type="password" placeholder="Enter Your Password" name="password" value={customer.password} onChange={handlechange} />
-            <br />
-            <button type="submit" onClick={login}>Customer Login</button>
+
+            <Button as={Col} variant="primary" onClick={login}>Log in</Button>
+            <p className="text-right">
+                Sign Up From <a href='/customerregister'>Here</a>
+            </p>
         </div>
     )
 }
