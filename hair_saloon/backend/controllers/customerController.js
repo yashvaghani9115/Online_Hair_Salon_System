@@ -28,7 +28,7 @@ export const customerRegister = async (req, res) => {
             else
             {
                 const result = await Customer.create({name:name,email:email,mobile_num:mobile_num,location:location,password:password});
-                res.json({ stat: true, message: "Customer registered sucessfully." });
+                res.json({ stat: true,customer:result, message: "Customer registered sucessfully." });
             }
 
     }

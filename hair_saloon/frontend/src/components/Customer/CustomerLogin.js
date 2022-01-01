@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 // import "./CustomerLogin.css";
 import { useHistory } from 'react-router-dom';
-import { Button, Row, Col, Form } from 'react-bootstrap';
+import { Button,  Col   } from 'react-bootstrap';
+import {MDBInput} from 'mdbreact';
 
 
 function CustomerLogin({ setCust }) {
@@ -65,25 +66,25 @@ function CustomerLogin({ setCust }) {
     return (
 
 
-        <div className='border border-primary bg-light'>
-            <h1>Customer Login</h1>
+        <div className='row d-flex justify-content-center'>
+        <div className='border border-primary rounded col-lg-5 ' style={{fontFamily: "Verdana, Arial, Helvetica, sans-serif"}}>
+            <h1 style={{fontFamily: "fantasy"}}>Customer SignIn</h1>
 
-            <div className="form-group">
-                <label>Email address</label>
-                <br />
-                <input type="text" className='rounded' name="email" value={customer.email} onChange={handlechange} />
+            <div className="form-group col-auto">
+                <MDBInput label="Email Address" type="text" name="email" value={customer.email} onChange={handlechange}  />
+               
             </div>
-            <div className="form-group">
-                <label>Password</label>
-                <br />
-                <input type="password" className='rounded' name="password" value={customer.password} onChange={handlechange} />
-            </div>
+            <div className="form-group col-auto">
+                <MDBInput label="Password" type='password' name="password" value={customer.password} onChange={handlechange} />
+                 </div>
             <br />
 
             <Button as={Col} variant="primary" onClick={login}>Log in</Button>
             <p className="text-right">
+                <br/>
                 Sign Up From <a href='/customerregister'>Here</a>
             </p>
+        </div>
         </div>
     )
 }

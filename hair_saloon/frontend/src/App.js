@@ -12,7 +12,7 @@ function App() {
   const [adm,setCust] = useState();
 
   return (
-    <div className="App container">
+    <div className="App">
       <Router>
       <Header setCust={setCust} /><br/>
 
@@ -27,34 +27,7 @@ function App() {
         </Switch>
       </Router>
     </div>
-    // <Router>
-    // <div className="App">
-    //   <nav className="navbar navbar-expand-lg navbar-light ">
-    //     <div className="container bg-dark">
-    //       <Link className="navbar-brand text-white" >Hair Saloon</Link>
-    //       <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-    //         <ul className="navbar-nav ml-auto">
-    //           <li className="nav-item">
-    //             <Link className="nav-link text-white" to={"/sign-in"}>Login</Link>
-    //           </li>
-    //           <li className="nav-item">
-    //             <Link className="nav-link text-white" to={"/sign-up"}>Sign up</Link>
-    //           </li>
-    //         </ul>
-    //       </div>
-    //     </div>
-    //   </nav>
-
-    //   <div className="auth-wrapper">
-    //     <div className="auth-inner">
-    //       <Switch>
-    //         <Route exact path='/' component={CustomerLogin} />
-    //         <Route path="/sign-in" component={CustomerLogin} />
-    //         <Route path="/sign-up" component={CustomerRegister} />
-    //       </Switch>
-    //     </div>
-    //   </div>
-    // </div></Router>
+  
   );
 }
 

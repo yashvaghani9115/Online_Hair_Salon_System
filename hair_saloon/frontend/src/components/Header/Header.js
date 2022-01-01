@@ -25,8 +25,8 @@ function Header({setCust}) {
                             <Nav.Item className="logut-span" onClick={logout}>Logout</Nav.Item>
                                 : 
                                 <>
-                                    <Link to='/customerlogin'>Login</Link>
-                                    <Link to='/customerregister'>Register</Link>
+                                    <Link to='/customerlogin'>SignIn</Link>
+                                    <Link to='/customerregister'>SignUp</Link>
                                 </>
                         }
                         

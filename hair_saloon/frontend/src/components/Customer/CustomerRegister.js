@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 // import "./CustomerRegister.css"
 import { useHistory } from 'react-router-dom'
-import { Button, Row, Col,Form } from 'react-bootstrap';
+import { Button,  Col } from 'react-bootstrap';
+import { MDBInput } from 'mdbreact';
 
 
 
@@ -15,6 +16,7 @@ function CustomerRegister({ setCust }) {
         mobile_num: "",
         email: "",
         password: "",
+        cpassword: "",
         location: ""
     })
 
@@ -49,7 +51,7 @@ function CustomerRegister({ setCust }) {
             })
 
             res = await res.json();
-
+            console.log(res)
             if (res.wentWrong) {
                 alert(res.message);
             }
@@ -72,44 +74,41 @@ function CustomerRegister({ setCust }) {
     }
 
     return (
+        <div className='row d-flex justify-content-center'>
+            <div className='border border-primary rounded col-lg-5 ' style={{fontFamily: "Verdana, Arial, Helvetica, sans-serif"}} >
 
-        <div className='border border-primary' >
-
-            <h1>Customer Register</h1>
-            
-                <div className="form-group">
-                    <label>Email address</label>
-                    <br/>
-                    <input  type="text"  name="email" className=' rounded' value={customer.email} onChange={handlechange} />
+                <h1 style={{fontFamily: "fantasy"}}>Customer SignUp</h1>
+                <div className="form-group col-auto">
+                    <MDBInput label="Email Address" type="text" name="email" value={customer.email} onChange={handlechange} />
                 </div>
                 <div className="form-group col-auto">
-                    <label>User Name </label>
-                    <br/>
-                    <input className='rounded' type="text" name="name" value={customer.name} onChange={handlechange} />
+                   
+                    <MDBInput label="User Name"   type="text" name="name" value={customer.name} onChange={handlechange} />
                 </div>
-                <div className="form-group">
-                    <label>Mobile Number </label>
-                    <br/>
-                    <input type="text" className='rounded'  name="mobile_num" value={customer.mobile_num} onChange={handlechange}/>
+                <div className="form-group col-auto">
+                    <MDBInput label="Mobile Number" type="text" name="mobile_num" value={customer.mobile_num} onChange={handlechange} />
                 </div>
-                <div className="form-group">
-                    <label>Password</label>
-                    <br/>
-                    <input type="password" className='rounded'  name="password" value={customer.password} onChange={handlechange} />
+                <div className="form-group col-auto">
+                    <MDBInput label="Password" type="password" name="password" value={customer.password} onChange={handlechange} />
                 </div>
-                <div className="form-group">
-                    <label>Location</label>
-                    <br/>
-                    <input type="text" className='rounded' name="location"  value={customer.location} onChange={handlechange} />
+                <div className="form-group col-auto">
+                    <MDBInput label="Confirm Password" type="text" name="cpassword" value={customer.cpassword} onChange={handlechange} />
                 </div>
-                <br/>
+                <div className="form-group col-auto">
+                    <MDBInput label="Location" type="text" name="location" value={customer.location} onChange={handlechange} />
+                </div>
+                <br />
                 <Button as={Col} variant="primary" onClick={register}>Register</Button>
+
                 <p className="text-right">
+                    <br />
                     Already Loged In Click <a href='/customerlogin'>Here</a>
                 </p>
-               
-            
+
+
+            </div>
         </div>
+
     )
 }
 
