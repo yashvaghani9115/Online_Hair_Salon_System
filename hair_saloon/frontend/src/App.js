@@ -8,6 +8,8 @@ import CustomerLogin from './components/Customer/CustomerLogin';
 import CustomerRegister from './components/Customer/CustomerRegister';
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
+import OwnerLogin from './components/Owner/OwnerLogin';
+import OwnerRegister from './components/Owner/OwnerRegister';
 function App() {
   const [adm,setCust] = useState();
 
@@ -23,6 +25,12 @@ function App() {
           </Route>
           <Route path="/customerlogin">
             <CustomerLogin setCust={setCust}/>
+          </Route>
+          <Route path="/ownerlogin">
+            <OwnerLogin setCust={setCust}/>
+          </Route>
+          <Route path="/ownerregister">
+            <OwnerRegister setCust={setCust}/>
           </Route>
         </Switch>
       </Router>
