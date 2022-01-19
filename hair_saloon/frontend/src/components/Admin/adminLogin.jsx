@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
-// import "./CustomerLogin.css";
-// import { useHistory } from 'react-router-dom';
 import { Button  } from 'react-bootstrap';
 import { MDBInput} from 'mdbreact';
 import { Modal } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 
 
 
-
-function CustomerLogin({ setCust }) {
-    // const history = useHistory()
+function AdminLogin({ setCust }) {
+    const history = useHistory()
     const [show,setShow] = useState(false);
     const [header,setHeader] = useState("");
     const [msg,setMsg] = useState("");
-    const [customer, setCustomer] = useState({
+    const [admin, setAdmin] = useState({
         email: "",
         password: ""
     })
@@ -21,19 +19,25 @@ function CustomerLogin({ setCust }) {
     function handlechange(e) {
         const { name, value } = e.target;
 
-        setCustomer(
+        setAdmin(
             {
-                ...customer,
+                ...admin,
                 [name]: value
             }
         )
     }
+    function handleclose(){
+        if(header === "Success"){
+            history.push('/adminpage');    
+        }
+        setShow(false)
+    }
 
     async function login() {
 
-        const { email, password } = customer;
+        const { email, password } = admin;
         if (email && password) {
-            var res = await fetch("http://localhost:9700/customer/customerLogin", {
+            var res = await fetch("http://localhost:9700/admin/adminLogin", {
                 method: "POST",
                 headers: {
                     "Accept": "application/json",
@@ -56,14 +60,12 @@ function CustomerLogin({ setCust }) {
             }
             else {
                 if (res.stat) {
-                    localStorage.setItem("customer", JSON.stringify(res.customer));
+                    localStorage.setItem("customer", JSON.stringify(res.admin));
                     // alert(res.message);
                     setHeader("Success");
                     setMsg(res.message);
                     setShow(true);
-
-                    setCust(res.customer);
-                    // history.push('/');
+                    setCust(res.admin);
                 }
                 else {
                     setHeader("Invalid");
@@ -84,23 +86,18 @@ function CustomerLogin({ setCust }) {
         <div  className='row d-flex mt-5 justify-content-center'>
             
             <div className='border border-primary col-lg-5 bg-white' style={{borderRadius:"25px",boxShadow:"7px 7px gray"}}>
-                <h1 style={{color:'black',marginTop:"20px"}}>Customer SignIn</h1>
+                <h1 style={{color:'black',marginTop:"20px"}}>Admin SignIn</h1>
             
                 <div className="form-group col-auto">
-                    <MDBInput containerClass="text-left text-dark" label="Email Address" icon='user' type="text" name="email" value={customer.email} onChange={handlechange}  />
+                    <MDBInput containerClass="text-left text-dark" label="Email Address" icon='user' type="text" name="email" value={admin.email} onChange={handlechange}  />
                 </div>
                 <div className="form-group col-auto">
-                    <MDBInput containerClass="text-left text-dark" icon='unlock' label="Password" type='password' name="password" value={customer.password} onChange={handlechange} />
+                    <MDBInput containerClass="text-left text-dark" icon='unlock' label="Password" type='password' name="password" value={admin.password} onChange={handlechange} />
                     </div>
                 <br />
 
                 <Button  variant="blue" style={{borderRadius:"20px"}} className='col-6' onClick={login}>Log in</Button>
-                <Modal
-                    size="md"
-                    show={show}
-                    onHide={() => setShow(false)}
-                    
-                >
+                <Modal size="md" show={show} onHide={handleclose} >
                     <Modal.Header closeButton>
                     <Modal.Title id="example-modal-sizes-title-sm">
                         {header}
@@ -108,13 +105,13 @@ function CustomerLogin({ setCust }) {
                     </Modal.Header>
                     <Modal.Body className='bg-light'>{msg}</Modal.Body>
                     <Modal.Footer>
-                        <Button style={{borderRadius:"20px"}} onClick={()=>setShow(false)}>Close</Button>
+                        <Button style={{borderRadius:"20px"}} onClick={handleclose}>Close</Button>
                     </Modal.Footer>
                 </Modal>
                 
                 <p className="text-right text-dark">
                     <br/>
-                    Sign Up From <a href='/customerregister'>Here</a>
+                    Sign Up From <a href='/adminregister'>Here</a>
                 </p>
             
             </div>
@@ -125,4 +122,4 @@ function CustomerLogin({ setCust }) {
     )
 }
 
-export default CustomerLogin;
+export default AdminLogin;
