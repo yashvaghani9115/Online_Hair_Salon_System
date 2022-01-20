@@ -10,6 +10,7 @@ import Header from './components/Header/Header';
 import Home from './components/Home/Home';
 import OwnerLogin from './components/Owner/OwnerLogin';
 import OwnerRegister from './components/Owner/OwnerRegister';
+import ShopRegister from './components/Owner/ShopRegister';
 function App() {
   const [adm,setCust] = useState();
 
@@ -31,6 +32,9 @@ function App() {
           </Route>
           <Route path="/ownerregister">
             <OwnerRegister setCust={setCust}/>
+          </Route>
+          <Route path="/shopregister">
+            <ShopRegister />
           </Route>
         </Switch>
       </Router>

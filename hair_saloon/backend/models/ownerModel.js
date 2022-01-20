@@ -6,7 +6,7 @@ const ownerSchema = new mongoose.Schema(
         mobile_num:{type: Number, required: true},
         email: { type: String, required: true, unique: true },
         password: { type:String, required: true },
-        shop_id : { type:String}
+        // shop_id : { type:String}
     }
 )
 

@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 // import "./OwnerRegister.css"
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
 import { Button,  Col } from 'react-bootstrap';
 import { MDBInput } from 'mdbreact';
 
@@ -17,7 +17,6 @@ function OwnerRegister({ setCust }) {
         email: "",
         password: "",
         cpassword: "",
-        location: ""
     })
 
     function handlechange(e) {
@@ -33,8 +32,8 @@ function OwnerRegister({ setCust }) {
 
     async function register() {
 
-        const { name, mobile_num, email, password, location } = owner;
-        if (name && mobile_num && email && password && location) {
+        const { name, mobile_num, email, password} = owner;
+        if (name && mobile_num && email && password ) {
             var res = await fetch("http://localhost:9700/owner/ownerRegister", {
                 method: "POST",
                 headers: {
@@ -46,7 +45,6 @@ function OwnerRegister({ setCust }) {
                     email: email,
                     mobile_num: mobile_num,
                     password: password,
-                    location: location
                 })
             })
 
@@ -60,7 +58,7 @@ function OwnerRegister({ setCust }) {
                     localStorage.setItem("owner", JSON.stringify(res.owner));
                     alert(res.message);
                     setCust(res.owner);
-                    history.push('/');
+                    history.push('/shopregister');
                 }
                 else {
                     alert(res.message);
@@ -94,9 +92,7 @@ function OwnerRegister({ setCust }) {
                 <div className="form-group col-auto">
                     <MDBInput label="Confirm Password" type="text" name="cpassword" value={owner.cpassword} onChange={handlechange} />
                 </div>
-                <div className="form-group col-auto">
-                    <MDBInput label="Location" type="text" name="location" value={owner.location} onChange={handlechange} />
-                </div>
+                
                 <br />
                 <Button as={Col} variant="primary" onClick={register}>Register</Button>
 
@@ -113,3 +109,4 @@ function OwnerRegister({ setCust }) {
 }
 
 export default OwnerRegister;
+
