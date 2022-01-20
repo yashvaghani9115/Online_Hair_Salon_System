@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 // import "./OwnerRegister.css"
 import { useHistory } from 'react-router-dom';
 import { Button,  Col } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { MDBInput } from 'mdbreact';
-
-
-
+import { Modal } from 'react-bootstrap';
 
 
 function OwnerRegister({ setCust }) {
-    const history = useHistory()
+    // const history = useHistory()
+    const [show,setShow] = useState(false);
+    const [header,setHeader] = useState("");
+    const [msg,setMsg] = useState("");
 
     const [owner, setOwner] = useState({
         name: "",
@@ -51,51 +53,81 @@ function OwnerRegister({ setCust }) {
             res = await res.json();
             console.log(res)
             if (res.wentWrong) {
-                alert(res.message);
+                // alert(res.message);
+                setHeader("Something Wrong");
+                setMsg(res.message);
+                setShow(true);
             }
             else {
                 if (res.stat) {
-                    localStorage.setItem("owner", JSON.stringify(res.owner));
-                    alert(res.message);
+                    localStorage.setItem("customer", JSON.stringify(res.owner));
+                    // alert(res.message);
+                    setHeader("Success");
+                    setMsg(res.message);
+                    setShow(true);
                     setCust(res.owner);
                     history.push('/shopregister');
+                    // history.push('/');
                 }
                 else {
-                    alert(res.message);
+                    // alert(res.message);
+                    setHeader("Invalid");
+                    setMsg(res.message);
+                    setShow(true);
                 }
             }
         }
         else {
-            alert("Input fields can't be blank.");
+            setHeader("Invalid");
+            setMsg("Input fields can't be blank.");
+            setShow(true);
         }
 
     }
 
     return (
-        <div className='row d-flex justify-content-center'>
-            <div className='border border-primary rounded col-lg-5 ' style={{fontFamily: "Verdana, Arial, Helvetica, sans-serif"}} >
+        <div className='row d-flex mt-5 justify-content-center'>
+            <div className='border border-primary col-lg-5 bg-white ' style={{borderRadius:"25px",boxShadow:"7px 7px gray"}} >
 
-                <h1 style={{fontFamily: "fantasy"}}>Owner SignUp</h1>
+                <h1 style={{color:'black',marginTop:"20px"}}>Owner SignUp</h1>
                 <div className="form-group col-auto">
-                    <MDBInput label="Email Address" type="text" name="email" value={owner.email} onChange={handlechange} />
+                    <MDBInput containerClass="text-left" icon='user' label="Email Address" type="text" name="email" value={owner.email} onChange={handlechange} />
                 </div>
                 <div className="form-group col-auto">
                    
-                    <MDBInput label="User Name"   type="text" name="name" value={owner.name} onChange={handlechange} />
+                    <MDBInput containerClass="text-left" icon='id-card-alt' label="User Name"   type="text" name="name" value={owner.name} onChange={handlechange} />
                 </div>
                 <div className="form-group col-auto">
-                    <MDBInput label="Mobile Number" type="text" name="mobile_num" value={owner.mobile_num} onChange={handlechange} />
+                    <MDBInput containerClass="text-left" icon='mobile-alt' label="Mobile Number" type="text" name="mobile_num" value={owner.mobile_num} onChange={handlechange} />
                 </div>
                 <div className="form-group col-auto">
-                    <MDBInput label="Password" type="password" name="password" value={owner.password} onChange={handlechange} />
+                    <MDBInput containerClass="text-left" icon='key' label="Password" type="password" name="password" value={owner.password} onChange={handlechange} />
                 </div>
                 <div className="form-group col-auto">
-                    <MDBInput label="Confirm Password" type="text" name="cpassword" value={owner.cpassword} onChange={handlechange} />
+                    <MDBInput containerClass="text-left" icon='unlock' label="Confirm Password" type="text" name="cpassword" value={owner.cpassword} onChange={handlechange} />
                 </div>
                 
+                <div className="form-group col-auto">
+                    <MDBInput containerClass="text-left" icon='map-marker-alt' label="Location" type="text" name="location" value={owner.location} onChange={handlechange} />
+                </div>
                 <br />
-                <Button as={Col} variant="primary" onClick={register}>Register</Button>
-
+                <Button className='col-6' style={{borderRadius:"20px"}} variant="blue" onClick={register}>Register</Button>
+                <Modal
+                    size="md"
+                    show={show}
+                    onHide={() => setShow(false)}
+                    
+                >
+                    <Modal.Header closeButton>
+                    <Modal.Title id="example-modal-sizes-title-sm">
+                        {header}
+                    </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body className='bg-light'>{msg}</Modal.Body>
+                    <Modal.Footer>
+                        <Button style={{borderRadius:"20px"}} onClick={()=>setShow(false)}>Close</Button>
+                    </Modal.Footer>
+                </Modal>
                 <p className="text-right">
                     <br />
                     Already Loged In Click <a href='/ownerlogin'>Here</a>

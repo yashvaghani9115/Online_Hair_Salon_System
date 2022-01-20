@@ -1,14 +1,8 @@
-.nav_bar_wrapper{
-    justify-content: flex-end;
-}
-
 .nav_bar_wrapper a{
     padding-right: 20px;
-    font-size: large;
-    text-decoration: none;
 }
 .navbar>.container{
-    padding:0px 20px;
+    padding:0px 15px;
     max-width: 100%;
 }
 .logut-span{
