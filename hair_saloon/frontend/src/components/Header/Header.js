@@ -21,11 +21,11 @@ function Header({setCust}) {
         <div>
             <Navbar bg="dark" variant="dark">
                 <Container>
-                    <Navbar.Brand className="text-white">Hair Saloon</Navbar.Brand>
+                    <Navbar.Brand className="text-white h1">Hair Saloon</Navbar.Brand>
                     <Nav>
                         <Link to="/"  className="btn btn-light text-dark"  style={{borderRadius:"25px"}} > <FaHome className="mr-1 " style={{fontSize:"25px"}}/>Home</Link>
                         {
-                            localStorage.getItem("customer")  ||  localStorage.getItem("owner") ||  localStorage.getItem("admin") ?
+                            localStorage.getItem("customer") || localStorage.getItem("owner") || localStorage.getItem("admin")  ?
                             <Nav.Item style={{borderRadius:"25px"}} className="btn btn-danger" onClick={logout}><FaPowerOff className="mr-1"/> Logout</Nav.Item>
                                 : 
                                 
@@ -43,12 +43,12 @@ function Header({setCust}) {
                                     </Dropdown>
                                     <Dropdown>
                                         <Dropdown.Toggle style={{borderRadius:"25px"}} variant="success" id="dropdown-basic">
-                                        <MdControlCamera className="mr-1 "  style={{fontSize:"25px"}}/>Enter  
+                                        <MdControlCamera className="mr-1 "  style={{fontSize:"25px"}}/>Partner  
                                         </Dropdown.Toggle>
 
                                         <Dropdown.Menu className="bg-dark">
-                                            <Dropdown.Item className="text-primary" href="/ownerlogin">Sign In</Dropdown.Item>
-                                            <Dropdown.Item className="text-primary" href="/ownerregister">Sign Up</Dropdown.Item>
+                                            <Dropdown.Item className="text-primary" href="/ownerlogin">Owner SignIn</Dropdown.Item>
+                                            <Dropdown.Item className="text-primary" href="/ownerregister">Owner SignUp</Dropdown.Item>
                                             <Dropdown.Divider/>
                                             <Dropdown.Item className="text-primary" href="/adminlogin">Admin</Dropdown.Item>
                                         </Dropdown.Menu>

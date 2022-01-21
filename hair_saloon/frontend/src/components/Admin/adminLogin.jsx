@@ -3,6 +3,8 @@ import { Button  } from 'react-bootstrap';
 import { MDBInput} from 'mdbreact';
 import { Modal } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import {RiAdminFill} from 'react-icons/ri';
+import './admin.css';
 
 
 
@@ -60,7 +62,7 @@ function AdminLogin({ setCust }) {
             }
             else {
                 if (res.stat) {
-                    localStorage.setItem("customer", JSON.stringify(res.admin));
+                    localStorage.setItem("admin", JSON.stringify(res.admin));
                     // alert(res.message);
                     setHeader("Success");
                     setMsg(res.message);
@@ -83,10 +85,11 @@ function AdminLogin({ setCust }) {
     }
 
     return (
-        <div  className='row d-flex mt-5 justify-content-center'>
+        <div style={{height:"100vh"}} className='main'>
+        <div  className='d-flex justify-content-center'>
             
             <div className='border border-primary col-lg-5 bg-white' style={{borderRadius:"25px",boxShadow:"7px 7px gray"}}>
-                <h1 style={{color:'black',marginTop:"20px"}}>Admin SignIn</h1>
+                <h1 style={{color:'black',marginTop:"20px"}}><RiAdminFill className='mr-2'/>Admin SignIn</h1>
             
                 <div className="form-group col-auto">
                     <MDBInput containerClass="text-left text-dark" label="Email Address" icon='user' type="text" name="email" value={admin.email} onChange={handlechange}  />
@@ -116,6 +119,7 @@ function AdminLogin({ setCust }) {
             
             </div>
 
+     </div>
      </div>
 
         

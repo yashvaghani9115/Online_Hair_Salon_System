@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-// import "./CustomerLogin.css";
-// import { useHistory } from 'react-router-dom';
+import React, { useState,useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Button  } from 'react-bootstrap';
 import { MDBInput} from 'mdbreact';
 import { Modal } from 'react-bootstrap';
+import {FaUserCircle} from 'react-icons/fa';
 
 
 
@@ -15,7 +15,9 @@ function CustomerLogin({ setCust }) {
     const [msg,setMsg] = useState("");
     const [customer, setCustomer] = useState({
         email: "",
-        password: ""
+        password: "",
+        longitude:0.0,
+        latitude:0.0
     })
 
     function handlechange(e) {
@@ -31,7 +33,7 @@ function CustomerLogin({ setCust }) {
 
     async function login() {
 
-        const { email, password } = customer;
+        const { email, password,longitude,latitude } = customer;
         if (email && password) {
             var res = await fetch("http://localhost:9700/customer/customerLogin", {
                 method: "POST",
@@ -41,7 +43,9 @@ function CustomerLogin({ setCust }) {
                 },
                 body: JSON.stringify({
                     email: email,
-                    password: password
+                    password: password,
+                    longitude:longitude,
+                    latitude:latitude
                 })
             })
 
@@ -80,11 +84,36 @@ function CustomerLogin({ setCust }) {
 
     }
 
+    function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(getPosInState,failAccess);
+        } 
+    }
+    
+    function failAccess(){
+        setHeader("Fail to Access");
+        setMsg(`Unable to access your location !
+        Please enable it`);
+        setShow(true);
+    }   
+    function getPosInState(position) {
+        console.log(position.coords.longitude);
+        setCustomer({...customer, longitude:position.coords.longitude, latitude:position.coords.latitude})
+    }
+    useEffect(() => {
+        getLocation();
+    }, []);
+
+
     return (
-        <div  className='row d-flex mt-5 justify-content-center'>
+        <div style={{height:"90vh",backgroundColor:"rgb(0, 98, 255)"}} className='main'>
+        <div  className='d-flex justify-content-center'>
             
             <div className='border border-primary col-lg-5 bg-white' style={{borderRadius:"25px",boxShadow:"7px 7px gray"}}>
-                <h1 style={{color:'black',marginTop:"20px"}}>Customer SignIn</h1>
+                <div className='mt-4 text-black'>
+                        <h1 ><FaUserCircle/> Customer SignIn</h1>
+
+                </div>
             
                 <div className="form-group col-auto">
                     <MDBInput containerClass="text-left text-dark" label="Email Address" icon='user' type="text" name="email" value={customer.email} onChange={handlechange}  />
@@ -119,6 +148,7 @@ function CustomerLogin({ setCust }) {
             
             </div>
 
+     </div>
      </div>
 
         

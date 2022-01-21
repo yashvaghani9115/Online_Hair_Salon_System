@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import { Button  } from 'react-bootstrap';
 import { MDBInput} from 'mdbreact';
 import { Modal } from 'react-bootstrap';
+import {FaUserCircle} from 'react-icons/fa';
+import './owner.css';
+
 
 
 
@@ -80,10 +83,14 @@ function OwnerLogin({ setCust }) {
     }
 
     return (
-        <div  className='d-flex mt-5 justify-content-center' style={{textAlign:"center"}} >
+        <div style={{height:"100vh",backgroundColor:"rgb(0, 98, 255)"}} className="main">
+        <div  className='d-flex justify-content-center'>
             
             <div className='border border-primary col-lg-5 bg-white' style={{borderRadius:"25px",boxShadow:"7px 7px gray"}}>
-                <h1 style={{color:'black',marginTop:"20px"}}>Owner SignIn</h1>
+            <div className='mt-4 text-black'>
+                        <h1 ><FaUserCircle/> Owner SignIn</h1>
+
+                </div>
             
                 <div className="form-group col-auto">
                     <MDBInput containerClass="text-left text-dark" label="Email Address" icon='user' type="text" name="email" value={owner.email} onChange={handlechange}  />
@@ -118,6 +125,7 @@ function OwnerLogin({ setCust }) {
             
             </div>
 
+     </div>
      </div>
 
         

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-// import "./OwnerRegister.css"
 import { useHistory } from 'react-router-dom';
 import { Button,  Col } from 'react-bootstrap';
 import { MDBInput } from 'mdbreact';
 import { Modal } from 'react-bootstrap';
+import {FaUserCircle} from 'react-icons/fa';
+
 
 
 function OwnerRegister({ setCust }) {
@@ -85,10 +86,14 @@ function OwnerRegister({ setCust }) {
     }
 
     return (
-        <div className='row d-flex mt-5 justify-content-center'>
+        <div className='main'>
+        <div className='d-flex justify-content-center' style={{textAlign:"center"}}>
             <div className='border border-primary col-lg-5 bg-white ' style={{borderRadius:"25px",boxShadow:"7px 7px gray"}} >
 
-                <h1 style={{color:'black',marginTop:"20px"}}>Owner SignUp</h1>
+            <div className='mt-4 text-black'>
+                        <h1 ><FaUserCircle/> Owner SignUp</h1>
+
+                </div>
                 <div className="form-group col-auto">
                     <MDBInput containerClass="text-left" icon='user' label="Email Address" type="text" name="email" value={owner.email} onChange={handlechange} />
                 </div>
@@ -106,10 +111,8 @@ function OwnerRegister({ setCust }) {
                     <MDBInput containerClass="text-left" icon='unlock' label="Confirm Password" type="text" name="cpassword" value={owner.cpassword} onChange={handlechange} />
                 </div>
                 
-                <div className="form-group col-auto">
-                    <MDBInput containerClass="text-left" icon='map-marker-alt' label="Location" type="text" name="location" value={owner.location} onChange={handlechange} />
-                </div>
-                <br />
+               
+             
                 <Button className='col-6' style={{borderRadius:"20px"}} variant="blue" onClick={register}>Register</Button>
                 <Modal
                     size="md"
@@ -134,6 +137,7 @@ function OwnerRegister({ setCust }) {
 
 
             </div>
+        </div>
         </div>
 
     )

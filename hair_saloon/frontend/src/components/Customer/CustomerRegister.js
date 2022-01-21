@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { MDBInput } from 'mdbreact';
 import { Modal } from 'react-bootstrap';
+import {FaUserCircle} from 'react-icons/fa';
+
 
 
 function CustomerRegister({ setCust }) {
-    // const history = useHistory()
+    const history = useHistory()
     const [show,setShow] = useState(false);
     const [header,setHeader] = useState("");
     const [msg,setMsg] = useState("");
@@ -16,7 +19,8 @@ function CustomerRegister({ setCust }) {
         email: "",
         password: "",
         cpassword: "",
-        location: ""
+        longitude: 0.0,
+        latitude: 0.0
     })
 
     function handlechange(e) {
@@ -30,10 +34,30 @@ function CustomerRegister({ setCust }) {
         )
     }
 
+    function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(getPosInState,failAccess);
+        } 
+    }
+    
+    function failAccess(){
+        setHeader("Fail to Access");
+        setMsg(`Unable to access your location !
+        Please enable it`);
+        setShow(true);
+    }   
+    function getPosInState(position) {
+        console.log(position.coords.longitude);
+        setCustomer({...customer, longitude:position.coords.longitude, latitude:position.coords.latitude})
+    }
+    useEffect(() => {
+        getLocation();
+    }, []);
     async function register() {
 
-        const { name, mobile_num, email, password, location } = customer;
-        if (name && mobile_num && email && password && location) {
+        const { name, mobile_num, email, password, longitude,latitude } = customer;
+        console.log(customer);
+        if (name && mobile_num && email && password && longitude && latitude) {
             var res = await fetch("http://localhost:9700/customer/customerRegister", {
                 method: "POST",
                 headers: {
@@ -45,7 +69,8 @@ function CustomerRegister({ setCust }) {
                     email: email,
                     mobile_num: mobile_num,
                     password: password,
-                    location: location
+                    longitude:longitude,
+                    latitude:latitude
                 })
             })
 
@@ -84,10 +109,14 @@ function CustomerRegister({ setCust }) {
     }
 
     return (
-        <div className='row d-flex mt-5 justify-content-center'>
+        <div style={{backgroundColor:"rgb(0, 98, 255)"}} className='main'>
+        <div className='d-flex justify-content-center '>
             <div className='border border-primary col-lg-5 bg-white ' style={{borderRadius:"25px",boxShadow:"7px 7px gray"}} >
 
-                <h1 style={{color:'black',marginTop:"20px"}}>Customer SignUp</h1>
+                <div className='mt-4 text-black'>
+                        <h1 ><FaUserCircle/> Customer SignUp</h1>
+
+                </div>
                 <div className="form-group col-auto">
                     <MDBInput containerClass="text-left" icon='user' label="Email Address" type="text" name="email" value={customer.email} onChange={handlechange} />
                 </div>
@@ -103,9 +132,6 @@ function CustomerRegister({ setCust }) {
                 </div>
                 <div className="form-group col-auto">
                     <MDBInput containerClass="text-left" icon='unlock' label="Confirm Password" type="text" name="cpassword" value={customer.cpassword} onChange={handlechange} />
-                </div>
-                <div className="form-group col-auto">
-                    <MDBInput containerClass="text-left" icon='map-marker-alt' label="Location" type="text" name="location" value={customer.location} onChange={handlechange} />
                 </div>
                 <br />
                 <Button className='col-6' style={{borderRadius:"20px"}} variant="blue" onClick={register}>Register</Button>
@@ -132,6 +158,7 @@ function CustomerRegister({ setCust }) {
 
 
             </div>
+        </div>
         </div>
 
     )

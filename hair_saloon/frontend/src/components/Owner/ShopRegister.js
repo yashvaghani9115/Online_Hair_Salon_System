@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import TimeField from 'react-simple-timefield';
 import './ShopRegister.css';
-import LocationPicker from 'react-location-picker';
 import MapPicker from 'react-google-map-picker'
 
 const DefaultLocation = { lat: 21.101472400442564, lng: 72.82393134493594 };
@@ -44,12 +43,7 @@ function ShopRegister() {
     function setLocationinstate(){
         setShop({ ...shop, longitude: location.lng , latitude: location.lat });
     }
-    // function handleLocationChange({ position, address, places }) {
-
-    //     // Set new location
-    //     setPosition(position);
-    //     setAddress(address);
-    // }
+   
     function handlechange(e) {
         const { name, value } = e.target;
 
@@ -60,39 +54,11 @@ function ShopRegister() {
             }
         )
     }
-    // function getLocation() {
-    //     if (navigator.geolocation) {
-    //         navigator.geolocation.getCurrentPosition(getPosInState);
-    //     } else {
-    //         //   x.innerHTML = "Geolocation is not supported by this browser.";
-    //     }
-    // }
-
-    // function getPosInState(position) {
-    //     // x.innerHTML = "Latitude: " + position.coords.latitude + 
-    //     // "<br>Longitude: " + position.coords.longitude;
-
-    //     setShop({ ...shop, longitude: position.coords.longitude, latitude: position.coords.latitude })
-
-    //     // return position;
-    // }
+   
     function handlegender(e) {
         setShop({ ...shop, salon_gender_type: e.target.value });
     }
-    // async function getOwnerId() {
-    //     const ownerId = await JSON.parse(localStorage.getItem("owner"))._id;
-    //     console.log(ownerId);
-    //     console.log("getowner called");
-    //     setShop({ ...shop, owner_id: ownerId });
-    //     // while(ownerId!=0){
-    //     //     setShop({ ...shop, owner_id: ownerId });
-    //     // }
-    // }
-
-    // useEffect(() => {
-    //     getLocation();
-    //     // getOwnerId();
-    // }, []);
+   
     async function registerShop() {
 
         const {
@@ -106,7 +72,7 @@ function ShopRegister() {
             longitude,
             latitude
         } = shop;
-        console.log(shop);
+        // console.log(shop);  
         if (shop_name, address, opening_time, closing_time, salon_gender_type, capacity_seats, owner_id, longitude, latitude) {
             var res = await fetch("http://localhost:9700/owner/addShop", {
                 method: "POST",
@@ -204,18 +170,7 @@ function ShopRegister() {
                 </div>
             </div>
             <div className='location'>
-                {/* <div>
-                    <h1>{address}</h1>
-                    <div>
-                        <LocationPicker
-                            containerElement={<div style={{ height: '100%' }} />}
-                            mapElement={<div style={{ height: '400px' }} />}
-                            defaultPosition={defaultLocation}
-                            onChange={handleLocationChange}
-                            zoom={zoom}
-                        />
-                    </div>
-                </div> */}
+            
                 <div className='under_loc'>
                 <button className='btn btn-primary btn-sm'  onClick={handleResetLocation}>Reset Location</button> &nbsp;
                 <label className='label1'>Latitute: </label><input className='text-box1' type='text' value={location.lat} disabled /> &nbsp;
