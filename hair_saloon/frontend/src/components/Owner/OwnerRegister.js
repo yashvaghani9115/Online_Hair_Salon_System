@@ -7,6 +7,7 @@ import {FaUserCircle} from 'react-icons/fa';
 
 
 
+
 function OwnerRegister({ setCust }) {
     const history = useHistory()
     const [show,setShow] = useState(false);
@@ -86,7 +87,7 @@ function OwnerRegister({ setCust }) {
     }
 
     return (
-        <div className='main'>
+        <div className='main' style={{backgroundColor:"rgb(0, 98, 255)"}}>
         <div className='d-flex justify-content-center' style={{textAlign:"center"}}>
             <div className='border border-primary col-lg-5 bg-white ' style={{borderRadius:"25px",boxShadow:"7px 7px gray"}} >
 

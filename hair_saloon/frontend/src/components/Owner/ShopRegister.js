@@ -121,7 +121,7 @@ function ShopRegister() {
 
     return (
         <>
-            <div className='main'>
+            <div >
                 <div className='after-main'>
                     <div className='container px-4 box'>
                         <div class="header">Shop Register</div>

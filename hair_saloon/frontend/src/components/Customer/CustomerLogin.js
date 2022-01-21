@@ -106,7 +106,7 @@ function CustomerLogin({ setCust }) {
 
 
     return (
-        <div style={{height:"90vh",backgroundColor:"rgb(0, 98, 255)"}} className='main'>
+        <div style={{height:"90vh",backgroundColor:"rgb(0, 98, 255)"}} className="main">
         <div  className='d-flex justify-content-center'>
             
             <div className='border border-primary col-lg-5 bg-white' style={{borderRadius:"25px",boxShadow:"7px 7px gray"}}>
