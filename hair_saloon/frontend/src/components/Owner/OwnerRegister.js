@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 // import "./OwnerRegister.css"
 import { useHistory } from 'react-router-dom';
 import { Button,  Col } from 'react-bootstrap';
-import { Button } from 'react-bootstrap';
 import { MDBInput } from 'mdbreact';
 import { Modal } from 'react-bootstrap';
 
 
 function OwnerRegister({ setCust }) {
-    // const history = useHistory()
+    const history = useHistory()
     const [show,setShow] = useState(false);
     const [header,setHeader] = useState("");
     const [msg,setMsg] = useState("");
@@ -60,7 +59,7 @@ function OwnerRegister({ setCust }) {
             }
             else {
                 if (res.stat) {
-                    localStorage.setItem("customer", JSON.stringify(res.owner));
+                    localStorage.setItem("owner", JSON.stringify(res.owner));
                     // alert(res.message);
                     setHeader("Success");
                     setMsg(res.message);

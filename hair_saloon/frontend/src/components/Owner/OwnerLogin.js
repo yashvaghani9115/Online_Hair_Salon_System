@@ -55,7 +55,7 @@ function OwnerLogin({ setCust }) {
             }
             else {
                 if (res.stat) {
-                    localStorage.setItem("customer", JSON.stringify(res.owner));
+                    localStorage.setItem("owner", JSON.stringify(res.owner));
                     // alert(res.message);
                     setHeader("Success");
                     setMsg(res.message);
@@ -80,7 +80,7 @@ function OwnerLogin({ setCust }) {
     }
 
     return (
-        <div  className='row d-flex mt-5 justify-content-center'>
+        <div  className='d-flex mt-5 justify-content-center' style={{textAlign:"center"}} >
             
             <div className='border border-primary col-lg-5 bg-white' style={{borderRadius:"25px",boxShadow:"7px 7px gray"}}>
                 <h1 style={{color:'black',marginTop:"20px"}}>Owner SignIn</h1>

@@ -25,7 +25,7 @@ function Header({setCust}) {
                     <Nav>
                         <Link to="/"  className="btn btn-light text-dark"  style={{borderRadius:"25px"}} > <FaHome className="mr-1 " style={{fontSize:"25px"}}/>Home</Link>
                         {
-                            localStorage.getItem("customer") ?
+                            localStorage.getItem("customer")  ||  localStorage.getItem("owner") ||  localStorage.getItem("admin") ?
                             <Nav.Item style={{borderRadius:"25px"}} className="btn btn-danger" onClick={logout}><FaPowerOff className="mr-1"/> Logout</Nav.Item>
                                 : 
                                 
