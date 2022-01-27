@@ -13,6 +13,8 @@ import OwnerRegister from './components/Owner/OwnerRegister';
 import ShopRegister from './components/Owner/ShopRegister';
 import AdminLogin from './components/Admin/adminLogin';
 import AdminPage from './components/Admin/adminPage';
+import VerificationPage from './components/Owner/VerificationPage';
+import Footer from './components/Footer/footer';
 
 
 
@@ -46,8 +48,13 @@ function App() {
           <Route path="/adminpage">
             <AdminPage setCust={setCust}/>
           </Route>
+          <Route path="/verification">
+            <VerificationPage setCust={setCust}/>
+          </Route>
+        
         </Switch>
       </Router>
+      <Footer/>
     </div>
   
   );

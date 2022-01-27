@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import Barber from "./barberModel.js";
-import Owner from "./ownerModel.js";
 import Location  from "./locationModel.js";
+import Owner from "./ownerModel.js";
 
 const shopSchema = new mongoose.Schema(
     {
@@ -11,11 +11,10 @@ const shopSchema = new mongoose.Schema(
         closing_time:{ type: String, required: true },
         salon_gender_type : { type: String, required: true } ,
         capacity_seats : { type: Number, required: true },
-        verified : {type:Boolean,required:true,default:false},
-        owner_id : {type: mongoose.Schema.Types.ObjectId, ref: Owner},
+        verified : {type:String,required:true,default:"pending"},
         location_id:{type: mongoose.Schema.Types.ObjectId,ref:Location},
-        barber_ids:[{type: mongoose.Schema.Types.ObjectId,ref:Barber}]
-        
+        barber_ids:[{type: mongoose.Schema.Types.ObjectId,ref:Barber}],
+        owner_id : {type: mongoose.Schema.Types.ObjectId, ref: Owner},
         //location_id:{type:String,required:true}
         // booked_seats :{ type: Number, required: true },
         

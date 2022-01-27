@@ -106,12 +106,12 @@ function CustomerLogin({ setCust }) {
 
 
     return (
-        <div style={{height:"90vh",backgroundColor:"rgb(0, 98, 255)"}} className="main">
+        <div style={{height:"90vh"}} className="main">
         <div  className='d-flex justify-content-center'>
             
-            <div className='border border-primary col-lg-5 bg-white' style={{borderRadius:"25px",boxShadow:"7px 7px gray"}}>
+            <div className='col-lg-5 bg-white' style={{borderRadius:"25px",boxShadow:"0px 0px 1px 5px white"}}>
                 <div className='mt-4 text-black'>
-                        <h1 ><FaUserCircle/> Customer SignIn</h1>
+                        <h1 >Customer SignIn</h1>
 
                 </div>
             

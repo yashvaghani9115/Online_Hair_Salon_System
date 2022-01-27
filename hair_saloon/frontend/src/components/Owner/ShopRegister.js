@@ -25,8 +25,11 @@ function ShopRegister() {
 
   const [location, setLocation] = useState(defaultLocation);
 
-    const [address, setAddress] = useState("Kala Pattar Ascent Trail, Khumjung 56000, Nepal");
+    const [agree, setAgree] = useState(false);
     const [zoom, setZoom] = useState(DefaultZoom);
+    function handlecheckbox(){
+        setAgree(!agree);
+    }
     function handleChangeLocation(lat, lng) {
         setLocation({ lat: lat, lng: lng });
     }
@@ -42,8 +45,14 @@ function ShopRegister() {
     }
     function setLocationinstate(){
         setShop({ ...shop, longitude: location.lng , latitude: location.lat });
+        console.log("setloc called");
     }
-   
+    // function handleLocationChange({ position, address, places }) {
+
+    //     // Set new location
+    //     setPosition(position);
+    //     setAddress(address);
+    // }
     function handlechange(e) {
         const { name, value } = e.target;
 
@@ -54,11 +63,39 @@ function ShopRegister() {
             }
         )
     }
-   
+    // function getLocation() {
+    //     if (navigator.geolocation) {
+    //         navigator.geolocation.getCurrentPosition(getPosInState);
+    //     } else {
+    //         //   x.innerHTML = "Geolocation is not supported by this browser.";
+    //     }
+    // }
+
+    // function getPosInState(position) {
+    //     // x.innerHTML = "Latitude: " + position.coords.latitude + 
+    //     // "<br>Longitude: " + position.coords.longitude;
+
+    //     setShop({ ...shop, longitude: position.coords.longitude, latitude: position.coords.latitude })
+
+    //     // return position;
+    // }
     function handlegender(e) {
         setShop({ ...shop, salon_gender_type: e.target.value });
     }
-   
+    // async function getOwnerId() {
+    //     const ownerId = await JSON.parse(localStorage.getItem("owner"))._id;
+    //     console.log(ownerId);
+    //     console.log("getowner called");
+    //     setShop({ ...shop, owner_id: ownerId });
+    //     // while(ownerId!=0){
+    //     //     setShop({ ...shop, owner_id: ownerId });
+    //     // }
+    // }
+
+    // useEffect(() => {
+    //     getLocation();
+    //     // getOwnerId();
+    // }, []);
     async function registerShop() {
 
         const {
@@ -72,7 +109,7 @@ function ShopRegister() {
             longitude,
             latitude
         } = shop;
-        // console.log(shop);  
+        console.log(shop);
         if (shop_name, address, opening_time, closing_time, salon_gender_type, capacity_seats, owner_id, longitude, latitude) {
             var res = await fetch("http://localhost:9700/owner/addShop", {
                 method: "POST",
@@ -121,12 +158,12 @@ function ShopRegister() {
 
     return (
         <>
-            <div >
+            <div className='main_box'>
                 <div className='after-main'>
-                    <div className='container px-4 box'>
-                        <div class="header">Shop Register</div>
-                        <div className="row g-5 feild">
-                            <div className="col-6">
+                    <div className='container col-8 px-4 box'>
+                        <div className="header">Shop Register</div>
+                        <div className="row feild">
+                            <div className="col-6 ">
                                 <label className='label1'>Shop Name <span style={{ color: "red" }}> *</span></label><br />
                                 <input type="text" className="text-box" name="shop_name" value={shop.shop_name} onChange={handlechange} placeholder="Shop Name" />
                             </div>
@@ -134,35 +171,34 @@ function ShopRegister() {
                                 <label className='label1'>Address <span style={{ color: "red" }}> *</span></label><br />
                                 <input type="text" className="text-box" placeholder="Shop address" name="address" value={shop.address} onChange={handlechange} />
                             </div>
-                            <div className="col-6">
+                            <div className="col-6 pt-5">
                                 <label className='label1'>Saloon Gender type <span style={{ color: "red" }}> *</span></label><br />
                                 <input type="radio" className='radio' value="M" onChange={handlegender} name="salon_gender_type" /> <label className='label'>Male</label>
                                 <input type="radio" style={{ marginLeft: "15px" }} className='radio' value="F" onChange={handlegender} name="salon_gender_type" /> <label className='label'>Female</label>
                                 <input type="radio" style={{ marginLeft: "15px" }} className='radio' value="B" onChange={handlegender} name="salon_gender_type" /> <label className='label'>Both</label>
                             </div>
-                            <div className="col-6">
+                            <div className="col-6 pt-5">
                                 <label className='label1'>Capacity <span style={{ color: "red" }}> *</span></label><br />
                                 <input type="text" className="text-box" placeholder="Shop capacity" name="capacity_seats" value={shop.capacity_seats} onChange={handlechange} />
                             </div>
-                            <div className="col-6">
+                            <div className="col-6 pt-5">
                                 <label className='label1'>Opening time <span style={{ color: "red" }}> *</span></label><br />
                                 <TimeField name="opening_time" value={shop.opening_time} onChange={handlechange} style={{ width: "15%", alignItems: "center", height: "45px", fontFamily: "Open Sans", fontSize: "18px", borderRadius: "2px", borderWidth: "1px", borderColor: "#b9b9b9" , textAlign:"center"}} />
                             </div>
-                            <div className="col-6">
+                            <div className="col-6 pt-5">
                                 <label className='label1'>Closing time <span style={{ color: "red" }}> *</span></label><br />
                                 <TimeField name="closing_time" value={shop.closing_time} onChange={handlechange} style={{ width: "15%", alignItems: "center", height: "45px", fontFamily: "Open Sans", fontSize: "18px", borderRadius: "2px", borderWidth: "1px", borderColor: "#b9b9b9", textAlign:"center"}} />
                             </div>
-                            <div className='col-6'>
+                            <div className='col-6 pt-5'>
                                 
                                 <label className='label1'>Select Location <span style={{ color: "red" }}> *</span></label><br />
                                 <label className='label1'>Latitute: </label><input className='text-box1' type='text' value={location.lat} disabled /> &nbsp;<br/>
                                 <label className='label1'>Longitute: </label><input type='text' className='text-box1' value={location.lng} disabled />&nbsp;<br/>
-                                <button className=' button' onClick={setLocationinstate} >Location</button>
                             </div>
-                            <div className='col-6'>
-                                <br></br>
+                            <div className='col-6 pt-5'>
                                 <label className='label1'>Verify Your account: </label><br />
-                                <button className=' button' type="submit" onClick={registerShop}>Verify</button>
+                                <input type="checkbox" onChange={handlecheckbox} /><label style={{marginLeft:"10px"}} htmlFor="agree"> I verify my <b>credentials for shop </b> and <b>location</b> <span style={{color:"red"}}>*</span></label><br/>
+                                <button className='button' type="submit" disabled={!agree} onClick={()=>{registerShop();setLocationinstate();}}>Verify</button>
                             </div>
                         </div>
                     </div>
@@ -170,7 +206,18 @@ function ShopRegister() {
                 </div>
             </div>
             <div className='location'>
-            
+                {/* <div>
+                    <h1>{address}</h1>
+                    <div>
+                        <LocationPicker
+                            containerElement={<div style={{ height: '100%' }} />}
+                            mapElement={<div style={{ height: '400px' }} />}
+                            defaultPosition={defaultLocation}
+                            onChange={handleLocationChange}
+                            zoom={zoom}
+                        />
+                    </div>
+                </div> */}
                 <div className='under_loc'>
                 <button className='btn btn-primary btn-sm'  onClick={handleResetLocation}>Reset Location</button> &nbsp;
                 <label className='label1'>Latitute: </label><input className='text-box1' type='text' value={location.lat} disabled /> &nbsp;

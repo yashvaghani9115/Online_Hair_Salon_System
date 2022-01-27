@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+// import Shop from "./shopModel.js";
 
 const ownerSchema = new mongoose.Schema(
     {
@@ -6,7 +7,7 @@ const ownerSchema = new mongoose.Schema(
         mobile_num:{type: Number, required: true},
         email: { type: String, required: true, unique: true },
         password: { type:String, required: true },
-        // shop_id : { type:String}
+        // shop_id : { type: mongoose.Schema.Types.ObjectId, ref: Shop}
     }
 )
 

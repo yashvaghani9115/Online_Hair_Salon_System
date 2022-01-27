@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Button  } from 'react-bootstrap';
 import { MDBInput} from 'mdbreact';
 import { Modal } from 'react-bootstrap';
 import {FaUserCircle} from 'react-icons/fa';
-import './owner.css';
-
-
 
 
 
 function OwnerLogin({ setCust }) {
-    // const history = useHistory()
+    const history = useHistory()
     const [show,setShow] = useState(false);
     const [header,setHeader] = useState("");
     const [msg,setMsg] = useState("");
@@ -65,7 +62,12 @@ function OwnerLogin({ setCust }) {
                     setShow(true);
 
                     setCust(res.owner);
-                    // history.push('/');
+                   
+                    if(res.shop.verified == "pending")
+                        history.push('/verification');
+                    else
+                        history.push('/ownerHome');
+
                 }
                 else {
                     setHeader("Invalid");
@@ -83,12 +85,12 @@ function OwnerLogin({ setCust }) {
     }
 
     return (
-        <div style={{height:"100vh",backgroundColor:"rgb(0, 98, 255)"}} className="main">
+        <div style={{height:"100vh"}} className="main">
         <div  className='d-flex justify-content-center'>
             
-            <div className='border border-primary col-lg-5 bg-white' style={{borderRadius:"25px",boxShadow:"7px 7px gray"}}>
+            <div className='col-lg-5 bg-white' style={{borderRadius:"25px",boxShadow:"0px 0px 1px 5px white"}}>
             <div className='mt-4 text-black'>
-                        <h1 ><FaUserCircle/> Owner SignIn</h1>
+                        <h1 >Owner SignIn</h1>
 
                 </div>
             

@@ -1,5 +1,6 @@
 import Admin from "../models/Admin.js";
-import Approval from "../models/approvalMng.js";
+import Owner from "../models/ownerModel.js";
+import Shop from '../models/shopModel.js';
 
 export const adminLogin = async (req, res) => {
     try {
@@ -22,12 +23,21 @@ export const adminLogin = async (req, res) => {
 
 export const approveRegistration = async (req,res) => {
     try{
-        const {owner_id ,shop_id} = req.body;
-        const approval = await Approval.findOne({owner_id,shop_id});
-        if(approval){
-            approval.set({status : true});
-            await approval.save();
-            res.json({ stat:true, message: "Registration is Approved." ,approval:approval});
+        const {id,approve} = req.body;
+        const shop_obj = await Shop.findOne({_id:id});
+        
+        if(shop_obj){
+            if(approve == "Accept"){
+              await shop_obj.set({verified : approve});
+              await shop_obj.save();
+              res.json({ stat:true, message: "Registration is Approved." });
+
+            }else{
+              await shop_obj.set({verified:approve});
+              await shop_obj.save();
+              res.json({ stat:true, message: "Registration is Rejected!" });
+            }
+           
         }else{
             res.json({ stat: false, message: "Registration not found on this id!" });
         }
@@ -37,3 +47,34 @@ export const approveRegistration = async (req,res) => {
         console.log(err.message);
     }
 }
+export const getAllRequest = async (req, res) => {
+    try {
+        const {verified} = req.body;
+      const shoplist = await Shop.find({verified:verified});
+      const ownerlist = await Owner.find({});
+      let detailslist = Array();
+      shoplist.forEach(shop => {
+        // console.log(shop.owner_id);
+
+        let owner_name = ownerlist.filter((x)=>x._id.equals(shop.owner_id))[0].name
+        detailslist.push({...shop,owner_name})
+        
+      })
+      // console.log(detailslist);
+      if (shoplist.length != 0) {
+        res.json({
+          stat: true,
+          shoplist: detailslist,
+          message: "shop found!",
+        });
+      } else {
+        res.json({
+          stat: false,
+          message: "No Shop Found!",
+        });
+      }
+    } catch (err) {
+      res.json({ wentWrong: true, message: "Something went wrong !" });
+      console.log(err.message);
+    }
+  };

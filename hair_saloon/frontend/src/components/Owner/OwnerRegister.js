@@ -87,12 +87,12 @@ function OwnerRegister({ setCust }) {
     }
 
     return (
-        <div className='main' style={{backgroundColor:"rgb(0, 98, 255)"}}>
+        <div className='main' >
         <div className='d-flex justify-content-center' style={{textAlign:"center"}}>
-            <div className='border border-primary col-lg-5 bg-white ' style={{borderRadius:"25px",boxShadow:"7px 7px gray"}} >
+            <div className='col-lg-5 bg-white ' style={{borderRadius:"25px",boxShadow:"0px 0px 1px 5px white"}} >
 
             <div className='mt-4 text-black'>
-                        <h1 ><FaUserCircle/> Owner SignUp</h1>
+                        <h1 > Owner SignUp</h1>
 
                 </div>
                 <div className="form-group col-auto">

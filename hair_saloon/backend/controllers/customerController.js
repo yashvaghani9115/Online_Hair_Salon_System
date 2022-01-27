@@ -1,10 +1,29 @@
 import Customer from "../models/customerModel.js";
+import Location from "../models/locationModel.js";
 
 export const customerLogin = async (req, res) => {
     try {
-            const {email,password} = req.body;
+            const {email,password,longitude,latitude} = req.body;
             const customer = await Customer.findOne({email:email,password:password});
             if (customer) {
+                const loc = await Location.findOne({longitude:longitude,latitude:latitude});
+                if(loc){
+                    if(! customer.location_id.equals(loc._id)){
+                        console.log("Reassign Location");
+                        //remove old location of cutomer
+                        // await Location.deleteOne({_id:customer.location_id});
+                        customer.set({location_id:loc._id});
+                        await customer.save();
+                        
+                    }
+                }else{
+                    console.log("Create New Location");
+
+                    const res_location_obj = await Location.create({longitude:longitude,latitude:latitude});
+                    customer.set({location_id:res_location_obj._id});
+                    await customer.save();
+
+                }
                 res.json({ stat: true, message: "Customer Logged in Sucessfully.", customer: customer });
             }
             else {
@@ -19,7 +38,7 @@ export const customerLogin = async (req, res) => {
 
 export const customerRegister = async (req, res) => {
     try {
-            const {name,mobile_num ,location,email,password} = req.body;
+            const {name,mobile_num,email,password,longitude,latitude} = req.body;
             const alreadyCustomer = await Customer.findOne({email:email});
             if(alreadyCustomer)
             {
@@ -27,7 +46,8 @@ export const customerRegister = async (req, res) => {
             }
             else
             {
-                const result = await Customer.create({name:name,email:email,mobile_num:mobile_num,location_id:"",password:password});
+                const res_location_obj = await Location.create({longitude:longitude,latitude:latitude});
+                const result = await Customer.create({name:name,email:email,mobile_num:mobile_num,location_id:res_location_obj._id,password:password});
                 res.json({ stat: true,customer:result, message: "Customer registered sucessfully." });
             }
 
