@@ -9,7 +9,7 @@ function VerificationPage() {
     }
     return (
         <>
-            <div className="mt-5" >
+            <div className="mt-5 text-center" >
                 <Card style={{ width: "50%", margin: "auto" }} >
                     <Card.Header className="h1">Verification Status</Card.Header>
                     <Card.Body>

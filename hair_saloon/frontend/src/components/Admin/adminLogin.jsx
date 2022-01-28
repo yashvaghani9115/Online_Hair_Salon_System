@@ -110,12 +110,6 @@ function AdminLogin({ setCust }) {
                         <Button style={{borderRadius:"20px"}} onClick={handleclose}>Close</Button>
                     </Modal.Footer>
                 </Modal>
-                
-                <p className="text-right text-dark">
-                    <br/>
-                    Sign Up From <a href='/adminregister'>Here</a>
-                </p>
-            
             </div>
 
      </div>

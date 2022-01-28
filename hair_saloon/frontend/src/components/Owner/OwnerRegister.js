@@ -100,7 +100,7 @@ function OwnerRegister({ setCust }) {
                 </div>
                 <div className="form-group col-auto">
                    
-                    <MDBInput containerClass="text-left" icon='id-card-alt' label="User Name"   type="text" name="name" value={owner.name} onChange={handlechange} />
+                    <MDBInput containerClass="text-left" icon='id-card-alt' label="Owner Name"   type="text" name="name" value={owner.name} onChange={handlechange} />
                 </div>
                 <div className="form-group col-auto">
                     <MDBInput containerClass="text-left" icon='mobile-alt' label="Mobile Number" type="text" name="mobile_num" value={owner.mobile_num} onChange={handlechange} />
@@ -109,7 +109,7 @@ function OwnerRegister({ setCust }) {
                     <MDBInput containerClass="text-left" icon='key' label="Password" type="password" name="password" value={owner.password} onChange={handlechange} />
                 </div>
                 <div className="form-group col-auto">
-                    <MDBInput containerClass="text-left" icon='unlock' label="Confirm Password" type="text" name="cpassword" value={owner.cpassword} onChange={handlechange} />
+                    <MDBInput containerClass="text-left" icon='unlock' label="Confirm Password" type="password" name="cpassword" value={owner.cpassword} onChange={handlechange} />
                 </div>
                 
                

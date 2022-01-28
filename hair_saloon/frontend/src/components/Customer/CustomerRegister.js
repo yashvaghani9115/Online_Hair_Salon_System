@@ -18,9 +18,7 @@ function CustomerRegister({ setCust }) {
         mobile_num: "",
         email: "",
         password: "",
-        cpassword: "",
-        longitude: 0.0,
-        latitude: 0.0
+        cpassword: ""
     })
 
     function handlechange(e) {
@@ -34,30 +32,30 @@ function CustomerRegister({ setCust }) {
         )
     }
 
-    function getLocation() {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(getPosInState,failAccess);
-        } 
-    }
+    // function getLocation() {
+    //     if (navigator.geolocation) {
+    //       navigator.geolocation.getCurrentPosition(getPosInState,failAccess);
+    //     } 
+    // }
     
-    function failAccess(){
-        setHeader("Fail to Access");
-        setMsg(`Unable to access your location !
-        Please enable it`);
-        setShow(true);
-    }   
-    function getPosInState(position) {
-        console.log(position.coords.longitude);
-        setCustomer({...customer, longitude:position.coords.longitude, latitude:position.coords.latitude})
-    }
-    useEffect(() => {
-        getLocation();
-    }, []);
+    // function failAccess(){
+    //     setHeader("Fail to Access");
+    //     setMsg(`Unable to access your location !
+    //     Please enable it`);
+    //     setShow(true);
+    // }   
+    // function getPosInState(position) {
+    //     console.log(position.coords.longitude);
+    //     setCustomer({...customer, longitude:position.coords.longitude, latitude:position.coords.latitude})
+    // }
+    // useEffect(() => {
+    //     getLocation();
+    // }, []);
     async function register() {
 
-        const { name, mobile_num, email, password, longitude,latitude } = customer;
+        const { name, mobile_num, email, password} = customer;
         console.log(customer);
-        if (name && mobile_num && email && password && longitude && latitude) {
+        if (name && mobile_num && email && password) {
             var res = await fetch("http://localhost:9700/customer/customerRegister", {
                 method: "POST",
                 headers: {
@@ -68,9 +66,7 @@ function CustomerRegister({ setCust }) {
                     name: name,
                     email: email,
                     mobile_num: mobile_num,
-                    password: password,
-                    longitude:longitude,
-                    latitude:latitude
+                    password: password
                 })
             })
 
@@ -90,7 +86,7 @@ function CustomerRegister({ setCust }) {
                     setMsg(res.message);
                     setShow(true);
                     setCust(res.customer);
-                    // history.push('/');
+                    history.push('/');
                 }
                 else {
                     // alert(res.message);
@@ -122,7 +118,7 @@ function CustomerRegister({ setCust }) {
                 </div>
                 <div className="form-group col-auto">
                    
-                    <MDBInput containerClass="text-left" icon='id-card-alt' label="User Name"   type="text" name="name" value={customer.name} onChange={handlechange} />
+                    <MDBInput containerClass="text-left" icon='id-card-alt' label="Customer Name"   type="text" name="name" value={customer.name} onChange={handlechange} />
                 </div>
                 <div className="form-group col-auto">
                     <MDBInput containerClass="text-left" icon='mobile-alt' label="Mobile Number" type="text" name="mobile_num" value={customer.mobile_num} onChange={handlechange} />
@@ -155,7 +151,6 @@ function CustomerRegister({ setCust }) {
                     <br />
                     Already Loged In Click <a href='/customerlogin'>Here</a>
                 </p>
-
 
             </div>
         </div>

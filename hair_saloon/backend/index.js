@@ -16,8 +16,8 @@ app.use("/customer",customerRoute);
 app.use("/owner",ownerRoute);
 app.use("/admin",adminRoute);
 
-
-mongoose.connect('mongodb://localhost/hairSaloonDB', {
+//mongodb://localhost/hairSaloonDB
+mongoose.connect('mongodb+srv://root:root@cluster0.bd4lh.mongodb.net/hairSalonDB', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }, () => {

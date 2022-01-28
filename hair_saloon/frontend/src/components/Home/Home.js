@@ -4,8 +4,8 @@ function Home(){
    
 return (
         <div className="h1">
-            
-            
+            {/* <img src="/img/Home.jpg"/> */}
+            Home!
         </div>
        
 )

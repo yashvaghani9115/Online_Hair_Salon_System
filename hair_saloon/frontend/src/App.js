@@ -15,6 +15,7 @@ import AdminLogin from './components/Admin/adminLogin';
 import AdminPage from './components/Admin/adminPage';
 import VerificationPage from './components/Owner/VerificationPage';
 import Footer from './components/Footer/footer';
+import ListSalons from './components/Customer/ListSalons';
 
 
 
@@ -26,7 +27,7 @@ function App() {
       <Router>
       <Header setCust={setCust} />
         <Switch>
-        <Route exact path='/'><Home/></Route>
+        <Route exact path='/'><ListSalons /></Route>
           <Route path="/customerregister">
             <CustomerRegister setCust={setCust} />
           </Route>
@@ -51,10 +52,9 @@ function App() {
           <Route path="/verification">
             <VerificationPage setCust={setCust}/>
           </Route>
-        
         </Switch>
       </Router>
-      <Footer/>
+      {/* <Footer/> */}
     </div>
   
   );

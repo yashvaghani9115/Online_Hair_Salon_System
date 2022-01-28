@@ -143,7 +143,7 @@ function ShopRegister() {
                 if (res.stat) {
                     // localStorage.setItem("shop", JSON.stringify(res.shop));
                     alert(res.message);
-                    history.push('/');
+                    history.push('/verification');
                 }
                 else {
                     alert(res.message);

@@ -6,8 +6,6 @@ import { Modal } from 'react-bootstrap';
 import {FaUserCircle} from 'react-icons/fa';
 
 
-
-
 function CustomerLogin({ setCust }) {
     // const history = useHistory()
     const [show,setShow] = useState(false);
@@ -15,9 +13,7 @@ function CustomerLogin({ setCust }) {
     const [msg,setMsg] = useState("");
     const [customer, setCustomer] = useState({
         email: "",
-        password: "",
-        longitude:0.0,
-        latitude:0.0
+        password: ""
     })
 
     function handlechange(e) {
@@ -33,7 +29,7 @@ function CustomerLogin({ setCust }) {
 
     async function login() {
 
-        const { email, password,longitude,latitude } = customer;
+        const { email, password} = customer;
         if (email && password) {
             var res = await fetch("http://localhost:9700/customer/customerLogin", {
                 method: "POST",
@@ -43,9 +39,7 @@ function CustomerLogin({ setCust }) {
                 },
                 body: JSON.stringify({
                     email: email,
-                    password: password,
-                    longitude:longitude,
-                    latitude:latitude
+                    password: password
                 })
             })
 
@@ -84,25 +78,25 @@ function CustomerLogin({ setCust }) {
 
     }
 
-    function getLocation() {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(getPosInState,failAccess);
-        } 
-    }
+    // function getLocation() {
+    //     if (navigator.geolocation) {
+    //       navigator.geolocation.getCurrentPosition(getPosInState,failAccess);
+    //     } 
+    // }
     
-    function failAccess(){
-        setHeader("Fail to Access");
-        setMsg(`Unable to access your location !
-        Please enable it`);
-        setShow(true);
-    }   
-    function getPosInState(position) {
-        console.log(position.coords.longitude);
-        setCustomer({...customer, longitude:position.coords.longitude, latitude:position.coords.latitude})
-    }
-    useEffect(() => {
-        getLocation();
-    }, []);
+    // function failAccess(){
+    //     setHeader("Fail to Access");
+    //     setMsg(`Unable to access your location !
+    //     Please enable it`);
+    //     setShow(true);
+    // }   
+    // function getPosInState(position) {
+    //     console.log(position.coords.longitude);
+    //     setCustomer({...customer, longitude:position.coords.longitude, latitude:position.coords.latitude})
+    // }
+    // useEffect(() => {
+    //     getLocation();
+    // }, []);
 
 
     return (
