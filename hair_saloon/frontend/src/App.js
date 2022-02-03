@@ -7,15 +7,19 @@ import { useState } from 'react';
 import CustomerLogin from './components/Customer/CustomerLogin';
 import CustomerRegister from './components/Customer/CustomerRegister';
 import Header from './components/Header/Header';
-import Home from './components/Home/Home';
+// import Home from './components/Home/Home';
 import OwnerLogin from './components/Owner/OwnerLogin';
+import Ownerhome from './components/Owner/OwnerHome';
 import OwnerRegister from './components/Owner/OwnerRegister';
 import ShopRegister from './components/Owner/ShopRegister';
+import OwnerService from './components/Owner/service/OwnerService';
 import AdminLogin from './components/Admin/adminLogin';
 import AdminPage from './components/Admin/adminPage';
 import VerificationPage from './components/Owner/VerificationPage';
 import Footer from './components/Footer/footer';
 import ListSalons from './components/Customer/ListSalons';
+import AddService from './components/Owner/service/AddService';
+
 
 
 
@@ -37,6 +41,9 @@ function App() {
           <Route path="/ownerlogin">
             <OwnerLogin setCust={setCust}/>
           </Route>
+          <Route path="/ownerhome">
+            <Ownerhome/>
+          </Route>
           <Route path="/ownerregister">
             <OwnerRegister setCust={setCust}/>
           </Route>
@@ -52,6 +59,13 @@ function App() {
           <Route path="/verification">
             <VerificationPage setCust={setCust}/>
           </Route>
+          <Route path="/ownerService">
+            <OwnerService/>
+          </Route>
+          <Route path="/addService">
+            <AddService/>
+          </Route>
+          
         </Switch>
       </Router>
       {/* <Footer/> */}

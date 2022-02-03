@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import TimeField from 'react-simple-timefield';
 import './ShopRegister.css';
@@ -10,9 +10,6 @@ const DefaultZoom = 10;
 function ShopRegister() {
     const history = useHistory();
     const [show,setShow] = useState(false);
-    const [header,setHeader] = useState("");
-
-    const [msg,setMsg] = useState("");
 
     const [shop, setShop] = useState({
         shop_name: "",
@@ -92,7 +89,7 @@ function ShopRegister() {
             latitude
         } = shop;
         console.log(shop);
-        if (shop_name, address, opening_time, closing_time, salon_gender_type, capacity_seats, longitude, latitude) {
+        if (shop_name && address && opening_time && closing_time && salon_gender_type && capacity_seats && longitude && latitude) {
             var res = await fetch("http://localhost:9700/owner/addShop", {
                 method: "POST",
                 headers: {
@@ -173,7 +170,7 @@ function ShopRegister() {
                                 <label className='label1'>Select Location <span style={{ color: "red" }}> *</span></label><br />
                                 <label className='label1'>Latitute: </label><input className='text-box1' type='text' value={shop.latitude} disabled /> &nbsp;<br/>
                                 <label className='label1'>Longitute: </label><input type='text' className='text-box1' value={shop.longitude} disabled />&nbsp;<br/>
-                                <Button onClick={()=>{setShow(true);setMsg();setHeader()}} >Location</Button>
+                                <Button onClick={()=>{setShow(true)}} >Location</Button>
                                 
                             </div>
                             

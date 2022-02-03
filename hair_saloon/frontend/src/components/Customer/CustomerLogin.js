@@ -15,6 +15,13 @@ function CustomerLogin({ setCust }) {
         email: "",
         password: ""
     })
+    const style ={
+        backgroundPosition: "center" , 
+        backgroundRepeat: "no-repeat",  
+        backgroundSize: "cover",
+        height:"90vh" ,
+        backgroundImage: "url('/img/bg2.jpg')"
+    }
 
     function handlechange(e) {
         const { name, value } = e.target;
@@ -100,10 +107,10 @@ function CustomerLogin({ setCust }) {
 
 
     return (
-        <div style={{height:"90vh"}} className="main">
+        <div style={style} className="bg-image main">
         <div  className='d-flex justify-content-center'>
             
-            <div className='col-lg-5 bg-white' style={{borderRadius:"25px",boxShadow:"0px 0px 1px 5px white"}}>
+            <div className='col-lg-5 bg-white' style={{borderRadius:"25px",boxShadow:"3px 3px rgb(33,37,41)"}}>
                 <div className='mt-4 text-black'>
                         <h1 >Customer SignIn</h1>
 
