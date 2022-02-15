@@ -5,3 +5,28 @@
     background-color: rgb(146, 224, 150);
     height: max-content;
 }
+
+/* About Card */
+#about{
+    border-radius:0px;
+    background-color:#f8f8ff;
+}
+.address-title{
+    font-size:large;
+    font-weight:normal;
+}
+
+.phone-num-title{
+    font-size: large;
+    font-weight: normal;
+}
+.phone-num, .address{
+    font-size:medium;
+    padding-left: 10px;
+}
+
+/* Salon Caraousel */
+#carousel-title{
+    font-weight: bold;
+    font-size:x-large;
+}

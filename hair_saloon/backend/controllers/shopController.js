@@ -68,7 +68,6 @@ export const listShops = async (req, res) => {
 
             }
         })
-
         res.json({ stat: true, shops: shopList, message: "Shop list." });
     }
     catch (err) {
