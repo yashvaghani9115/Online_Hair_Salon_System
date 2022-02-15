@@ -55,7 +55,7 @@ export const listShops = async (req, res) => {
         let shopList = [];
         Locations.forEach((loc) => {
 
-            if (distance(userLat, userLon, loc.latitude, loc.longitude, "K") < 50) {
+            if (distance(userLat, userLon, loc.latitude, loc.longitude, "K") < 50.0) {
                 NearbyLocations.push(loc);
                 let tmp = shops.filter((s) =>
                     loc._id.equals(s.location_id)
@@ -68,7 +68,7 @@ export const listShops = async (req, res) => {
 
             }
         })
-
+        console.log(shopList);
         res.json({ stat: true, shops: shopList, message: "Shop list." });
     }
     catch (err) {

@@ -103,7 +103,7 @@ function AdminPage({ setCust }) {
   });
   
   return (
-    <div className="mt-5">
+    <div className="mt-5 text-center">
       <Card style={{ width: "70%", margin: "auto" }}>
         <Card.Header className="h1">Admin Page</Card.Header>
         <Card.Body>

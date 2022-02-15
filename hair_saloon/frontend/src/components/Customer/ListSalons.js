@@ -65,7 +65,7 @@ function ListSalons() {
 
     const td = salonList.map((s) => {
         return (
-            <tr>
+            <tr key={s._id}>
                 <td><strong>{++index}</strong></td>
                 <td>{s.shop_name}</td>
                 <td>{s.capacity_seats}</td>

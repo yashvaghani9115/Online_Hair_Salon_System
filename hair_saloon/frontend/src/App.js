@@ -16,6 +16,9 @@ import AdminPage from './components/Admin/adminPage';
 import VerificationPage from './components/Owner/VerificationPage';
 import Footer from './components/Footer/footer';
 import ListSalons from './components/Customer/ListSalons';
+import OwnerHome from './components/Owner/OwnerHome';
+import Barbermanagement from './components/Owner/BarberManagement';
+import OwnerHeader from './components/Owner/OwnerHeader';
 
 
 
@@ -51,6 +54,15 @@ function App() {
           </Route>
           <Route path="/verification">
             <VerificationPage setCust={setCust}/>
+          </Route>
+          <Route path="/ownerHome">
+            <OwnerHome/>
+          </Route>
+          <Route path="/barbermanagement">
+            <Barbermanagement/>
+          </Route>
+          <Route path="/ownerHeader">
+            <OwnerHeader/>
           </Route>
         </Switch>
       </Router>

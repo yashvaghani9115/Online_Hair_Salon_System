@@ -3,16 +3,13 @@ import { useHistory } from 'react-router-dom';
 import TimeField from 'react-simple-timefield';
 import './ShopRegister.css';
 import MapPicker from 'react-google-map-picker';
-import { Modal,Button } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 
 const DefaultLocation = { lat: 21.101472400442564, lng: 72.82393134493594 };
 const DefaultZoom = 10;
 function ShopRegister() {
     const history = useHistory();
-    const [show,setShow] = useState(false);
-    const [header,setHeader] = useState("");
-
-    const [msg,setMsg] = useState("");
+    const [show, setShow] = useState(false);
 
     const [shop, setShop] = useState({
         shop_name: "",
@@ -31,12 +28,12 @@ function ShopRegister() {
 
     const [agree, setAgree] = useState(false);
     const [zoom, setZoom] = useState(DefaultZoom);
-    function handlecheckbox(){
+    function handlecheckbox() {
         setAgree(!agree);
     }
     function handleChangeLocation(lat, lng) {
         // setLocation({ lat: lat, lng: lng });
-        setShop({ ...shop, longitude: lng , latitude: lat });
+        setShop({ ...shop, longitude: lng, latitude: lat });
 
     }
 
@@ -52,7 +49,7 @@ function ShopRegister() {
         setZoom(DefaultZoom);
     }
 
-   
+
     function handlechange(e) {
         const { name, value } = e.target;
 
@@ -66,12 +63,12 @@ function ShopRegister() {
     function getLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(getPosInState);
-        } 
+        }
     }
 
     function getPosInState(position) {
-        setDefaultLocation({lat: position.coords.latitude , lng: position.coords.longitude} )
-        setShop({...shop,longitude:position.coords.longitude,latitude:position.coords.latitude})
+        setDefaultLocation({ lat: position.coords.latitude, lng: position.coords.longitude })
+        setShop({ ...shop, longitude: position.coords.longitude, latitude: position.coords.latitude })
 
 
     }
@@ -92,7 +89,7 @@ function ShopRegister() {
             latitude
         } = shop;
         console.log(shop);
-        if (shop_name, address, opening_time, closing_time, salon_gender_type, capacity_seats, longitude, latitude) {
+        if (shop_name && address && opening_time && closing_time && salon_gender_type && capacity_seats && longitude && latitude) {
             var res = await fetch("http://localhost:9700/owner/addShop", {
                 method: "POST",
                 headers: {
@@ -162,70 +159,110 @@ function ShopRegister() {
                             </div>
                             <div className="col-6 pt-5">
                                 <label className='label1'>Opening time <span style={{ color: "red" }}> *</span></label><br />
-                                <TimeField name="opening_time" value={shop.opening_time} onChange={handlechange} style={{ width: "15%", alignItems: "center", height: "45px", fontFamily: "Open Sans", fontSize: "18px", borderRadius: "2px", borderWidth: "1px", borderColor: "#b9b9b9" , textAlign:"center"}} />
+                                <TimeField name="opening_time" value={shop.opening_time} onChange={handlechange} style={{ width: "15%", alignItems: "center", height: "45px", fontFamily: "Open Sans", fontSize: "18px", borderRadius: "2px", borderWidth: "1px", borderColor: "#b9b9b9", textAlign: "center" }} />
                             </div>
                             <div className="col-6 pt-5">
                                 <label className='label1'>Closing time <span style={{ color: "red" }}> *</span></label><br />
-                                <TimeField name="closing_time" value={shop.closing_time} onChange={handlechange} style={{ width: "15%", alignItems: "center", height: "45px", fontFamily: "Open Sans", fontSize: "18px", borderRadius: "2px", borderWidth: "1px", borderColor: "#b9b9b9", textAlign:"center"}} />
+                                <TimeField name="closing_time" value={shop.closing_time} onChange={handlechange} style={{ width: "15%", alignItems: "center", height: "45px", fontFamily: "Open Sans", fontSize: "18px", borderRadius: "2px", borderWidth: "1px", borderColor: "#b9b9b9", textAlign: "center" }} />
                             </div>
                             <div className='col-6 pt-5'>
-                                
-                                <label className='label1'>Select Location <span style={{ color: "red" }}> *</span></label><br />
-                                <label className='label1'>Latitute: </label><input className='text-box1' type='text' value={shop.latitude} disabled /> &nbsp;<br/>
-                                <label className='label1'>Longitute: </label><input type='text' className='text-box1' value={shop.longitude} disabled />&nbsp;<br/>
-                                <Button onClick={()=>{setShow(true);setMsg();setHeader()}} >Location</Button>
-                                
+
+                                <label className='label1 rounded'>Select Location <span style={{ color: "red" }}> *</span></label><br />
+                                <Button style={{fontSize:'10px',borderRadius:"4px"}} onClick={() => { setShow(true); }} >Set Location</Button>
+
                             </div>
-                            
+
                             <div className='col-6 pt-5'>
                                 <label className='label1'>Verify Your account: </label><br />
-                                <input type="checkbox" onChange={handlecheckbox} /><label style={{marginLeft:"10px"}} htmlFor="agree"> I verify my <b>credentials for shop </b> and <b>location</b> <span style={{color:"red"}}>*</span></label><br/>
-                                <button className='button' type="submit" disabled={!agree} onClick={()=>{registerShop()}}>Verify</button>
+                                <input type="checkbox" onChange={handlecheckbox} /><label style={{ marginLeft: "10px" }} htmlFor="agree"> I verify my <b>credentials for shop </b> and <b>location</b> <span style={{ color: "red" }}>*</span></label><br />
+                                <button className='button' type="submit" disabled={!agree} onClick={() => { registerShop() }}>Verify</button>
                             </div>
-                            
+
                         </div>
                     </div>
 
                 </div>
             </div>
-            <div className='location'>
-                
-                
-                    <>
-                    <Modal
-                    size="xl"
-                    show={show}
-                    onHide={() => setShow(false)}
-                    // onclick={handleResetLocation}
-                    
-                >
-                    <Modal.Header closeButton>
-                    <Modal.Title id="example-modal-sizes-title-sm">
-                        <div style={{textAlign:"center"}}>
-                            <button className='btn btn-primary btn-sm' onClick={handleResetLocation} >Set Current Location</button> 
-                            </div>
-                            <div>
-                        <label className=''>Latitute: </label><input className='' type='text' value={shop.latitude} disabled /> 
-                        <label className=''>Longitute:</label><input type='text' className='' value={shop.longitude} disabled />
-                        <label className=''>Zoom:</label><input type='text' className='' value={zoom} disabled />
+            {/* <div className='main' >
+                <div className='d-flex justify-content-center' style={{ textAlign: "center" }}>
+                    <div className='col-lg-5 bg-white ' style={{ borderRadius: "25px", boxShadow: "0px 0px 1px 5px white" }} >
+
+                        <div className='mt-4 text-black'>
+                            <h1 > SHOP RIGESTER</h1>
+
                         </div>
-                    </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body className='bg-light'>
-                        <MapPicker defaultLocation={defaultLocation}
-                        zoom={zoom}
-                        containerElement={<div style={{ height: '100%' }} />}
-                        mapTypeId="roadmap"
-                        style={{ height: '700px' }}
-                        onChangeLocation={handleChangeLocation}
-                        onChangeZoom={handleChangeZoom}
-                        apiKey='AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8' />
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button style={{borderRadius:"20px"}} onClick={()=>setShow(false)}>Done</Button>
-                    </Modal.Footer>
-                </Modal>
-                    </>
+                        <div className="form-group col-auto">
+                            <MDBInput containerClass="text-left" icon='BsShop' label="Shop name" type="text" name="shop_name" value={shop.shop_name} onChange={handlechange} />
+                        </div>
+                        <div className="form-group col-auto">
+
+                            <MDBInput containerClass="text-left" icon='FaRegAddressCard' label="Address" type="text" name="address" value={shop.address} onChange={handlechange} />
+                        </div>
+                        <div className="form-group col-auto">
+                        <label className='label1'>Saloon Gender type <span style={{ color: "red" }}> *</span></label><br />
+                                <input type="radio" className='radio' value="Male" onChange={handlegender} name="salon_gender_type" /> <label className='label'>Male</label>
+                                <input type="radio" style={{ marginLeft: "15px" }} className='radio' value="Female" onChange={handlegender} name="salon_gender_type" /> <label className='label'>Female</label>
+                                <input type="radio" style={{ marginLeft: "15px" }} className='radio' value="Both" onChange={handlegender} name="salon_gender_type" /> <label className='label'>Both</label>
+                        </div>
+                        <div className="form-group col-auto">
+                            <MDBInput containerClass="text-left" icon='key' label="Capacity" type="text" name="capacity_seats" value={shop.capacity_seats} onChange={handlechange} />
+                        </div>
+                        <div className="form-group col-auto">
+                                <label className='label1'>Opening time <span style={{ color: "red" }}> *</span></label><br />
+                                <TimeField name="opening_time" value={shop.opening_time} onChange={handlechange} style={{ width: "15%", alignItems: "center", height: "45px", fontFamily: "Open Sans", fontSize: "18px", borderRadius: "2px", borderWidth: "1px", borderColor: "#b9b9b9" , textAlign:"center"}} />
+                        </div>
+                        <div className="form-group col-auto">
+                                <label className='label1'>Opening time <span style={{ color: "red" }}> *</span></label><br />
+                                <TimeField name="closing_time" value={shop.closing_time} onChange={handlechange} style={{ width: "15%", alignItems: "center", height: "45px", fontFamily: "Open Sans", fontSize: "18px", borderRadius: "2px", borderWidth: "1px", borderColor: "#b9b9b9" , textAlign:"center"}} />
+                        </div>
+
+
+
+
+                        
+                    </div>
+                </div>
+            </div> */}
+
+            <div className='location'>
+
+
+                <>
+                    <Modal
+                        size="xl"
+                        show={show}
+                        onHide={() => setShow(false)}
+                    >
+                        <Modal.Header closeButton>
+                            <Modal.Title id="example-modal-sizes-title-sm" style={{ textAlign: "center" }}>
+                                <span style={{ textAlign: "center",color:"blue",fontFamily:"Helvetica, sans-serif" }}>Set Your Shop Location Here</span>
+                            </Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body className='bg-light'>
+                            <div style={{ textAlign: "center" }} className="mb-3">
+                                <div style={{ textAlign: "center" }}>
+                                    <button className='btn btn-primary btn-sm mb-3' onClick={handleResetLocation} >Set Current Location</button>
+                                </div>
+                                <div style={{ textAlign: "center" }}>
+                                    <label className='l1'>Latitute: </label><input type='text' className='text-box1' value={shop.latitude} disabled />
+                                    <label className='l1'>Longitute:</label><input type='text' className='text-box1' value={shop.longitude} disabled />
+                                    <label className='l1'>Zoom:</label><input type='text' className='text-box1' value={zoom} disabled />
+                                </div>
+                            </div>
+                            <MapPicker defaultLocation={defaultLocation}
+                                zoom={zoom}
+                                containerElement={<div style={{ height: '100%' }} />}
+                                mapTypeId="roadmap"
+                                style={{ height: '700px' }}
+                                onChangeLocation={handleChangeLocation}
+                                onChangeZoom={handleChangeZoom}
+                                apiKey='AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8' />
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button style={{ borderRadius: "20px" }} onClick={() => setShow(false)}>Done</Button>
+                        </Modal.Footer>
+                    </Modal>
+                </>
             </div>
         </>
 
