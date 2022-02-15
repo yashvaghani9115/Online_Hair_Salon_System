@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import { Table, Card, Button } from "react-bootstrap";
 
 function AdminPage({ setCust }) {
-  const history = useHistory();
+  // const history = useHistory();
   const [list,setList] = useState([]);
   let index = 0;
   
@@ -103,7 +103,7 @@ function AdminPage({ setCust }) {
   });
   
   return (
-    <div className="mt-5">
+    <div className="mt-5" style={{textAlign:"center"}}>
       <Card style={{ width: "70%", margin: "auto" }}>
         <Card.Header className="h1">Admin Page</Card.Header>
         <Card.Body>

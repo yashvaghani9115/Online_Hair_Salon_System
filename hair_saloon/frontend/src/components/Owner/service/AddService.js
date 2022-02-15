@@ -13,17 +13,15 @@ function AddService() {
     category: "",
   });
   const style = {
-    backgroundPosition: "center" , 
-    backgroundRepeat: "no-repeat",  
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     backgroundImage: "url('/img/service.jpg')"
-}
+  }
 
   async function addService() {
-    
     if (
       service.category &&
-      service.gender_type &&
       service.price &&
       service.service_name
     ) {
@@ -38,7 +36,7 @@ function AddService() {
           gender_type: service.gender_type,
           price: service.price,
           category: service.category,
-          // shop_id:JSON.parse(localStorage.getItem('shop'))
+          owner_id:JSON.parse(localStorage.getItem('owner'))
         }),
       });
       res = await res.json();
@@ -60,10 +58,10 @@ function AddService() {
           setShow(true);
         }
       }
-    }else{
+    } else {
       setHeader("Invalid");
-          setMsg("Input Field can't be blank");
-          setShow(true);
+      setMsg("Input Field can't be blank");
+      setShow(true);
     }
   }
   function handleChange(e) {
@@ -78,205 +76,209 @@ function AddService() {
     <div style={style} className="main">
       <div className="d-flex justify-content-center">
         <div
-          className="col-xl-8 bg-white"
+          className="col-md-8 bg-white"
           style={{ borderRadius: "25px", boxShadow: "3px 3px rgb(33,34,41)" }}
         >
-          <div className="mt-4 ">
+          <div className="mt-4">
             <h3 className="card-header text-white bg-dark">AddService</h3>
           </div>
           <div className="row">
-            <div className="col-6">
-            <div style={{border:"solid" ,borderRadius:"10px"}} className="m-2 p-2 text-dark" >
-              <h2>Please FillUp the Form</h2>
-              <div className="form-group">
-                <MDBInput
-                  containerClass="text-left text-dark"
-                  label="Service Name"
-                  type="text"
-                  name="service_name"
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="form-group">
-                <MDBInput
-                  containerClass="text-left text-dark"
-                  label="Price"
-                  type="number"
-                  name="price"
-                  onChange={handleChange}
-                />
-              <div className="form-group">
-
-                <MDBInput
-                  containerClass="text-left text-dark"
-                  label="Gender"
-                  value={service.gender_type ? "Male" : "Female"}
-                  title="please select from below"
-                />
+            <div className="col-md-6">
+              <div style={{ border: "solid", borderRadius: "10px" }} className="m-2 p-2 text-dark" >
+                <h2>Please FillUp the Form</h2>
+                <div className="form-group">
+                  <MDBInput
+                    containerClass="text-left text-dark"
+                    label="Service Name"
+                    type="text"
+                    name="service_name"
+                    onChange={handleChange}
+                  />
                 </div>
-              <div className="form-group">
+                <div className="form-group">
+                  <MDBInput
+                    containerClass="text-left text-dark"
+                    label="Price"
+                    type="number"
+                    name="price"
+                    onChange={handleChange}
+                  />
+                  <div className="form-group">
+                    <Dropdown style={{ marginRight: "16px" }}>
+                      <Dropdown.Toggle variant="dark" className="form-control p-2">
+                        Select Gender
+                      </Dropdown.Toggle>
 
-                <MDBInput
-                  containerClass="text-left text-dark"
-                  value={service.category}
-                  title="Please select from below "
-                  
-                  label="Category"
-                />
-              </div>
-              </div>
-              </div>
+                      <Dropdown.Menu className="bg-dark">
+                        <Dropdown.Item
+                          className="text-primary"
+                          onClick={() => {
+                            setService({ ...service, gender_type: true });
+                          }}
+                        >
+                          Male
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          className="text-primary"
+                          onClick={() => {
+                            setService({ ...service, gender_type: false });
+                          }}
+                        >
+                          Female
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
 
-              <div className="form-group">
-              
-                <Dropdown>
-                  <Dropdown.Toggle variant="dark" className="form-control p-2">
-                    Select Gender
-                  </Dropdown.Toggle>
+                    <MDBInput
+                      containerClass="text-left text-dark"
+                      label="Gender"
+                      value={service.gender_type ? "Male" : "Female"}
+                      title="please select from below"
+                    />
 
-                  <Dropdown.Menu className="bg-dark">
-                    <Dropdown.Item
-                      className="text-primary"
-                      onClick={() => {
-                        setService({ ...service, gender_type: true });
-                      }}
-                    >
-                      Male
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      className="text-primary"
-                      onClick={() => {
-                        setService({ ...service, gender_type: false });
-                      }}
-                    >
-                      Female
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-   
-              
-               
-                <Dropdown >
-                  <Dropdown.Toggle variant="dark" className="form-control p-2">
-                    Select category
-                  </Dropdown.Toggle>
+                  </div>
+                  <div className="form-group">
+                    <Dropdown style={{ marginRight: "16px" }}>
+                      <Dropdown.Toggle variant="dark" className="form-control p-2">
+                        Select category
+                      </Dropdown.Toggle>
 
-                  <Dropdown.Menu className="bg-dark">
-                    {service.gender_type ? (
-                      <>
-                        <Dropdown.Item
-                          className="text-primary"
-                          onClick={() => {
-                            setService({
-                              ...service,
-                              category: "Hair Style",
-                            });
-                          }}
-                        >
-                          Hair Style
-                        </Dropdown.Item>
-                        <Dropdown.Item
-                          className="text-primary"
-                          onClick={() => {
-                            setService({
-                              ...service,
-                              category: "Hair Coloring",
-                            });
-                          }}
-                        >
-                          Hair coloring
-                        </Dropdown.Item>
-                        <Dropdown.Item
-                          className="text-primary"
-                          onClick={() => {
-                            setService({ ...service, category: "Shaving" });
-                          }}
-                        >
-                          Shaving
-                        </Dropdown.Item>
-                        <Dropdown.Item
-                          className="text-primary"
-                          onClick={() => {
-                            setService({
-                              ...service,
-                              category: "Head Massage",
-                            });
-                          }}
-                        >
-                          Head Massage
-                        </Dropdown.Item>
-                        <Dropdown.Item
-                          className="text-primary"
-                          onClick={() => {
-                            setService({
-                              ...service,
-                              category: "Facials and skin care",
-                            });
-                          }}
-                        >
-                          Facials and skin care
-                        </Dropdown.Item>
-                      </>
-                    ) : (
-                      <>
-                        <Dropdown.Item
-                          className="text-primary"
-                          onClick={() => {
-                            setService({
-                              ...service,
-                              category: "Hair Style",
-                            });
-                          }}
-                        >
-                          Hair Style
-                        </Dropdown.Item>
-                        <Dropdown.Item
-                          className="text-primary"
-                          onClick={() => {
-                            setService({
-                              ...service,
-                              category: "Hair coloring",
-                            });
-                          }}
-                        >
-                          Hair coloring
-                        </Dropdown.Item>
-                        <Dropdown.Item
-                          className="text-primary"
-                          onClick={() => {
-                            setService({ ...service, category: "Waxing" });
-                          }}
-                        >
-                          Waxing
-                        </Dropdown.Item>
-                        <Dropdown.Item
-                          className="text-primary"
-                          onClick={() => {
-                            setService({
-                              ...service,
-                              category: "Nail Treatments",
-                            });
-                          }}
-                        >
-                          Nail Treatments
-                        </Dropdown.Item>
-                        <Dropdown.Item
-                          className="text-primary"
-                          onClick={() => {
-                            setService({
-                              ...service,
-                              category: "Facials and skin care",
-                            });
-                          }}
-                        >
-                          Facials and skin care
-                        </Dropdown.Item>
-                      </>
-                    )}
-                  </Dropdown.Menu>
-                </Dropdown>
-            
-                
+                      <Dropdown.Menu className="bg-dark">
+                        {service.gender_type ? (
+                          <>
+                            <Dropdown.Item
+                              className="text-primary"
+                              onClick={() => {
+                                setService({
+                                  ...service,
+                                  category: "Hair Style",
+                                });
+                              }}
+                            >
+                              Hair Style
+                            </Dropdown.Item>
+                            <Dropdown.Item
+                              className="text-primary"
+                              onClick={() => {
+                                setService({
+                                  ...service,
+                                  category: "Hair Coloring",
+                                });
+                              }}
+                            >
+                              Hair coloring
+                            </Dropdown.Item>
+                            <Dropdown.Item
+                              className="text-primary"
+                              onClick={() => {
+                                setService({ ...service, category: "Shaving" });
+                              }}
+                            >
+                              Shaving
+                            </Dropdown.Item>
+                            <Dropdown.Item
+                              className="text-primary"
+                              onClick={() => {
+                                setService({
+                                  ...service,
+                                  category: "Head Massage",
+                                });
+                              }}
+                            >
+                              Head Massage
+                            </Dropdown.Item>
+                            <Dropdown.Item
+                              className="text-primary"
+                              onClick={() => {
+                                setService({
+                                  ...service,
+                                  category: "Facials and skin care",
+                                });
+                              }}
+                            >
+                              Facials and skin care
+                            </Dropdown.Item>
+                          </>
+                        ) : (
+                          <>
+                            <Dropdown.Item
+                              className="text-primary"
+                              onClick={() => {
+                                setService({
+                                  ...service,
+                                  category: "Hair Style",
+                                });
+                              }}
+                            >
+                              Hair Style
+                            </Dropdown.Item>
+                            <Dropdown.Item
+                              className="text-primary"
+                              onClick={() => {
+                                setService({
+                                  ...service,
+                                  category: "Hair coloring",
+                                });
+                              }}
+                            >
+                              Hair coloring
+                            </Dropdown.Item>
+                            <Dropdown.Item
+                              className="text-primary"
+                              onClick={() => {
+                                setService({ ...service, category: "Waxing" });
+                              }}
+                            >
+                              Waxing
+                            </Dropdown.Item>
+                            <Dropdown.Item
+                              className="text-primary"
+                              onClick={() => {
+                                setService({
+                                  ...service,
+                                  category: "Head Massage",
+                                });
+                              }}
+                            >
+                              Head Massage
+                            </Dropdown.Item>
+                            <Dropdown.Item
+                              className="text-primary"
+                              onClick={() => {
+                                setService({
+                                  ...service,
+                                  category: "Nail Treatments",
+                                });
+                              }}
+                            >
+                              Nail Treatments
+                            </Dropdown.Item>
+                            <Dropdown.Item
+                              className="text-primary"
+                              onClick={() => {
+                                setService({
+                                  ...service,
+                                  category: "Facials and skin care",
+                                });
+                              }}
+                            >
+                              Facials and skin care
+                            </Dropdown.Item>
+                          </>
+                        )}
+                      </Dropdown.Menu>
+                    </Dropdown>
+
+                    <MDBInput
+                      containerClass="text-left text-dark"
+                      value={service.category}
+                      title="Please select from below "
+
+                      label="Category"
+                    />
+
+                  </div>
+                </div>
               </div>
             </div>
 
