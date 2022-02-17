@@ -1,5 +1,5 @@
 .location {
-  padding-top: 20px;
+  /* padding-top: 20px; */
   background-color: white;
 }
 .under_loc {
@@ -8,10 +8,11 @@
 .text-box1 {
   border-color: #b9b9b9;
   border-width: 1px;
-  width: auto;
+  width: 20%;
   text-align: center;
   margin-left: 10px;
   margin-right: 10px;
+  font-size: small;
 }
 .main_box {
   text-align: none;
@@ -94,5 +95,8 @@ input[type="text"]:focus {
   color: #fff;
   border-width: 1px;
   border-color: whitesmoke;
+}
+.l1 {
+  font-size: small;
 }
 /* //#42536E */
