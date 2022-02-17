@@ -22,6 +22,12 @@ function Barbermanagement() {
         mobile_num: "",
         email: ""
     }
+    const style = {
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundImage: "url('/img/bg3.jpg')"
+    }
 
     function handlechange(e) {
         const { name, value } = e.target;
@@ -190,7 +196,7 @@ function Barbermanagement() {
 
     const td = barberList.map((s) => {
         return (
-            <tr key={s._id}>
+            <tr key={s._id} style={{color:"white"}}>
                 <td><strong>{++index}</strong></td>
                 <td>{s.name}</td>
                 <td>{s.email}</td>
@@ -211,7 +217,7 @@ function Barbermanagement() {
 
 
     return (<>
-        <div className='container-fluid'>
+        <div className='container-fluid' style={style}>
             <div className='row'>
                 <div className='col-auto p-0'>
                     <OwnerSidebar />
@@ -223,9 +229,9 @@ function Barbermanagement() {
                             <Button variant="success" onClick={() =>{setHeader("Add Barber");setShow(true)} } className="rounded my-0 align-items-end">Add Barber</Button>
                         </Container>
                     </Navbar>
-                    <Table bordered hover className='text-center rounded'>
-                        <thead className="thead-light">
-                            <tr>
+                    <Table  className='text-center rounded'>
+                        <thead>
+                            <tr style={{color:"white"}}>
                                 <th>#</th>
                                 <th>Barber Name</th>
                                 <th>Email</th>
@@ -249,7 +255,7 @@ function Barbermanagement() {
                             </Modal.Title>
                         </Modal.Header>
                         <Modal.Body className='bg-light'>
-                            <div className='main' >
+                            <div className='main' style={style} >
                                 <div className='d-flex justify-content-center' style={{ textAlign: "center" }}>
                                     <div className='col-lg-8 bg-white ' style={{ borderRadius: "25px", boxShadow: "0px 0px 1px 5px white" }} >
                                         <div className="form-group col-auto">

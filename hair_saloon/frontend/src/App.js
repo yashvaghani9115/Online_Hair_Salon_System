@@ -19,8 +19,9 @@ import ListSalons from './components/Customer/ListSalons';
 import OwnerHome from './components/Owner/OwnerHome';
 import Barbermanagement from './components/Owner/BarberManagement';
 import OwnerHeader from './components/Owner/OwnerHeader';
-
-
+import BookSalon from './components/Customer/BookSalon/BookSalon';
+import OwnerService from './components/Owner/service/OwnerService';
+import AddService from './components/Owner/service/AddService';
 
 function App() {
   const [adm,setCust] = useState();
@@ -63,6 +64,15 @@ function App() {
           </Route>
           <Route path="/ownerHeader">
             <OwnerHeader/>
+          </Route>
+          <Route path="/booksalon">
+            <BookSalon/>
+          </Route>
+          <Route path="/ownerService">
+            <OwnerService/>
+          </Route>
+          <Route path="/addService">
+            <AddService/>
           </Route>
         </Switch>
       </Router>

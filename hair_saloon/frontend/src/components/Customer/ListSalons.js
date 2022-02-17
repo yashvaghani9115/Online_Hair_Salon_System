@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Table, Card, Button } from "react-bootstrap";
+import Salon from "./Salon";
 
 function ListSalons() {
     let index = 0;
 
     const history = useHistory();
     const [salonList, setsalonList] = useState([]);
-    // const [location,setLocation] = useState({longitude:0.0,latitude:0.0});
-
 
     async function fetchSalonList(lon, lat) {
         var res = await fetch("http://localhost:9700/customer/listShops", {
@@ -61,53 +60,13 @@ function ListSalons() {
     }
     useEffect(() => {
         getLocation();
+        fetchSalonList();
     }, []);
 
-    const td = salonList.map((s) => {
-        return (
-            <tr key={s._id}>
-                <td><strong>{++index}</strong></td>
-                <td>{s.shop_name}</td>
-                <td>{s.capacity_seats}</td>
-                <td style={{ textAlign: "left" }}>
-                    <li><strong>Location :</strong> {s.address} </li>
-                    <li><strong>gender type:</strong>{s.salon_gender_type}</li>
-                </td>
-                <td>
-                    <Button variant="success" size="sm" onClick={() => { history.push("/customerlogin") }}>
-                        Book Now
-                    </Button>
-
-                </td>
-            </tr>
-        );
-    });
 
     return (
-        <div className="mt-5 text-center">
-            <Card style={{ width: "70%", margin: "auto" }}>
-                <Card.Header className="h1">All Nearby Salons</Card.Header>
-                <Card.Body>
-                    <Card.Text>
-                        <Table bordered hover>
-                            <thead className="bg-dark text-white">
-                                <tr>
-                                    <th>#</th>
-                                    <th>Shop Name</th>
-                                    <th>Capacity</th>
-                                    <th>address</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>{td}</tbody>
-                        </Table>
-                    </Card.Text>
-                </Card.Body>
-                <Card.Footer>
-
-                    <Button variant="primary" onClick={() => window.location.reload(true)}>Refresh</Button>
-                </Card.Footer>
-            </Card>
+        <div className="container mt-5" style={{width: '60vw'}}>
+           { salonList.map((s)=><Salon salon={s}/>)}
         </div>
     )
 }

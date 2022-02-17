@@ -7,6 +7,7 @@ export const addBarber = async (req, res) => {
 
     let barber = await Barber.findOne({email:email});
     let shop = await Shop.findOne({owner_id:owner_id});
+
     if(barber){
         res.json({
             stat: false,

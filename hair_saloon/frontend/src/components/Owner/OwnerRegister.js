@@ -21,6 +21,12 @@ function OwnerRegister(props) {
         password: "",
         cpassword: "",
     })
+    const style = {
+        backgroundPosition: "center" , 
+        backgroundRepeat: "no-repeat",  
+        backgroundSize: "cover",
+        backgroundImage: "url('/img/bg1.jpg')"
+    }
 
     function handlechange(e) {
         const { name, value } = e.target;
@@ -86,9 +92,9 @@ function OwnerRegister(props) {
     }
 
     return (
-        <div className='main' style={{backgroundColor:"#42536e"}} >
+        <div className='main' style={style} >
         <div className='d-flex justify-content-center' style={{textAlign:"center"}}>
-            <div className='col-lg-5 bg-white ' style={{borderRadius:"25px",boxShadow:"0px 0px 1px 5px white"}} >
+            <div className='col-lg-5 bg-white ' style={{borderRadius:"25px",boxShadow:"3px 3px rgb(33,37,41)"}} >
 
             <div className='mt-4 text-black'>
                         <h1 > Owner SignUp</h1>

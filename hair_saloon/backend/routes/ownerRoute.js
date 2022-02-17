@@ -2,6 +2,7 @@ import express from 'express';
 import { addBarber,barberList, deleteBarber, editBarber } from '../controllers/barberController.js';
 import { ownerLogin,ownerRegister} from '../controllers/ownerController.js';
 import {addShop} from '../controllers/shopController.js';
+import { addService, getService } from '../controllers/serviceController.js';
 
 const router = express.Router();
 
@@ -12,4 +13,6 @@ router.route("/addBarber").post(addBarber);
 router.route("/editBarber").post(editBarber);
 router.route("/deleteBarber/:id&:owner_id").delete(deleteBarber);
 router.route("/listBarbers").post(barberList);
+router.route("/addService").post(addService);
+router.route("/getlist").post(getService);
 export default router;
