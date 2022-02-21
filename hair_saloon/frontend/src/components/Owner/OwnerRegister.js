@@ -72,7 +72,7 @@ function OwnerRegister(props) {
                     setHeader("Success");
                     setMsg(res.message);
                     setShow(true);
-                    // history.push('/shopregister');
+                    history.push('/shopregister');
                     // history.push('/');
                 }
                 else {

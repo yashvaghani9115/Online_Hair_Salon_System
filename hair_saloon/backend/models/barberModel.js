@@ -8,8 +8,6 @@ const barberSchema = new mongoose.Schema(
         email: { type: String, required: true, unique: true },
         customer_turn_number : {type:Number,default:0},
         customer_ids :[{type: mongoose.Schema.Types.ObjectId,ref:Customer}] 
-
-        // shop_id : { type:String, required: true },
     }
 )
 

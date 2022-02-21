@@ -4,13 +4,17 @@ import TimeField from 'react-simple-timefield';
 import './ShopRegister.css';
 import MapPicker from 'react-google-map-picker';
 import { Modal, Button } from 'react-bootstrap';
+import ImagePickerModal from './ImagePickerModal';
 
 const DefaultLocation = { lat: 21.101472400442564, lng: 72.82393134493594 };
 const DefaultZoom = 10;
 function ShopRegister() {
     const history = useHistory();
     const [show, setShow] = useState(false);
+    const [showImagePicker, setShowImagePicker] = useState(false);
+    const [selectedImages, setSelectedImages] = useState([]);
 
+    const [fileInputState,setFileInputState] = useState('');
     const [shop, setShop] = useState({
         shop_name: "",
         address: "",
@@ -69,12 +73,12 @@ function ShopRegister() {
     function getPosInState(position) {
         setDefaultLocation({ lat: position.coords.latitude, lng: position.coords.longitude })
         setShop({ ...shop, longitude: position.coords.longitude, latitude: position.coords.latitude })
-
-
     }
     function handlegender(e) {
         setShop({ ...shop, salon_gender_type: e.target.value });
     }
+    
+    
 
     async function registerShop() {
 
@@ -89,7 +93,7 @@ function ShopRegister() {
             latitude
         } = shop;
         console.log(shop);
-        if (shop_name && address && opening_time && closing_time && salon_gender_type && capacity_seats && longitude && latitude) {
+        if (shop_name && address && opening_time && closing_time && salon_gender_type && capacity_seats && longitude && latitude && selectedImages.length) {
             var res = await fetch("http://localhost:9700/owner/addShop", {
                 method: "POST",
                 headers: {
@@ -106,12 +110,12 @@ function ShopRegister() {
                     verified: "pending",
                     owner_id: await JSON.parse(localStorage.getItem("owner"))._id,
                     longitude: longitude,
-                    latitude: latitude
+                    latitude: latitude,
+                    encoded_images : selectedImages
                 })
             })
 
             res = await res.json();
-            console.log(res)
             if (res.wentWrong) {
                 alert(res.message);
             }
@@ -164,12 +168,19 @@ function ShopRegister() {
                             <div className="col-6 pt-5">
                                 <label className='label1'>Closing time <span style={{ color: "red" }}> *</span></label><br />
                                 <TimeField name="closing_time" value={shop.closing_time} onChange={handlechange} style={{ width: "15%", alignItems: "center", height: "45px", fontFamily: "Open Sans", fontSize: "18px", borderRadius: "2px", borderWidth: "1px", borderColor: "#b9b9b9", textAlign: "center" }} />
+
                             </div>
                             <div className='col-6 pt-5'>
 
-                                <label className='label1 rounded'>Select Location <span style={{ color: "red" }}> *</span></label><br />
-                                <Button style={{fontSize:'10px',borderRadius:"4px"}} onClick={() => { setShow(true); }} >Set Location</Button>
+                                <label className='label1 rounded'>Select Location <span style={{ color: "red" }}> *</span></label>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <label className='label1 rounded'>Upload Images <span style={{ color: "red" }}> *</span></label><br />
+                                <Button style={{ fontSize: '10px', borderRadius: "4px" }} onClick={() => { setShow(true); }} >Set Location</Button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
+                                <Button style={{ fontSize: '10px', borderRadius: "4px" }} onClick={() => setShowImagePicker(true)} >Upload Images</Button>
+                                
                             </div>
 
                             <div className='col-6 pt-5'>
@@ -183,6 +194,8 @@ function ShopRegister() {
 
                 </div>
             </div>
+            <ImagePickerModal show={showImagePicker} onHide={() => setShowImagePicker(false)} selectedImages={selectedImages} setSelectedImages={setSelectedImages} />
+
             {/* <div className='main' >
                 <div className='d-flex justify-content-center' style={{ textAlign: "center" }}>
                     <div className='col-lg-5 bg-white ' style={{ borderRadius: "25px", boxShadow: "0px 0px 1px 5px white" }} >
@@ -215,10 +228,6 @@ function ShopRegister() {
                                 <label className='label1'>Opening time <span style={{ color: "red" }}> *</span></label><br />
                                 <TimeField name="closing_time" value={shop.closing_time} onChange={handlechange} style={{ width: "15%", alignItems: "center", height: "45px", fontFamily: "Open Sans", fontSize: "18px", borderRadius: "2px", borderWidth: "1px", borderColor: "#b9b9b9" , textAlign:"center"}} />
                         </div>
-
-
-
-
                         
                     </div>
                 </div>
@@ -235,7 +244,7 @@ function ShopRegister() {
                     >
                         <Modal.Header closeButton>
                             <Modal.Title id="example-modal-sizes-title-sm" style={{ textAlign: "center" }}>
-                                <span style={{ textAlign: "center",color:"blue",fontFamily:"Helvetica, sans-serif" }}>Set Your Shop Location Here</span>
+                                <span style={{ textAlign: "center", color: "blue", fontFamily: "Helvetica, sans-serif" }}>Set Your Shop Location Here</span>
                             </Modal.Title>
                         </Modal.Header>
                         <Modal.Body className='bg-light'>

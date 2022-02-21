@@ -8,6 +8,7 @@ function ListSalons() {
 
     const history = useHistory();
     const [salonList, setsalonList] = useState([]);
+    const [prefixLink, setPrefixLink] = useState('');
 
     async function fetchSalonList(lon, lat) {
         var res = await fetch("http://localhost:9700/customer/listShops", {
@@ -32,7 +33,7 @@ function ListSalons() {
         } else {
             if (res.stat) {
                 setsalonList(res.shops);
-
+                setPrefixLink(res.prefix_link);
             } else {
                 // setHeader("Invalid");
                 // setMsg(res.message);
@@ -66,7 +67,7 @@ function ListSalons() {
 
     return (
         <div className="container mt-5" style={{width: '60vw'}}>
-           { salonList.map((s)=><Salon salon={s}/>)}
+           { salonList.map((s,index)=><Salon key={index} salon={s} prefixLink={prefixLink}/>)}
         </div>
     )
 }

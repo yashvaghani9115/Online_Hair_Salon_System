@@ -18,14 +18,14 @@ function OwnerService() {
 
 
     async function getList() {
-        var res = await fetch("http://localhost:9700/owner/getlist", {
+        var res = await fetch("http://localhost:9700/owner/listServices", {
             method: "POST",
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                shop: JSON.parse(localStorage.getItem('shop'))
+                shop_id: JSON.parse(localStorage.getItem('shop'))._id
             }),
         });
 

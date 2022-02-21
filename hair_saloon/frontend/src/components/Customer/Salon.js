@@ -2,17 +2,20 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import {Button} from 'react-bootstrap';
 
-function Salon({salon}) {
+function Salon({salon,prefixLink}) {
     const history = useHistory();
-
+    const fullPathOFImage = prefixLink + salon.images_pub_ids[0] + ".png";
+    console.log(fullPathOFImage);
     function bookSalon() {
         localStorage.setItem("selectedSalon", JSON.stringify(salon));
+        localStorage.setItem("prefixLink", JSON.stringify(prefixLink));
         history.push('/booksalon');
     }
+    
     return (
             <div className="row shadow-lg p-3 mb-3 bg-white rounded">
                 <div className="col-md-4 ml-0">
-                    <img className="img-fluid float-start " style={{height: '200px'}} src={require('./images/hair_salon_image.png')} />
+                    <img className="img-fluid float-start " style={{height: '200px'}} src={fullPathOFImage} />
                 </div>
                 <div className="col-md-4 border-left pt-1">
                     <p style={{fontSize: 'large' , paddingLeft:'10px'}}>

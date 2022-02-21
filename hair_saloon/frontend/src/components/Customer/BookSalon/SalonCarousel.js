@@ -1,30 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBCarouselElement } from 'mdb-react-ui-kit';
 
-function SalonCarousel({ selectedSalon }) {
+function SalonCarousel({ selectedSalon, prefixLink }) {
+
+    const caraousel_items = selectedSalon.images_pub_ids.map((pub_id, index) => {
+        if (index == 0) {
+            return (
+                <MDBCarouselItem className='active' key={index}>
+                    <MDBCarouselElement style={{ height: '450px' }} src={prefixLink + pub_id + ".png"} alt='...' />
+                </MDBCarouselItem>
+            );
+        }
+        else{
+            return (
+                <MDBCarouselItem key={index}>
+                    <MDBCarouselElement style={{ height: '450px' }} src={prefixLink + pub_id + ".png"} alt='...' />
+                </MDBCarouselItem>
+            );
+        }
+    });
     return (
         <div className='container shadow my-4 rounded' style={{ width: '60vw' }}>
             <MDBCard className='mb-3'>
                 <MDBCardBody>
-                    <MDBCardTitle id="carousel-title">Crystal Saloon</MDBCardTitle>
+                    <MDBCardTitle id="carousel-title">{selectedSalon.shop_name}</MDBCardTitle>
                     <MDBCardText>
-                        near post-office rajkot
+                        {selectedSalon.address}
                     </MDBCardText>
                 </MDBCardBody>
                 <MDBCarousel showControls fade>
                     <MDBCarouselInner>
-                        <MDBCarouselItem className='active'>
-                            <MDBCarouselElement style={{height:'450px'}} src={require('../images/hs2.png')} alt='...' />
-                        </MDBCarouselItem>
-                        <MDBCarouselItem>
-                            <MDBCarouselElement style={{height:'450px'}} src={require('../images/hs4.png')} alt='...' />
-                        </MDBCarouselItem>
-                        <MDBCarouselItem>
-                            <MDBCarouselElement style={{height:'450px'}} src={require('../images/hs5.png')} />
-                        </MDBCarouselItem>
+                        {caraousel_items}
                     </MDBCarouselInner>
                 </MDBCarousel>
-                <br/>
+                <br />
             </MDBCard>
         </div>
     )

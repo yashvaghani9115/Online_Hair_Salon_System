@@ -5,8 +5,8 @@ export const ownerLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
     const owner = await Owner.findOne({ email: email, password: password });
-    const shop = await Shop.findOne({owner_id : owner._id});
     if (owner) {
+      const shop = await Shop.findOne({owner_id : owner._id});
       res.json({
         stat: true,
         message: "Owner Logged in Sucessfully.",

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState } from "react";
 
 import {
   MDBTabs,
@@ -15,8 +14,8 @@ import SalonCarousel from "./SalonCarousel";
 
 function BookSalon() {
   const [basicActive, setBasicActive] = useState('tab1');
-  // const [selectedSalon,setSelectedSalon] = useState(JSON.parse(localStorage.getItem("selectedSalon")));
   const selectedSalon = JSON.parse(localStorage.getItem("selectedSalon"));
+  const prefixLink = JSON.parse(localStorage.getItem("prefixLink"));
   const handleBasicClick = (value) => {
     if (value === basicActive) {
       return;
@@ -27,7 +26,7 @@ function BookSalon() {
 
   return (
     <>
-      <SalonCarousel selectedSalon={selectedSalon} />
+      <SalonCarousel selectedSalon={selectedSalon} prefixLink={prefixLink} />
       <div className='container shadow-lg my-4 rounded' style={{ width: '60vw' }}>
         <MDBTabs className='mb-3 border-bottom'>
           <MDBTabsItem >
@@ -55,7 +54,7 @@ function BookSalon() {
             <AboutSalon selectedSalon={selectedSalon} />
           </MDBTabsPane>
           <MDBTabsPane show={basicActive === 'tab3'}>
-            <ListPhotos />
+            <ListPhotos selectedSalon={selectedSalon} prefixLink={prefixLink}/>
           </MDBTabsPane>
         </MDBTabsContent>
       </div>

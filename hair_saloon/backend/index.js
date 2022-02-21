@@ -5,12 +5,12 @@ import customerRoute from './routes/customerRoute.js';
 import ownerRoute from './routes/ownerRoute.js';
 import adminRoute from './routes/adminRoute.js';
 
+
 const app = express()
 
-app.use(express.json())
-app.use(express.urlencoded())
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors())
-
 
 app.use("/customer",customerRoute);
 app.use("/owner",ownerRoute);
