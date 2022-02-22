@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Dropdown } from "react-bootstrap";
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
-import { FaHome, FaPowerOff, FaUser } from "react-icons/fa";
-import { MdControlCamera, MdOutlineMiscellaneousServices } from "react-icons/md";
+import {  useHistory } from "react-router-dom";
+import {  FaPowerOff, FaUser } from "react-icons/fa";
+import { MdOutlineMiscellaneousServices } from "react-icons/md";
 import { Modal } from "react-bootstrap";
 import "./Header.css";
 
@@ -13,7 +13,7 @@ function Header({ setCust }) {
   const header = ("Our Top Services");
   const msg = (
     <div className="row">
-      <div className="col-4">
+      <div className="col-md-4">
         <h2 className="text-light text-center">User Service</h2>
 
         <Dropdown>
@@ -23,6 +23,7 @@ function Header({ setCust }) {
           >
 
             <img src="/img/user.jpg"
+              alt="user"
               style={{ borderRadius: "20px" }}
             />
           </Dropdown.Toggle>
@@ -38,7 +39,7 @@ function Header({ setCust }) {
         </Dropdown>
 
       </div>
-      <div className="col-4">
+      <div className="col-md-4">
         <h2 className="text-light text-center">Owner Service</h2>
 
         <Dropdown>
@@ -46,7 +47,7 @@ function Header({ setCust }) {
             variant="light"
             style={{ borderRadius: "20px" }}
           >
-            <img src="/img/owner.png" style={{ borderRadius: "20px" }} />
+            <img src="/img/owner.png" alt="owner" style={{ borderRadius: "20px" }} />
           </Dropdown.Toggle>
           <Dropdown.Menu className="bg-dark">
             <Dropdown.Item className="text-primary" href="/ownerlogin">
@@ -59,14 +60,14 @@ function Header({ setCust }) {
           </Dropdown.Menu>
         </Dropdown>
       </div>
-      <div className="col-4">
+      <div className="col-md-4">
         <h2 className="text-light text-center">Admin Service</h2>
         <Dropdown>
           <Dropdown.Toggle
             variant="light"
             style={{ borderRadius: "20px" }}
           >
-            <img src="/img/admin.jpg" style={{ borderRadius: "20px" }} />
+            <img src="/img/admin.jpg" alt="admin" style={{ borderRadius: "20px" }} />
 
           </Dropdown.Toggle>
 

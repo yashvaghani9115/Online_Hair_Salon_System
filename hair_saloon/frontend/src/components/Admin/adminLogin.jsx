@@ -4,6 +4,7 @@ import { MDBInput} from 'mdbreact';
 import { Modal } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import {RiAdminFill} from 'react-icons/ri';
+import auth from '../Auth/auth';
 
 
 
@@ -105,7 +106,7 @@ function AdminLogin({ setCust }) {
                     </div>
                 <br />
 
-                <Button  variant="blue" style={{borderRadius:"20px"}} className='col-6' onClick={login}>Log in</Button>
+                <Button  variant="blue" style={{borderRadius:"20px"}} className='col-6 text-white mb-4' onClick={login}>Log in</Button>
                 <Modal size="md" show={show} onHide={handleclose} >
                     <Modal.Header closeButton>
                     <Modal.Title id="example-modal-sizes-title-sm">

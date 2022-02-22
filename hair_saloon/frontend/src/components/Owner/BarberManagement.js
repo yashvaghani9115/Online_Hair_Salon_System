@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import OwnerSidebar from './OwnerSidebar';
-import { useHistory } from "react-router-dom";
 import { Navbar, Container, Button, Table } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 import { MDBInput } from 'mdbreact';
@@ -9,7 +8,7 @@ function Barbermanagement() {
     const [show, setShow] = useState(false);
     let index = 0;
 
-    const history = useHistory();
+    // const history = useHistory();
     const [header, setHeader] = useState("");
     const [barberList, setbarberList] = useState([]);
     const [barber, setBarber] = useState({
@@ -142,7 +141,7 @@ function Barbermanagement() {
                     setShow(false);
                     alert("Success");
                     setBarber({ ...dbarber });
-                    window.location.reload(true);
+                    fetchBarberList();
                     // history.push('/');
                 }
                 else {
@@ -207,7 +206,7 @@ function Barbermanagement() {
                     </Button>
                 </td>
                 <td>
-                    <Button variant="danger" size="sm" onClick={() => { deleteBarber(s._id); }}>
+                    <Button variant="danger" size="sm" onClick={() => { if(window.confirm("Delete this item ?")){ deleteBarber(s._id);} }}>
                         Delete
                     </Button>
                 </td>
@@ -222,11 +221,11 @@ function Barbermanagement() {
                 <div className='col-auto p-0'>
                     <OwnerSidebar />
                 </div>
-                <div className='col-auto' style={{ width: "80%" }} >
+                <div className='col-auto' style={{ width: "75%" }} >
                     <Navbar bg="dark" className='mt-4 rounded'>
                         <Container>
                             <Navbar.Brand className='text-light ml-3'>Barber Details</Navbar.Brand>
-                            <Button variant="success" onClick={() =>{setHeader("Add Barber");setShow(true)} } className="rounded my-0 align-items-end">Add Barber</Button>
+                            <Button variant="success" onClick={() =>{setBarber({...dbarber});setHeader("Add Barber");setShow(true)} } className="rounded my-0 align-items-end">Add Barber</Button>
                         </Container>
                     </Navbar>
                     <Table  className='text-center rounded'>

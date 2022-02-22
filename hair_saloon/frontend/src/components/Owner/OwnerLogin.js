@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Button  } from 'react-bootstrap';
 import { MDBInput} from 'mdbreact';
 import { Modal } from 'react-bootstrap';
-import {FaUserCircle} from 'react-icons/fa';
+import Auth from '../Auth/auth';
 
 
 
@@ -64,7 +64,10 @@ function OwnerLogin({ setCust }) {
                 if (res.stat) {
                     localStorage.setItem("owner", JSON.stringify(res.owner));
                     localStorage.setItem("shop", JSON.stringify(res.shop));
-
+<<<<<<< HEAD
+                    Auth.setAuth(true);
+=======
+>>>>>>> 824b51a2d5fb5684bb92d819e707c305a35e3918
                     // alert(res.message);
                     setHeader("Success");
                     setMsg(res.message);
@@ -72,7 +75,7 @@ function OwnerLogin({ setCust }) {
 
                     setCust(res.owner);
                    
-                    if(res.shop.verified == "pending")
+                    if(res.shop.verified === "pending")
                         history.push('/verification');
                     else if(res.shop.verified === "Accept")
                         history.push('/ownerHome');
@@ -113,7 +116,7 @@ function OwnerLogin({ setCust }) {
                     </div>
                 <br />
 
-                <Button  variant="blue" style={{borderRadius:"20px"}} className='col-6' onClick={login}>Log in</Button>
+                <Button  variant="blue" style={{borderRadius:"20px"}} className='col-6 text-white' onClick={login}>Log in</Button>
                 <Modal
                     size="md"
                     show={show}

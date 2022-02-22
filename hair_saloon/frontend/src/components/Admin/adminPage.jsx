@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import { Table, Card, Button } from "react-bootstrap";
 
 function AdminPage({ setCust }) {
-  const history = useHistory();
+  // const history = useHistory();
   const [list,setList] = useState([]);
   let index = 0;
   

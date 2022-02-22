@@ -1,9 +1,7 @@
-import React, { useState,useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
 import { Button  } from 'react-bootstrap';
 import { MDBInput} from 'mdbreact';
 import { Modal } from 'react-bootstrap';
-import {FaUserCircle} from 'react-icons/fa';
 
 
 function CustomerLogin({ setCust }) {
@@ -124,7 +122,7 @@ function CustomerLogin({ setCust }) {
                     </div>
                 <br />
 
-                <Button  variant="blue" style={{borderRadius:"20px"}} className='col-6' onClick={login}>Log in</Button>
+                <Button  variant="blue" style={{borderRadius:"20px",color:"white"}} className='col-6' onClick={login}>Log in</Button>
                 <Modal
                     size="md"
                     show={show}

@@ -1,9 +1,8 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { MDBInput } from 'mdbreact';
 import { Modal } from 'react-bootstrap';
-import {FaUserCircle} from 'react-icons/fa';
 
 
 
@@ -137,7 +136,7 @@ function CustomerRegister({ setCust }) {
                     <MDBInput containerClass="text-left" icon='unlock' label="Confirm Password" type="text" name="cpassword" value={customer.cpassword} onChange={handlechange} />
                 </div>
                 <br />
-                <Button className='col-6' style={{borderRadius:"20px"}} variant="blue" onClick={register}>Register</Button>
+                <Button className='col-6' style={{borderRadius:"20px",color:"white"}} variant="blue" onClick={register}>Register</Button>
                 <Modal
                     size="md"
                     show={show}

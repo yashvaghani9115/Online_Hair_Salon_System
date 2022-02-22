@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import TimeField from 'react-simple-timefield';
 import './ShopRegister.css';
@@ -195,43 +195,6 @@ function ShopRegister() {
                 </div>
             </div>
             <ImagePickerModal show={showImagePicker} onHide={() => setShowImagePicker(false)} selectedImages={selectedImages} setSelectedImages={setSelectedImages} />
-
-            {/* <div className='main' >
-                <div className='d-flex justify-content-center' style={{ textAlign: "center" }}>
-                    <div className='col-lg-5 bg-white ' style={{ borderRadius: "25px", boxShadow: "0px 0px 1px 5px white" }} >
-
-                        <div className='mt-4 text-black'>
-                            <h1 > SHOP RIGESTER</h1>
-
-                        </div>
-                        <div className="form-group col-auto">
-                            <MDBInput containerClass="text-left" icon='BsShop' label="Shop name" type="text" name="shop_name" value={shop.shop_name} onChange={handlechange} />
-                        </div>
-                        <div className="form-group col-auto">
-
-                            <MDBInput containerClass="text-left" icon='FaRegAddressCard' label="Address" type="text" name="address" value={shop.address} onChange={handlechange} />
-                        </div>
-                        <div className="form-group col-auto">
-                        <label className='label1'>Saloon Gender type <span style={{ color: "red" }}> *</span></label><br />
-                                <input type="radio" className='radio' value="Male" onChange={handlegender} name="salon_gender_type" /> <label className='label'>Male</label>
-                                <input type="radio" style={{ marginLeft: "15px" }} className='radio' value="Female" onChange={handlegender} name="salon_gender_type" /> <label className='label'>Female</label>
-                                <input type="radio" style={{ marginLeft: "15px" }} className='radio' value="Both" onChange={handlegender} name="salon_gender_type" /> <label className='label'>Both</label>
-                        </div>
-                        <div className="form-group col-auto">
-                            <MDBInput containerClass="text-left" icon='key' label="Capacity" type="text" name="capacity_seats" value={shop.capacity_seats} onChange={handlechange} />
-                        </div>
-                        <div className="form-group col-auto">
-                                <label className='label1'>Opening time <span style={{ color: "red" }}> *</span></label><br />
-                                <TimeField name="opening_time" value={shop.opening_time} onChange={handlechange} style={{ width: "15%", alignItems: "center", height: "45px", fontFamily: "Open Sans", fontSize: "18px", borderRadius: "2px", borderWidth: "1px", borderColor: "#b9b9b9" , textAlign:"center"}} />
-                        </div>
-                        <div className="form-group col-auto">
-                                <label className='label1'>Opening time <span style={{ color: "red" }}> *</span></label><br />
-                                <TimeField name="closing_time" value={shop.closing_time} onChange={handlechange} style={{ width: "15%", alignItems: "center", height: "45px", fontFamily: "Open Sans", fontSize: "18px", borderRadius: "2px", borderWidth: "1px", borderColor: "#b9b9b9" , textAlign:"center"}} />
-                        </div>
-                        
-                    </div>
-                </div>
-            </div> */}
 
             <div className='location'>
 

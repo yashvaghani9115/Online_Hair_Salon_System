@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button,  Col } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { MDBInput } from 'mdbreact';
 import { Modal } from 'react-bootstrap';
-import {FaUserCircle} from 'react-icons/fa';
 
 
 
 
 function OwnerRegister(props) {
-    const history = useHistory()
+    // const history = useHistory()
     const [show,setShow] = useState(false);
     const [header,setHeader] = useState("");
     const [msg,setMsg] = useState("");
@@ -92,7 +91,11 @@ function OwnerRegister(props) {
     }
 
     return (
+<<<<<<< HEAD
         <div className='main' style={style} >
+=======
+        <div style={style} className='main' >
+>>>>>>> 824b51a2d5fb5684bb92d819e707c305a35e3918
         <div className='d-flex justify-content-center' style={{textAlign:"center"}}>
             <div className='col-lg-5 bg-white ' style={{borderRadius:"25px",boxShadow:"3px 3px rgb(33,37,41)"}} >
 
@@ -119,7 +122,7 @@ function OwnerRegister(props) {
                 
                
              
-                <Button className='col-6' style={{borderRadius:"20px"}} variant="blue" onClick={()=>{register();props.handleClick(2);}}>Register</Button>
+                <Button className='col-6 text-white' style={{borderRadius:"20px"}} variant="blue" onClick={()=>{register();props.handleClick(2);}}>Register</Button>
                 <Modal
                     size="md"
                     show={show}
