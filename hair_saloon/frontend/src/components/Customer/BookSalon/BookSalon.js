@@ -11,6 +11,7 @@ import AboutSalon from "./AboutSalon";
 import ListServices from "./ListServices";
 import ListPhotos from "./ListPhotos";
 import SalonCarousel from "./SalonCarousel";
+import ListBarbers from "./ListBarbers";
 
 function BookSalon() {
   const style = {
@@ -51,6 +52,11 @@ function BookSalon() {
               Photos
             </MDBTabsLink>
           </MDBTabsItem>
+          <MDBTabsItem>
+            <MDBTabsLink onClick={() => handleBasicClick('tab4')} active={basicActive === 'tab4'}>
+              Barbers Details
+            </MDBTabsLink>
+          </MDBTabsItem>
         </MDBTabs>
 
         <MDBTabsContent style={{ paddingBottom: '10px' }}>
@@ -62,6 +68,9 @@ function BookSalon() {
           </MDBTabsPane>
           <MDBTabsPane show={basicActive === 'tab3'}>
             <ListPhotos selectedSalon={selectedSalon} prefixLink={prefixLink}/>
+          </MDBTabsPane>
+          <MDBTabsPane show={basicActive === 'tab4'}>
+            <ListBarbers selectedSalon={selectedSalon}/>
           </MDBTabsPane>
         </MDBTabsContent>
       </div>
