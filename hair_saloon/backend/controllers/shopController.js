@@ -1,7 +1,7 @@
 import Shop from "../models/shopModel.js";
 import Location from "../models/locationModel.js";
 import cloudinary from "../cloudinary/config.js";
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 dotenv.config();
 
 function distance(lat1, lon1, lat2, lon2, unit) {

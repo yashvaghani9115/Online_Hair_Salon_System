@@ -67,12 +67,6 @@ function AdminLogin({ setCust }) {
     };
 
 
-
-
-
-
-    //validation end
-
     function handlechange(e) {
         const { name, value } = e.target;
         let errorData = { ...errors };
@@ -130,6 +124,7 @@ function AdminLogin({ setCust }) {
                     setMsg(res.message);
                     setShow(true);
                     setCust(res.admin);
+                    history.push("/adminPage");
                 }
                 else {
                     setHeader("Invalid");
