@@ -11,14 +11,11 @@ function Salon({ salon, prefixLink }) {
         localStorage.setItem("prefixLink", JSON.stringify(prefixLink));
         history.push('/booksalon');
     }
-    function setDefault(ev){
-        ev.target.src  = "/img/bg2.jpg"
-    }
 
     return (
         <div className="row shadow-lg p-3 mt-3 bg-white rounded">
             <div className="col-md-4 ml-0">
-                <img className="img-fluid float-start " onError={setDefault} style={{ height: '200px' }} src={fullPathOFImage} alt='#' />
+                <img className="img-fluid float-start " style={{ height: '200px' }} src={fullPathOFImage} alt="#" />
             </div>
             <div className="col-md-4 border-left pt-1">
                 <p style={{ fontSize: 'large', paddingLeft: '10px' }}>
