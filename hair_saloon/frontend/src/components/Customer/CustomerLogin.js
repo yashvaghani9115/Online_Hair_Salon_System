@@ -1,42 +1,96 @@
-import React, { useState } from 'react';
-import {useHistory} from 'react-router-dom';
-import { Button  } from 'react-bootstrap';
-import { MDBInput} from 'mdbreact';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
+import { MDBInput } from 'mdbreact';
 import { Modal } from 'react-bootstrap';
-
-
+import { FaUserCircle } from 'react-icons/fa';
+import  Joi  from 'joi-browser';
 
 function CustomerLogin({ setCust }) {
     const history = useHistory()
-    const [show,setShow] = useState(false);
-    const [header,setHeader] = useState("");
-    const [msg,setMsg] = useState("");
+    const [show, setShow] = useState(false);
+    const [header, setHeader] = useState("");
+    const [msg, setMsg] = useState("");
     const [customer, setCustomer] = useState({
         email: "",
         password: ""
     })
-    const style ={
-        backgroundPosition: "center" , 
-        backgroundRepeat: "no-repeat",  
+    const style = {
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        height:"90vh" ,
+        height: "90vh",
         backgroundImage: "url('/img/bg2.jpg')"
     }
+    //validation start
 
+
+
+    const [errors, setErrors] = useState({});
+    const schema = {
+        email: Joi.string().email().required().label('Email'),
+        password: Joi.string().required().label('Password')
+    };
+
+    const validateForm = (event) => {
+        event.preventDefault();
+        const result = Joi.validate(customer,
+            schema, { abortEarly: false });
+        console.log(result);
+        const { error } = result;
+        if (!error) {
+            login();
+            console.log("login  called");
+            return null;
+        } else {
+            const errorData = {};
+            for (let item of error.details) {
+                const name = item.path[0];
+                const message = item.message;
+                errorData[name] = message;
+            }
+            console.log(errors);
+            setErrors(errorData);
+            return errorData;
+        }
+    };
+
+    const validateProperty = (event) => {
+        const { name, value } = event.target;
+        const obj = { [name]: value };
+        const subSchema = { [name]: schema[name] };
+        const result = Joi.validate(obj, subSchema);
+        const { error } = result;
+        return error ? error.details[0].message : null;
+    };
+
+
+
+
+
+
+    //validation end
     function handlechange(e) {
         const { name, value } = e.target;
-
+        let errorData = { ...errors };
+        const errorMessage = validateProperty(e);
+        if (errorMessage) {
+            errorData[name] = errorMessage;
+        } else {
+            delete errorData[name];
+        }
         setCustomer(
             {
                 ...customer,
                 [name]: value
             }
         )
+        setErrors(errorData);
     }
 
     async function login() {
 
-        const { email, password} = customer;
+        const { email, password } = customer;
         if (email && password) {
             var res = await fetch("http://localhost:9700/customer/customerLogin", {
                 method: "POST",
@@ -85,74 +139,67 @@ function CustomerLogin({ setCust }) {
 
     }
 
-    // function getLocation() {
-    //     if (navigator.geolocation) {
-    //       navigator.geolocation.getCurrentPosition(getPosInState,failAccess);
-    //     } 
-    // }
-    
-    // function failAccess(){
-    //     setHeader("Fail to Access");
-    //     setMsg(`Unable to access your location !
-    //     Please enable it`);
-    //     setShow(true);
-    // }   
-    // function getPosInState(position) {
-    //     console.log(position.coords.longitude);
-    //     setCustomer({...customer, longitude:position.coords.longitude, latitude:position.coords.latitude})
-    // }
-    // useEffect(() => {
-    //     getLocation();
-    // }, []);
+
 
 
     return (
         <div style={style} className="main">
-        <div  className='d-flex justify-content-center'>
-            
-            <div className='col-lg-5 bg-white' style={{borderRadius:"25px",boxShadow:"3px 3px rgb(33,37,41)"}}>
-                <div className='mt-4 text-black'>
+            <div className='d-flex justify-content-center'>
+
+                <div className='col-lg-5 bg-white' style={{ borderRadius: "25px", boxShadow: "3px 3px rgb(33,37,41)" }}>
+                    <div className='mt-4 text-black'>
                         <h1 >Customer SignIn</h1>
 
-                </div>
-            
-                <div className="form-group col-auto">
-                    <MDBInput containerClass="text-left text-dark" label="Email Address" icon='user' type="text" name="email" value={customer.email} onChange={handlechange}  />
-                </div>
-                <div className="form-group col-auto">
-                    <MDBInput containerClass="text-left text-dark" icon='unlock' label="Password" type='password' name="password" value={customer.password} onChange={handlechange} />
                     </div>
-                <br />
+                    <form className="ui form">
+                        <div className="form-group col-auto">
+                            <MDBInput containerClass="text-left text-dark" label="Email Address" icon='user' type="text" name="email" value={customer.email} onChange={handlechange} />
+                        </div>
+                        {errors.email && (
+                            <div className="text-danger text-left ml-5" >
+                                {errors.email}
+                            </div>
+                        )}
+                        <div className="form-group col-auto">
+                            <MDBInput containerClass="text-left text-dark" icon='unlock' label="Password" type='password' name="password" value={customer.password} onChange={handlechange} />
+                        </div>
+                        {errors.password && (
+                            <div className="text-danger text-left ml-5">
+                                {errors.password}
+                            </div>
+                        )}
+                        <br />
 
-                <Button  variant="blue" style={{borderRadius:"20px",color:"white"}} className='col-6' onClick={login}>Log in</Button>
-                <Modal
-                    size="md"
-                    show={show}
-                    onHide={() => setShow(false)}
-                    
-                >
-                    <Modal.Header closeButton>
-                    <Modal.Title id="example-modal-sizes-title-sm">
-                        {header}
-                    </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body className='bg-light'>{msg}</Modal.Body>
-                    <Modal.Footer>
-                        <Button style={{borderRadius:"20px"}} onClick={()=>setShow(false)}>Close</Button>
-                    </Modal.Footer>
-                </Modal>
-                
-                <p className="text-right text-dark">
-                    <br/>
-                    Sign Up From <a href='/customerregister'>Here</a>
-                </p>
-            
+                        <Button variant="blue" type="submit" style={{ borderRadius: "20px" ,color:"white" }} className='col-6' onClick={validateForm}>Log in</Button>
+                    </form>
+                    <Modal
+                        size="md"
+                        show={show}
+                        onHide={() => setShow(false)}
+
+                    >
+                        <Modal.Header closeButton>
+                            <Modal.Title id="example-modal-sizes-title-sm">
+                                {header}
+                            </Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body className='bg-light'>{msg}</Modal.Body>
+                        <Modal.Footer>
+                            <Button style={{ borderRadius: "20px" }} onClick={() => setShow(false)}>Close</Button>
+                        </Modal.Footer>
+                    </Modal>
+
+                    <p className="text-right text-dark">
+                        <br />
+                        Sign Up From <a href='/customerregister'>Here</a>
+                    </p>
+
+                </div>
+
             </div>
+        </div>
 
-     </div>
-     </div>
 
-        
     )
 }
 

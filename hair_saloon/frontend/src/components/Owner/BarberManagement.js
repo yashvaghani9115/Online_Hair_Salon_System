@@ -38,7 +38,7 @@ function Barbermanagement() {
             }
         )
     }
-    async function fetchBarberList(lon, lat) {
+    async function fetchBarberList() {
         var res = await fetch("http://localhost:9700/owner/listBarbers", {
             method: "POST",
             headers: {
@@ -96,7 +96,7 @@ function Barbermanagement() {
                     setShow(false);
                     alert("Success");
                     setBarber({ ...dbarber });
-                    window.location.reload(true);
+                    fetchBarberList();
                     // history.push('/');
                 }
                 else {
@@ -112,13 +112,13 @@ function Barbermanagement() {
         }
 
     }
-    function editBarber(s){
+    function editBarber(s) {
         setBarber(s);
         setShow(true);
         setHeader("Edit Barber");
     }
-    async function editbarber(){
-        if(barber){
+    async function editbarber() {
+        if (barber) {
             var res = await fetch("http://localhost:9700/owner/editBarber", {
                 method: "POST",
                 headers: {
@@ -156,10 +156,10 @@ function Barbermanagement() {
             alert("Input fields can't be blank.");
         }
     }
-    async function deleteBarber(s){
+    async function deleteBarber(s) {
         console.log(s);
         const owner_id = await JSON.parse(localStorage.getItem("owner"))._id;
-        if(s){
+        if (s) {
             var res = await fetch(`http://localhost:9700/owner/deleteBarber/${s}&${owner_id}`, {
                 method: "DELETE",
             })
@@ -195,18 +195,18 @@ function Barbermanagement() {
 
     const td = barberList.map((s) => {
         return (
-            <tr key={s._id} style={{color:"white"}}>
+            <tr key={s._id} style={{ color: "white" }}>
                 <td><strong>{++index}</strong></td>
                 <td>{s.name}</td>
                 <td>{s.email}</td>
                 <td>{s.mobile_num}</td>
                 <td>
-                    <Button variant="primary" size="sm" onClick={() => {editBarber(s);}}>
+                    <Button variant="primary" size="sm" onClick={() => { editBarber(s); }}>
                         Edit
                     </Button>
                 </td>
                 <td>
-                    <Button variant="danger" size="sm" onClick={() => { if(window.confirm("Delete this item ?")){ deleteBarber(s._id);} }}>
+                    <Button variant="danger" size="sm" onClick={() => { if (window.confirm("Delete this item ?")) { deleteBarber(s._id); } }}>
                         Delete
                     </Button>
                 </td>
@@ -225,12 +225,12 @@ function Barbermanagement() {
                     <Navbar bg="dark" className='mt-4 rounded'>
                         <Container>
                             <Navbar.Brand className='text-light ml-3'>Barber Details</Navbar.Brand>
-                            <Button variant="success" onClick={() =>{setBarber({...dbarber});setHeader("Add Barber");setShow(true)} } className="rounded my-0 align-items-end">Add Barber</Button>
+                            <Button variant="success" onClick={() => { setBarber({ ...dbarber }); setHeader("Add Barber"); setShow(true) }} className="rounded my-0 align-items-end">Add Barber</Button>
                         </Container>
                     </Navbar>
-                    <Table  className='text-center rounded'>
+                    <Table className='text-center rounded'>
                         <thead>
-                            <tr style={{color:"white"}}>
+                            <tr style={{ color: "white" }}>
                                 <th>#</th>
                                 <th>Barber Name</th>
                                 <th>Email</th>
@@ -272,7 +272,7 @@ function Barbermanagement() {
                             </div>
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button style={{ borderRadius: "20px" }} variant="blue" onClick={() => { if(header==="Add Barber"){addBarber();}else{editbarber();} setShow(false); }}>{header}</Button>
+                            <Button style={{ borderRadius: "20px" }} variant="blue" onClick={() => { if (header === "Add Barber") { addBarber(); } else { editbarber(); } setShow(false); }}>{header}</Button>
                         </Modal.Footer>
                     </Modal>
                 </div>
