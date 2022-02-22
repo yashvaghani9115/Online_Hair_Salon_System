@@ -64,10 +64,6 @@ function OwnerLogin({ setCust }) {
                 if (res.stat) {
                     localStorage.setItem("owner", JSON.stringify(res.owner));
                     localStorage.setItem("shop", JSON.stringify(res.shop));
-<<<<<<< HEAD
-                    Auth.setAuth(true);
-=======
->>>>>>> 824b51a2d5fb5684bb92d819e707c305a35e3918
                     // alert(res.message);
                     setHeader("Success");
                     setMsg(res.message);

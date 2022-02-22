@@ -20,7 +20,6 @@ import OwnerHome from './components/Owner/OwnerHome';
 import Barbermanagement from './components/Owner/BarberManagement';
 import OwnerHeader from './components/Owner/OwnerHeader';
 import BookSalon from './components/Customer/BookSalon/BookSalon';
-import OwnerService from './components/Owner/service/OwnerService';
 import AddService from './components/Owner/service/AddService';
 import { ProtectedRouteAdmin, ProtectedRouteCust, ProtectedRouteOwner } from './components/Auth/protected';
 import NotFound from './components/NotFound/notfound';
@@ -53,7 +52,7 @@ function App() {
           {/* Customer */}
           <Route path="/customerregister" component={() => { return <CustomerRegister setCust={setCust} /> }} />
           <Route path="/customerlogin" component={CustomerLogin} />
-          <ProtectedRouteCust path="/booksalon" component={BookSalon} />
+          <Route path="/booksalon" component={BookSalon} />
           <Route path="*" component={NotFound} />
         </Switch>
       </Router>

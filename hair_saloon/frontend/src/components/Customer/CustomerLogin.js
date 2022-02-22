@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import {useHistory} from 'react-router-dom';
 import { Button  } from 'react-bootstrap';
 import { MDBInput} from 'mdbreact';
 import { Modal } from 'react-bootstrap';
 
 
+
 function CustomerLogin({ setCust }) {
-    // const history = useHistory()
+    const history = useHistory()
     const [show,setShow] = useState(false);
     const [header,setHeader] = useState("");
     const [msg,setMsg] = useState("");
@@ -66,7 +68,7 @@ function CustomerLogin({ setCust }) {
                     setShow(true);
 
                     setCust(res.customer);
-                    // history.push('/');
+                    history.goBack();
                 }
                 else {
                     setHeader("Invalid");

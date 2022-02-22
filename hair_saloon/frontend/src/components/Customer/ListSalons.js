@@ -8,7 +8,7 @@ function ListSalons() {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        minHeight: "100vh",
+        minHeight: "max-content",
         backgroundImage: "url('/img/bg3.jpg')"
     }
     // const history = useHistory();

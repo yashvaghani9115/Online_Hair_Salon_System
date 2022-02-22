@@ -13,7 +13,7 @@ function Salon({ salon, prefixLink }) {
     }
 
     return (
-        <div className="row shadow-lg p-3 mb-3 bg-white rounded">
+        <div className="row shadow-lg p-3 mt-3 bg-white rounded">
             <div className="col-md-4 ml-0">
                 <img className="img-fluid float-start " style={{ height: '200px' }} src={fullPathOFImage} alt="#" />
             </div>

@@ -14,18 +14,7 @@ export const addService = async (req, res) => {
       stat: true,
       service: service,
       message: "Service Added!",
-    });
-
-    let service = await Service.create({service_name:service_name, price:price, gender_type:gender_type, category:category});
-        await Shop.updateOne(
-          { owner_id: owner_id},
-          { $push: { hair_service_id: service._id } })
-         
-        res.json({
-            stat: true,
-            service: service,
-            message: "Service Added!",
-          });    
+    }); 
     
   } catch (err) {
     res.json({ wentWrong: true, message: "Something went wrong !" });

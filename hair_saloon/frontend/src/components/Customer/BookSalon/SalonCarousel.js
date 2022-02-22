@@ -20,7 +20,7 @@ function SalonCarousel({ selectedSalon, prefixLink }) {
         }
     });
     return (
-        <div className='container shadow my-4 rounded' style={{ width: '60vw' }}>
+        <div className='container shadow pt-3  rounded' style={{ width: '100vw' }}>
             <MDBCard className='mb-3'>
                 <MDBCardBody>
                     <MDBCardTitle id="carousel-title">{selectedSalon.shop_name}</MDBCardTitle>

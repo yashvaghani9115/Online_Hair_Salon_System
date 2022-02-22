@@ -13,6 +13,13 @@ import ListPhotos from "./ListPhotos";
 import SalonCarousel from "./SalonCarousel";
 
 function BookSalon() {
+  const style = {
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    minHeight: "max-content",
+    backgroundImage: "url('/img/bg3.jpg')"
+}
   const [basicActive, setBasicActive] = useState('tab1');
   const selectedSalon = JSON.parse(localStorage.getItem("selectedSalon"));
   const prefixLink = JSON.parse(localStorage.getItem("prefixLink"));
@@ -25,10 +32,10 @@ function BookSalon() {
   };
 
   return (
-    <>
+    <div style={style} className="pb-3">
       <SalonCarousel selectedSalon={selectedSalon} prefixLink={prefixLink} />
-      <div className='container shadow-lg my-4 rounded' style={{ width: '60vw' }}>
-        <MDBTabs className='mb-3 border-bottom'>
+      <div className='container shadow-lg mt-4 rounded bg-white text-black' style={{ width: '60vw' }}>
+        <MDBTabs className='mb-3 border-bottom '>
           <MDBTabsItem >
             <MDBTabsLink onClick={() => handleBasicClick('tab1')} active={basicActive === 'tab1'}>
               Hair Styles
@@ -58,7 +65,7 @@ function BookSalon() {
           </MDBTabsPane>
         </MDBTabsContent>
       </div>
-    </>
+    </div>
   );
 }
 
