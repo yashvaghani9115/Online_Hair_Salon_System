@@ -16,7 +16,8 @@ function AddService() {
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
-    backgroundImage: "url('/img/service.jpg')"
+    backgroundImage: "url('/img/service.jpg')",
+    
   }
 
   async function addService() {

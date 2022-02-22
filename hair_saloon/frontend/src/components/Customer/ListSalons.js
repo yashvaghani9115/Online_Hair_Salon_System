@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
-import { Table, Card, Button } from "react-bootstrap";
+// import { useHistory } from "react-router-dom";
+import {Card } from "react-bootstrap";
 import Salon from "./Salon";
 
 function ListSalons() {
-    let index = 0;
-
-    const history = useHistory();
+    const style={
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        minHeight: "100vh",
+        backgroundImage: "url('/img/bg3.jpg')"
+    }
+    // const history = useHistory();
     const [salonList, setsalonList] = useState([]);
 
     async function fetchSalonList(lon, lat) {
@@ -52,7 +57,7 @@ function ListSalons() {
         // setMsg(`Unable to access your location !
         // Please enable it`);
         // setShow(true);
-        alert("failed")
+        alert("failed , please enable location access!")
     }
     function getPosInState(position) {
         console.log(position.coords.longitude);
@@ -65,8 +70,15 @@ function ListSalons() {
 
 
     return (
-        <div className="container mt-5" style={{width: '60vw'}}>
+        <div style={style}>
+            <Card.Header style={{backgroundColor:"#d8d8d8",textAlign:"center"}}>
+                <h1>
+                    Here are List 
+                </h1>
+            </Card.Header>
+        <div className="container pt-5" style={{width: '60vw'}}>
            { salonList.map((s)=><Salon salon={s}/>)}
+        </div>
         </div>
     )
 }

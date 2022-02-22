@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import {Button} from 'react-bootstrap';
 
@@ -12,7 +12,7 @@ function Salon({salon}) {
     return (
             <div className="row shadow-lg p-3 mb-3 bg-white rounded">
                 <div className="col-md-4 ml-0">
-                    <img className="img-fluid float-start " style={{height: '200px'}} src={require('./images/hair_salon_image.png')} />
+                    <img className="img-fluid float-start " alt="111" style={{height: '200px'}} src={require('./images/hair_salon_image.png')} />
                 </div>
                 <div className="col-md-4 border-left pt-1">
                     <p style={{fontSize: 'large' , paddingLeft:'10px'}}>
