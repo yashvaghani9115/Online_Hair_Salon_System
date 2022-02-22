@@ -6,13 +6,6 @@ function AdminPage({ setCust }) {
   // const history = useHistory();
   const [list,setList] = useState([]);
   let index = 0;
-  const style = {
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
-    minHeight: "100vh",
-    backgroundImage: "url('/img/bg3.jpg')"
-}
   
 
   async function getList() {
@@ -97,11 +90,11 @@ function AdminPage({ setCust }) {
           <li><strong>Location :</strong> {o._doc.address} </li>
           <li><strong>gender typpe:</strong>{o._doc.salon_gender_type}</li>
         </td>
-        <td >
-          <Button variant="primary"  size="sm" onClick={() => {approve(o._doc._id,"Accept")}}>
+        <td>
+          <Button variant="primary" size="sm" onClick={() => {approve(o._doc._id,"Accept")}}>
             Approve
           </Button>
-          <Button  variant="danger" size="sm" onClick={() => {approve(o._doc._id,"Reject")}}>
+          <Button variant="danger" size="sm" onClick={() => {approve(o._doc._id,"Reject")}}>
             Remove
           </Button>
         </td>
@@ -110,7 +103,7 @@ function AdminPage({ setCust }) {
   });
   
   return (
-    <div className="pt-5 text-center" style={style}>
+    <div className="mt-5 text-center">
       <Card style={{ width: "70%", margin: "auto" }}>
         <Card.Header className="h1">Admin Page</Card.Header>
         <Card.Body>
