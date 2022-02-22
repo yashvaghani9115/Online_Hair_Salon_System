@@ -4,6 +4,7 @@ import Shop from "../models/shopModel.js";
 export const ownerLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log(req.body);
     const owner = await Owner.findOne({ email: email, password: password });
     const shop = await Shop.findOne({owner_id : owner._id});
     if (owner) {

@@ -39,7 +39,7 @@ function Barbermanagement() {
             }
         )
     }
-    async function fetchBarberList(lon, lat) {
+    async function fetchBarberList() {
         var res = await fetch("http://localhost:9700/owner/listBarbers", {
             method: "POST",
             headers: {
@@ -97,7 +97,7 @@ function Barbermanagement() {
                     setShow(false);
                     alert("Success");
                     setBarber({ ...dbarber });
-                    window.location.reload(true);
+                    fetchBarberList();
                     // history.push('/');
                 }
                 else {
@@ -142,7 +142,7 @@ function Barbermanagement() {
                     setShow(false);
                     alert("Success");
                     setBarber({ ...dbarber });
-                    window.location.reload(true);
+                    fetchBarberList();
                     // history.push('/');
                 }
                 else {
@@ -226,7 +226,7 @@ function Barbermanagement() {
                     <Navbar bg="dark" className='mt-4 rounded'>
                         <Container>
                             <Navbar.Brand className='text-light ml-3'>Barber Details</Navbar.Brand>
-                            <Button variant="success" onClick={() =>{setHeader("Add Barber");setShow(true)} } className="rounded my-0 align-items-end">Add Barber</Button>
+                            <Button variant="success" onClick={() =>{setBarber({ ...dbarber });setHeader("Add Barber");setShow(true)} } className="rounded my-0 align-items-end">Add Barber</Button>
                         </Container>
                     </Navbar>
                     <Table  className='text-center rounded'>

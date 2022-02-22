@@ -92,7 +92,7 @@ function Header({ setCust }) {
       <Navbar bg="dark" variant="dark">
         <Container>
           <Navbar.Brand
-            style={{ border: "1px solid gray", borderRadius: "25px" }}
+            style={{ border: "1px solid gray", borderRadius: "10px" }}
             href="/"
             className="p-2 text-white h1"
           >

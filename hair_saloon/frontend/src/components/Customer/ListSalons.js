@@ -66,7 +66,7 @@ function ListSalons() {
 
     return (
         <div className="container mt-5" style={{width: '60vw'}}>
-           { salonList.map((s)=><Salon salon={s}/>)}
+           { salonList.map((s)=><Salon key={s._id} salon={s}/>)}
         </div>
     )
 }

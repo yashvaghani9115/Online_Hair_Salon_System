@@ -7,7 +7,7 @@ import { Modal, Button } from 'react-bootstrap';
 
 const DefaultLocation = { lat: 21.101472400442564, lng: 72.82393134493594 };
 const DefaultZoom = 10;
-function ShopRegister() {
+function ShopRegister({handleClick}) {
     const history = useHistory();
     const [show, setShow] = useState(false);
 
@@ -176,6 +176,10 @@ function ShopRegister() {
                                 <label className='label1'>Verify Your account: </label><br />
                                 <input type="checkbox" onChange={handlecheckbox} /><label style={{ marginLeft: "10px" }} htmlFor="agree"> I verify my <b>credentials for shop </b> and <b>location</b> <span style={{ color: "red" }}>*</span></label><br />
                                 <button className='button' type="submit" disabled={!agree} onClick={() => { registerShop() }}>Verify</button>
+                            </div>
+
+                            <div className='col-12 pt-5 text-center'>
+                                <button className='button'  onClick={() => { handleClick(1) }}>Back</button>
                             </div>
 
                         </div>
