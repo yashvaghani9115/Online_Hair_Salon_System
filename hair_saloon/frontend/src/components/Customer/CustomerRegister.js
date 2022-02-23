@@ -7,7 +7,7 @@ import { FaUserCircle } from 'react-icons/fa';
 import Joi from 'joi-browser';
 
 
-function CustomerRegister({ setCust }) {
+function CustomerRegister({ setLogin }) {
     const history = useHistory()
     const [show, setShow] = useState(false);
     const [header, setHeader] = useState("");
@@ -151,10 +151,11 @@ function CustomerRegister({ setCust }) {
                 if (res.stat) {
                     localStorage.setItem("customer", JSON.stringify(res.customer));
                     // alert(res.message);
+                    setLogin(true);
                     setHeader("Success");
                     setMsg(res.message);
                     setShow(true);
-                    setCust(res.customer);
+                    
                     history.push('/');
                 }
                 else {

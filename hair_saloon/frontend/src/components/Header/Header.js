@@ -7,7 +7,7 @@ import { MdOutlineMiscellaneousServices } from "react-icons/md";
 import { Modal } from "react-bootstrap";
 import "./Header.css";
 
-function Header({ setCust }) {
+function Header({ setLogin }) {
   const history = useHistory();
   const [show, setShow] = useState(false);
   const header = ("Our Top Services");
@@ -83,8 +83,9 @@ function Header({ setCust }) {
     </div>
   );
   function logout() {
+    console.log("log out called")
     localStorage.clear();
-    setCust(null);
+    setLogin(false);
     history.push("/");
   }
 

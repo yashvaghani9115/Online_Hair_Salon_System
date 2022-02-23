@@ -25,24 +25,24 @@ import { ProtectedRouteAdmin, ProtectedRouteCust, ProtectedRouteOwner } from './
 import NotFound from './components/NotFound/notfound';
 
 function App() {
-  const [adm, setCust] = useState();
+  const [login, setLogin] = useState(false);
 
   return (
     <div className="App">
       <Router>
-        <Header setCust={setCust} />
+        <Header setLogin={setLogin} />
         <Switch>
 
           <Route exact path='/'><ListSalons /></Route>
           {/* Admin */}
-          <Route path="/adminlogin" component={() => { return <AdminLogin setCust={setCust} /> }} />
+          <Route path="/adminlogin" component={() => { return <AdminLogin setLogin={setLogin} /> }} />
           <ProtectedRouteAdmin path="/adminpage" component={AdminPage} />
           {/* Owner */}
 
-          <Route path="/ownerlogin" component={() => { return <OwnerLogin setCust={setCust} /> }} />
-          <Route path="/ownerregister" component={() => { return <OwnerRegister setCust={setCust} /> }} />
+          <Route path="/ownerlogin" component={() => { return <OwnerLogin setLogin={setLogin} /> }} />
+          <Route path="/ownerregister" component={() => { return <OwnerRegister setLogin={setLogin} /> }} />
           <ProtectedRouteOwner path="/shopregister" component={ShopRegister} />
-          <ProtectedRouteOwner path="/verification" component={() => { return <VerificationPage setCust={setCust} /> }} />
+          <ProtectedRouteOwner path="/verification" component={() => { return <VerificationPage  /> }} />
           <ProtectedRouteOwner path="/ownerHome" component={OwnerHome} />
           <ProtectedRouteOwner path="/barbermanagement" component={Barbermanagement} />
           <ProtectedRouteOwner path="/ownerHeader" component={OwnerHeader} />
@@ -50,9 +50,9 @@ function App() {
           <ProtectedRouteOwner path="/addService" component={AddService} />
 
           {/* Customer */}
-          <Route path="/customerregister" component={() => { return <CustomerRegister setCust={setCust} /> }} />
-          <Route path="/customerlogin" component={CustomerLogin} />
-          <Route path="/booksalon" component={BookSalon} />
+          <Route path="/customerregister" component={() => { return <CustomerRegister setLogin={setLogin} /> }} />
+          <Route path="/customerlogin"  component={()=>{return <CustomerLogin setLogin={setLogin} />}} />
+          <ProtectedRouteCust path="/booksalon" component={BookSalon} />
           <Route path="*" component={NotFound} />
         </Switch>
       </Router>

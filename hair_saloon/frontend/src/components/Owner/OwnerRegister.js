@@ -3,13 +3,12 @@ import { useHistory } from 'react-router-dom';
 import { Button, Col } from 'react-bootstrap';
 import { MDBInput } from 'mdbreact';
 import { Modal } from 'react-bootstrap';
-import { FaUserCircle } from 'react-icons/fa';
 import Joi from 'joi-browser';
 
 
 
 
-function OwnerRegister({ handleClick, setCust }) {
+function OwnerRegister({ handleClick, setLogin }) {
     const history = useHistory()
     const [show, setShow] = useState(false);
     const [header, setHeader] = useState("");
@@ -135,6 +134,7 @@ function OwnerRegister({ handleClick, setCust }) {
                     setHeader("Success");
                     setMsg(res.message);
                     setShow(true);
+                    setLogin(true);
                     history.push('/shopregister');
                     // history.push('/');
                 }

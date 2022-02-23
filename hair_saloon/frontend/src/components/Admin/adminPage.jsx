@@ -2,9 +2,16 @@ import React, { useEffect, useState } from "react";
 // import { useHistory } from "react-router-dom";
 import { Table, Card, Button } from "react-bootstrap";
 
-function AdminPage({ setCust }) {
+function AdminPage() {
   // const history = useHistory();
   const [list,setList] = useState([]);
+  const style = {
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    minHeight: "100vh",
+    backgroundImage: "url('/img/bg3.jpg')"
+}
   let index = 0;
   
 
@@ -103,7 +110,7 @@ function AdminPage({ setCust }) {
   });
   
   return (
-    <div className="mt-5 text-center">
+    <div className="pt-5 text-center" style={style}>
       <Card style={{ width: "70%", margin: "auto" }}>
         <Card.Header className="h1">Admin Page</Card.Header>
         <Card.Body>

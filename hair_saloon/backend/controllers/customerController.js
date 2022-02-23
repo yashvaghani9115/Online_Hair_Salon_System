@@ -47,6 +47,7 @@ export const customerRegister = async (req, res) => {
             }
             else
             {
+                
                 // const res_location_obj = await Location.create({longitude:longitude,latitude:latitude});
                 const result = await Customer.create({name:name,email:email,mobile_num:mobile_num,password:password});
                 res.json({ stat: true,customer:result, message: "Customer registered sucessfully." });

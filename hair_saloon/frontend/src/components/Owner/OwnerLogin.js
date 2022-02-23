@@ -3,13 +3,10 @@ import { useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { MDBInput } from 'mdbreact';
 import { Modal } from 'react-bootstrap';
-import Auth from '../Auth/auth';
-
-import { FaUserCircle } from 'react-icons/fa';
 import Joi from 'joi-browser';
 
 
-function OwnerLogin({ setCust }) {
+function OwnerLogin({ setLogin }) {
     const history = useHistory()
     const [show, setShow] = useState(false);
     const [header, setHeader] = useState("");
@@ -93,7 +90,7 @@ function OwnerLogin({ setCust }) {
 
     async function login() {
 
-        console.log("i am under login");
+        console.log("login");
         const { email, password } = owner;
         if (email && password) {
             var res = await fetch("http://localhost:9700/owner/ownerLogin", {
@@ -111,29 +108,32 @@ function OwnerLogin({ setCust }) {
             res = await res.json();
 
             if (res.wentWrong) {
-                // alert(res.message);
-
                 setHeader("Something Wrong");
                 setMsg(res.message);
                 setShow(true);
             }
             else {
                 if (res.stat) {
+
                     localStorage.setItem("owner", JSON.stringify(res.owner));
-                    localStorage.setItem("shop", JSON.stringify(res.shop));
-                    // alert(res.message);
                     setHeader("Success");
                     setMsg(res.message);
                     setShow(true);
 
-                    setCust(res.owner);
+                    setLogin(true);
+                    if (res.owner.shopRegisterFlag) {
+                        localStorage.setItem("shop", JSON.stringify(res.shop));
+                        if (res.shop.verified === "pending")
+                            history.push('/verification');
+                        else if (res.shop.verified === "Accept")
+                            history.push('/ownerHome');
+                        else
+                            history.push('/verificationReject');
+                    } else {
+                        history.push("/shopregister");
+                    }
 
-                    if (res.shop.verified === "pending")
-                        history.push('/verification');
-                    else if (res.shop.verified === "Accept")
-                        history.push('/ownerHome');
-                    else
-                        history.push('/verificationReject');
+
 
                 }
                 else {
@@ -180,7 +180,7 @@ function OwnerLogin({ setCust }) {
                             </div>
                         )}
 
-                        <Button variant="blue" type="submit" style={{ borderRadius: "20px" ,color:"white"}} className='col-6' onClick={validateForm}>Log in</Button>
+                        <Button variant="blue" type="submit" style={{ borderRadius: "20px", color: "white" }} className='col-6' onClick={validateForm}>Log in</Button>
                     </form>
                     <Modal
                         size="md"

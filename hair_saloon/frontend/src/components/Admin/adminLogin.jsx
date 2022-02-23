@@ -7,7 +7,7 @@ import auth from '../Auth/auth';
 import Joi from 'joi-browser';
 
 
-function AdminLogin({ setCust }) {
+function AdminLogin({ setLogin }) {
     const history = useHistory()
     const [show, setShow] = useState(false);
     const [header, setHeader] = useState("");
@@ -125,7 +125,8 @@ function AdminLogin({ setCust }) {
                     setHeader("Success");
                     setMsg(res.message);
                     setShow(true);
-                    setCust(res.admin);
+                    setLogin(true);
+                    history.push("/adminPage")
                 }
                 else {
                     setHeader("Invalid");

@@ -4,7 +4,7 @@ import Shop from "../models/shopModel.js";
 export const ownerLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log(req.body);
+    // console.log(req.body);
     const owner = await Owner.findOne({ email: email, password: password });
     if (owner) {
       const shop = await Shop.findOne({owner_id : owner._id});
@@ -25,6 +25,27 @@ export const ownerLogin = async (req, res) => {
     console.log(err.message);
   }
 };
+
+export const getOwner=
+  async (req,res)=>{
+    try{
+        const {owner_id} = req.body;
+        const owner = await Owner.findById(owner_id);
+        if(owner){
+            res.json({ stat: true,owner:owner, message: "Owner" });
+             
+        }else{
+            res.json({
+                stat:false,
+                message:"Owner Not Found"
+            });
+        }
+    }
+    catch(err){
+        res.json({ wentWrong: true, message: "Something went wrong !" });
+        console.log(err.message);
+    }
+}
 
 export const ownerRegister = async (req, res) => {
   try {

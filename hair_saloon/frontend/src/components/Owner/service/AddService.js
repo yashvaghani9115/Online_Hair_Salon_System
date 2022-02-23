@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Modal, Dropdown } from "react-bootstrap";
 import { MDBInput } from "mdbreact";
 
-function AddService() {
+function  AddService() {
   const [show, setShow] = useState(false);
   const [header, setHeader] = useState("");
   const [msg, setMsg] = useState("");

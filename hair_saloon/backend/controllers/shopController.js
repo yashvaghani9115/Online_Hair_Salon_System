@@ -2,6 +2,7 @@ import Shop from "../models/shopModel.js";
 import Location from "../models/locationModel.js";
 import cloudinary from "../cloudinary/config.js";
 import dotenv from 'dotenv'
+import Owner from "../models/ownerModel.js";
 dotenv.config();
 
 function distance(lat1, lon1, lat2, lon2, unit) {
@@ -36,7 +37,7 @@ export const addShop = async (req, res) => {
         }       
         const res_location_obj = await Location.create({ longitude: longitude, latitude: latitude });
         const result = await Shop.create({ shop_name: shop_name, address: address, opening_time: opening_time, closing_time: closing_time, salon_gender_type: salon_gender_type, capacity_seats: capacity_seats, owner_id: owner_id, location_id: res_location_obj._id ,images_pub_ids:generated_public_ids});
-        
+        await Owner.findByIdAndUpdate(owner_id,{shopRegisterFlag:true})
         res.json({ stat: true, shop: result, message: "Shop Added sucessfully." });
     }
     catch (err) {
@@ -80,20 +81,18 @@ export const listShops = async (req, res) => {
         const { lon, lat } = req.body;
         const shops = await Shop.find({verified:"Accept"});
         const shopList = [];
-        const locationList = [];
 
         for(let i=0;i<shops.length;i++){
             const loc = await Location.findById(shops[i].location_id);
             if(loc && distance(lat, lon, loc.latitude,loc.longitude, "K")<50) {
                 shopList.push(shops[i]);
-                locationList.push(loc);
             }
         }
         
         //generating prefix link for images
         const prefix_link = process.env.BEGIN_LINK + process.env.CLOUDINARY_NAME + process.env.SUB_FOLDER_PATH;
         
-        res.json({ stat: true, shops: shopList,locations:locationList,prefix_link:prefix_link, message: "Shop list." });
+        res.json({ stat: true, shops: shopList,prefix_link:prefix_link, message: "Shop list." });
     }
     catch (err) {
         res.json({ wentWrong: true, message: "Something went wrong !" });

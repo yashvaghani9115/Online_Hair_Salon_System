@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { MDBInput } from 'mdbreact';
 import { Modal } from 'react-bootstrap';
-import { FaUserCircle } from 'react-icons/fa';
 import  Joi  from 'joi-browser';
 
-function CustomerLogin({ setCust }) {
+function CustomerLogin({ setLogin }) {
     const history = useHistory()
     const [show, setShow] = useState(false);
     const [header, setHeader] = useState("");
@@ -121,8 +120,14 @@ function CustomerLogin({ setCust }) {
                     setMsg(res.message);
                     setShow(true);
 
-                    setCust(res.customer);
-                    history.goBack();
+                    setLogin(true);
+                    const path = localStorage.getItem("path") 
+                    if(path){
+                        localStorage.removeItem("path")
+                        history.push(""+path+"")
+                    }else{
+                        history.push("/")
+                    }
                 }
                 else {
                     setHeader("Invalid");

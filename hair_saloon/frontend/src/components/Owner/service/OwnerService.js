@@ -331,7 +331,7 @@ function OwnerService() {
                                 </div>
 
                             </Card.Header>
-                            <Card.Body style={{ height: "50vh", overflow: "scroll" }}>
+                            <Card.Body style={{ height: "50vh", overflow: "auto" }}>
                                 <Card.Text >
                                     <Table bordered hover >
                                         <thead className="bg-dark text-white">

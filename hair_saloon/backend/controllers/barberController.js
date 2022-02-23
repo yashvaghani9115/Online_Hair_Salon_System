@@ -96,7 +96,23 @@ export const barberList = async (req, res) => {
         
     }
       // console.log(barberList);
-      res.json({ stat: true, barbers: barberList, message: "Shop list." });
+      res.json({ stat: true, barbers: barberList, message: "barber list." });
+      
+      
+    } catch (err) {
+      res.json({ wentWrong: true, message: "Something went wrong !" });
+      console.log(err.message);
+    }
+  };
+  export const bookBarber = async (req, res) => {
+    try {
+      const { cust_id,barber_id} = req.body;
+      console.log(cust_id,barber_id);
+      const barber = await Barber.findByIdAndUpdate(barber_id,{$push:{customer_ids:cust_id}});
+      console.log(barber);
+
+
+      res.json({ stat: true, message: "Booking Success!" });
       
       
     } catch (err) {
