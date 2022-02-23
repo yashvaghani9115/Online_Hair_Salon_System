@@ -13,7 +13,8 @@ function SummaryModal({ show, setShow, selectedSalon, selectedBarber }) {
             },
             body: JSON.stringify({
                 cust_id: JSON.parse(localStorage.getItem("customer"))._id,
-                barber_id: selectedBarber._id
+                barber_id: selectedBarber._id,
+                shop_id : selectedSalon._id
             }),
         });
         res = await res.json();

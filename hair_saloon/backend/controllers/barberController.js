@@ -1,4 +1,6 @@
 import Barber from "../models/barberModel.js";
+import Customer from "../models/customerModel.js";
+import CustomerOrder from "../models/CustomerOrderModel.js";
 import Shop from "../models/shopModel.js";
 
 export const addBarber = async (req, res) => {
@@ -106,10 +108,10 @@ export const barberList = async (req, res) => {
   };
   export const bookBarber = async (req, res) => {
     try {
-      const { cust_id,barber_id} = req.body;
-      console.log(cust_id,barber_id);
+      const { cust_id,barber_id,shop_id} = req.body;
       const barber = await Barber.findByIdAndUpdate(barber_id,{$push:{customer_ids:cust_id}});
-      console.log(barber);
+      const order = await CustomerOrder.create({customer_id:cust_id,shop_id:shop_id,barber_id:barber_id});
+
 
 
       res.json({ stat: true, message: "Booking Success!" });
@@ -120,3 +122,22 @@ export const barberList = async (req, res) => {
       console.log(err.message);
     }
   };
+  export const listCustomers = async (req, res) => {
+    try {
+      const { b_id} = req.body;
+      const barber = await Barber.findById(b_id);
+      let customerList = [];
+    for(let i=0;i<barber.customer_ids.length;i++){
+        const customer = await Customer.findById(barber.customer_ids[i]);
+        customerList.push(customer);
+        
+    }
+      res.json({ stat: true, customers: customerList, message: "customer list." });
+      
+      
+    } catch (err) {
+      res.json({ wentWrong: true, message: "Something went wrong !" });
+      console.log(err.message);
+    }
+  };
+  
