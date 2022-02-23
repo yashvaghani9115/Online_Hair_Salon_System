@@ -8,7 +8,7 @@ function ListSalons() {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        minHeight: "max-content",
+        minHeight: "100vh",
         backgroundImage: "url('/img/bg3.jpg')"
     }
     // const history = useHistory();
@@ -74,11 +74,11 @@ function ListSalons() {
         <div style={style}>
             <Card.Header style={{ backgroundColor: "#d8d8d8", textAlign: "center" }}>
                 <h1>
-                    Here are List
+                    Near By Salon
                 </h1>
             </Card.Header>
             <div className="container mt-5" style={{ width: '60vw' }}>
-                {salonList.map((s, index) => <Salon key={index} salon={s} prefixLink={prefixLink} />)}
+                {salonList.map((s, index) => <Salon key={index} salon={s}  prefixLink={prefixLink} />)}
             </div>
 
         </div>

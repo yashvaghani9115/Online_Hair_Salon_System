@@ -56,24 +56,44 @@ export const editShop = async (req, res) => {
         console.log(err.message);
     }
 }
-
+export const getlocation = async (req,res)=>{
+    try{
+        const {loc_id} = req.body;
+        const location = await Location.findById(loc_id);
+        if(location){
+            res.json({ stat: true,location:location, message: "location" });
+             
+        }else{
+            res.json({
+                stat:false,
+                message:"Location Not Found"
+            });
+        }
+    }
+    catch(err){
+        res.json({ wentWrong: true, message: "Something went wrong !" });
+        console.log(err.message);
+    }
+}
 export const listShops = async (req, res) => {
     try {
         const { lon, lat } = req.body;
         const shops = await Shop.find({verified:"Accept"});
         const shopList = [];
+        const locationList = [];
 
         for(let i=0;i<shops.length;i++){
             const loc = await Location.findById(shops[i].location_id);
             if(loc && distance(lat, lon, loc.latitude,loc.longitude, "K")<50) {
                 shopList.push(shops[i]);
+                locationList.push(loc);
             }
         }
         
         //generating prefix link for images
         const prefix_link = process.env.BEGIN_LINK + process.env.CLOUDINARY_NAME + process.env.SUB_FOLDER_PATH;
         
-        res.json({ stat: true, shops: shopList,prefix_link:prefix_link, message: "Shop list." });
+        res.json({ stat: true, shops: shopList,locations:locationList,prefix_link:prefix_link, message: "Shop list." });
     }
     catch (err) {
         res.json({ wentWrong: true, message: "Something went wrong !" });

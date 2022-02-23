@@ -6,6 +6,7 @@ const ownerSchema = new mongoose.Schema(
         mobile_num:{type: Number, required: true},
         email: { type: String, required: true, unique: true },
         password: { type:String, required: true },
+        shopRegisterFlag:{type:Boolean,required:true , default:false}
     }
 )
 

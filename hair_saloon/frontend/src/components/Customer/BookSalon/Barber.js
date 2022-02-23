@@ -15,9 +15,9 @@ function Barber({ b,selectedSalon }) {
                             Your Turn :  <Badge bg="dark">{b.customer_ids.length + 1}</Badge>
                         </div>
                     </Card.Title>
-                    <Card.Text>
+                    <Card.Text style={{fontSize:"12px"}}>
                         Email : {b.email}<br />
-                        Mobile No. : {b.mobile_num}
+                        Mobile No : {b.mobile_num}
                     </Card.Text>
                     <center><Button variant="success" onClick={()=>setShowSummary(true)} >Book Now</Button></center>
                 </Card.Body>

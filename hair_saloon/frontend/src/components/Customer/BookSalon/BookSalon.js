@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   MDBTabs,
@@ -22,6 +22,7 @@ function BookSalon() {
     backgroundImage: "url('/img/bg3.jpg')"
 }
   const [basicActive, setBasicActive] = useState('tab1');
+  const [location,setLocation] = useState({});
   const selectedSalon = JSON.parse(localStorage.getItem("selectedSalon"));
   const prefixLink = JSON.parse(localStorage.getItem("prefixLink"));
   const handleBasicClick = (value) => {
@@ -31,6 +32,38 @@ function BookSalon() {
 
     setBasicActive(value);
   };
+  async function getlocation(){
+    var res = await fetch("http://localhost:9700/customer/getlocation", {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                loc_id : selectedSalon.location_id
+            })
+        })
+        res = await res.json();
+        if (res.wentWrong) {
+          alert(res.message);
+          // setHeader("Something Wrong");
+          // setMsg(res.message);
+          // setShow(true);
+      } else {
+          if (res.stat) {
+            setLocation(res.location);
+              
+          } else {
+            alert(res.message);
+              // setHeader("Invalid");
+              // setMsg(res.message);
+              // setShow(true);
+          }
+      }
+  }
+  useEffect(()=>{
+    getlocation();
+  },[])
 
   return (
     <div style={style} className="pb-3">
@@ -64,7 +97,7 @@ function BookSalon() {
             <ListServices selectedSalon={selectedSalon} />
           </MDBTabsPane>
           <MDBTabsPane show={basicActive === 'tab2'}>
-            <AboutSalon selectedSalon={selectedSalon} />
+            <AboutSalon location={location}  selectedSalon={selectedSalon} />
           </MDBTabsPane>
           <MDBTabsPane show={basicActive === 'tab3'}>
             <ListPhotos selectedSalon={selectedSalon} prefixLink={prefixLink}/>

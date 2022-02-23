@@ -56,6 +56,38 @@ function OwnerService() {
             if (res.stat) {
                 // let shop = {name:res.shoplist[0].owner_id,location:res.shoplist[0].location_id,gender:res.shoplist[0].salon_gender_type,shop_name:res.shoplist[0].shop_name};
                 setList(res.servicelist);
+                const tmp = res.servicelist.filter((x) => x.category === "Hair Style")
+                Setprintlist(tmp.map((o) => {
+
+                    return (
+                        <tr>
+                            <th>
+                                {++index}
+                            </th>
+                            <th>
+                                {o.service_name}
+                            </th>
+                            <th>
+                                {o.price} ₹
+                            </th>
+                            <th>
+                                {o.gender_type ? "MALE" : "FEMALE"}
+                            </th>
+
+                            <th style={{ width: "35%" }}>
+                                <Button size='sm' className='text-white' variant='orange' onClick={() => { editservice(o); }}>
+                                    Edit
+                                </Button>
+                                <Button size='sm' variant='danger' onClick={() => { if (window.confirm("Delete the item?")) { deleteservice(o._id); } }}>
+                                    Delete
+                                </Button>
+                            </th>
+                        </tr>
+                    );
+                })
+                )
+
+
 
 
 
@@ -243,9 +275,7 @@ function OwnerService() {
 
 
     useEffect(() => {
-        getList().then(
-            set_list("Hair_Style")
-        );
+        getList()
 
     }, []);
 
@@ -359,13 +389,13 @@ function OwnerService() {
                                                 <MDBInput containerClass="text-left text-dark" label="Price" type="number" name="price" onChange={handleChange} value={service.price} />
                                             </div>
                                             <div className="form-group col-auto">
-                                               
 
-                                                    {(shop_gender == "Both") ?
-                                                     <Dropdown style={{ marginRight: "16px" }}>
-                                                     <Dropdown.Toggle variant="dark" className="form-control p-2">
-                                                         Select Gender
-                                                     </Dropdown.Toggle>
+
+                                                {(shop_gender == "Both") ?
+                                                    <Dropdown style={{ marginRight: "16px" }}>
+                                                        <Dropdown.Toggle variant="dark" className="form-control p-2">
+                                                            Select Gender
+                                                        </Dropdown.Toggle>
 
                                                         <Dropdown.Menu className="bg-dark">
                                                             <Dropdown.Item
@@ -385,50 +415,50 @@ function OwnerService() {
                                                                 Female
                                                             </Dropdown.Item>
                                                         </Dropdown.Menu>
-                                                        </Dropdown>
+                                                    </Dropdown>
 
-                                                    :(shop_gender == "Male") ?
-                                                    // <Dropdown style={{ marginRight: "16px" }}>
-                                                    //  <Dropdown.Toggle variant="dark" className="form-control p-2">
-                                                    //      Select Gender
-                                                    //  </Dropdown.Toggle>
-                                                    // <Dropdown.Menu className="bg-dark">
-                                                    //         <Dropdown.Item
-                                                    //             className="text-primary"
-                                                    //             onClick={() => {
-                                                    //                 setService({ ...service, gender_type: true });
-                                                    //             }}
-                                                    //         >
-                                                    //             Male
-                                                    //         </Dropdown.Item>
-                                                    //         </Dropdown.Menu>
-                                                    // </Dropdown>
-                                                    <>
-                                                    <p style={{display:"none"}} onLoad={()=>{setService({ ...service, gender_type: false })}}></p>
-                                                    </>
-                                                   
-                                                  
-                                                    :
-                                                    // <Dropdown style={{ marginRight: "16px" }}>
-                                                    //  <Dropdown.Toggle variant="dark" className="form-control p-2">
-                                                    //      Select Gender
-                                                    //  </Dropdown.Toggle>
-                                                    // <Dropdown.Menu className="bg-dark">
-                                                    //         <Dropdown.Item
-                                                    //             className="text-primary"
-                                                    //             onClick={() => {
-                                                    //                 setService({ ...service, gender_type: false });
-                                                    //             }}
-                                                    //         >
-                                                    //             Female
-                                                    //         </Dropdown.Item>
-                                                    //         </Dropdown.Menu>
-                                                    // </Dropdown>
-                                                    <>
-                                                    <p style={{display:"none"}} onLoad={()=>{setService({ ...service, gender_type: false })}}></p>
-                                                    </>
-                                                    
-                                                    }
+                                                    : (shop_gender == "Male") ?
+                                                        // <Dropdown style={{ marginRight: "16px" }}>
+                                                        //  <Dropdown.Toggle variant="dark" className="form-control p-2">
+                                                        //      Select Gender
+                                                        //  </Dropdown.Toggle>
+                                                        // <Dropdown.Menu className="bg-dark">
+                                                        //         <Dropdown.Item
+                                                        //             className="text-primary"
+                                                        //             onClick={() => {
+                                                        //                 setService({ ...service, gender_type: true });
+                                                        //             }}
+                                                        //         >
+                                                        //             Male
+                                                        //         </Dropdown.Item>
+                                                        //         </Dropdown.Menu>
+                                                        // </Dropdown>
+                                                        <>
+                                                            <p style={{ display: "none" }} onLoad={() => { setService({ ...service, gender_type: false }) }}></p>
+                                                        </>
+
+
+                                                        :
+                                                        // <Dropdown style={{ marginRight: "16px" }}>
+                                                        //  <Dropdown.Toggle variant="dark" className="form-control p-2">
+                                                        //      Select Gender
+                                                        //  </Dropdown.Toggle>
+                                                        // <Dropdown.Menu className="bg-dark">
+                                                        //         <Dropdown.Item
+                                                        //             className="text-primary"
+                                                        //             onClick={() => {
+                                                        //                 setService({ ...service, gender_type: false });
+                                                        //             }}
+                                                        //         >
+                                                        //             Female
+                                                        //         </Dropdown.Item>
+                                                        //         </Dropdown.Menu>
+                                                        // </Dropdown>
+                                                        <>
+                                                            <p style={{ display: "none" }} onLoad={() => { setService({ ...service, gender_type: false }) }}></p>
+                                                        </>
+
+                                                }
 
 
                                                 {/* </Dropdown> */}
