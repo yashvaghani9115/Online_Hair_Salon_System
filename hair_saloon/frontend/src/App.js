@@ -23,6 +23,7 @@ import AddService from './components/Owner/service/AddService';
 import { ProtectedRouteAdmin, ProtectedRouteCust, ProtectedRouteOwner } from './components/Auth/protected';
 import NotFound from './components/NotFound/notfound';
 import CustomerOrders from './components/Customer/orders';
+import EditShop from './components/Owner/EditShop/EditShop';
 
 function App() {
   const [login, setLogin] = useState(false);
@@ -42,6 +43,7 @@ function App() {
           <Route path="/ownerlogin" component={() => { return <OwnerLogin setLogin={setLogin} /> }} />
           <Route path="/ownerregister" component={() => { return <OwnerRegister setLogin={setLogin} /> }} />
           <ProtectedRouteOwner path="/shopregister" component={ShopRegister} />
+          <ProtectedRouteOwner path="/editShop" component={EditShop} />
           <ProtectedRouteOwner path="/verification" component={() => { return <VerificationPage  /> }} />
           <ProtectedRouteOwner path="/ownerHome" component={OwnerHome} />
           <ProtectedRouteOwner path="/barbermanagement" component={Barbermanagement} />

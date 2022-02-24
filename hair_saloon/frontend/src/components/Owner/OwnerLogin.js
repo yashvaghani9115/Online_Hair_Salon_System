@@ -116,6 +116,7 @@ function OwnerLogin({ setLogin }) {
                 if (res.stat) {
 
                     localStorage.setItem("owner", JSON.stringify(res.owner));
+                    localStorage.setItem("prefixLink", JSON.stringify(res.prefix_link));
                     setHeader("Success");
                     setMsg(res.message);
                     setShow(true);

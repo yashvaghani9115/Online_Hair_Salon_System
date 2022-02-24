@@ -1,9 +1,9 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import Shop from "../models/shopModel.js";
 import Location from "../models/locationModel.js";
 import cloudinary from "../cloudinary/config.js";
-import dotenv from 'dotenv'
 import Owner from "../models/ownerModel.js";
-dotenv.config();
 
 function distance(lat1, lon1, lat2, lon2, unit) {
     var radlat1 = Math.PI * lat1 / 180
@@ -48,8 +48,31 @@ export const addShop = async (req, res) => {
 
 export const editShop = async (req, res) => {
     try {
-        const { shop_id, ...remaining_data } = req.body;
-        const resp = await Shop.findByIdAndUpdate(shop_id, ...remaining_data);
+        const {shop_id, shop_name, address, opening_time, closing_time, salon_gender_type, capacity_seats, longitude, latitude, loc_id,index_images_to_delete, images_to_add } = req.body;
+        const shop = await Shop.findById(shop_id);
+          
+        //updating location
+        const upd_location_obj = await Location.findByIdAndUpdate(loc_id,{ longitude: longitude, latitude: latitude });     
+        
+        //deleting selected images
+        let images_ids_array = shop.images_pub_ids;
+        for(let i=0; i<index_images_to_delete.length; i++)
+        {
+            let pub_id = images_ids_array.splice(index_images_to_delete[i],1)[0];
+            await cloudinary.uploader.destroy(pub_id);
+        }
+
+        //uploading new images
+        for(let i=0;i<images_to_add.length; i++)
+        {
+            const uploadResponse = await cloudinary.uploader.upload(images_to_add[i], {
+                upload_preset: 'ml_default',
+            });
+            images_ids_array.push(uploadResponse.public_id);
+        }
+        await shop.set({shop_name:shop_name, address:address, opening_time:opening_time, closing_time:closing_time, salon_gender_type:salon_gender_type, capacity_seats:capacity_seats,images_pub_ids:images_ids_array});
+        
+        await shop.save();
         res.json({ stat: true, message: "Shop details updated successfully!." });
     }
     catch (err) {
