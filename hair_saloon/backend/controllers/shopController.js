@@ -56,13 +56,16 @@ export const editShop = async (req, res) => {
         
         //deleting selected images
         let images_ids_array = shop.images_pub_ids;
+
+        //sorting in descending
+        index_images_to_delete.sort( (a, b)=> {return b-a;});
         for(let i=0; i<index_images_to_delete.length; i++)
         {
             let pub_id = images_ids_array.splice(index_images_to_delete[i],1)[0];
             await cloudinary.uploader.destroy(pub_id);
         }
 
-        //uploading new images
+        // uploading new images
         for(let i=0;i<images_to_add.length; i++)
         {
             const uploadResponse = await cloudinary.uploader.upload(images_to_add[i], {
