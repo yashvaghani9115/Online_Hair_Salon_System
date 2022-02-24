@@ -25,7 +25,7 @@ function SummaryModal({ show, setShow, selectedSalon, selectedBarber }) {
             if (res.stat) {
                 alert(res.message);
             } else {
-             
+                
                 alert(res.message);
             }
         }

@@ -27,6 +27,7 @@ function ListBarbers({ selectedSalon }) {
       // setShow(true);
     } else {
       if (res.stat) {
+        
         setBarberList(res.barbers);
 
       } else {
@@ -44,7 +45,7 @@ function ListBarbers({ selectedSalon }) {
   return (
     <div className="container ml-0 " style={{ position: 'relative' }}>
       <div className="row">
-        {barberList.map((b, index) => <Barber b={b} selectedSalon={selectedSalon} key={index} />)}
+        {barberList.length === 0?"No Barbers Found":barberList.map((b, index) => <Barber b={b} selectedSalon={selectedSalon} key={index} />)}
       </div>
     </div>
   )

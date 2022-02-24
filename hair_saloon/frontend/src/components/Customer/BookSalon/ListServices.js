@@ -40,7 +40,7 @@ function ListServices({ selectedSalon }) {
     },[]);
     return (
         <div className="container ml-0 " style={{ position: 'relative' }}>
-            {services.map((s,index) => <Service s={s} key={index} />)}
+            {services.length == 0 ? "No services Found":services.map((s,index) => <Service s={s} key={index} />)}
         </div>
     )
 }

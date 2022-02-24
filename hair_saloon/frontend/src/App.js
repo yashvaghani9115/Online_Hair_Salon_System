@@ -8,7 +8,6 @@ import CustomerLogin from './components/Customer/CustomerLogin';
 import CustomerRegister from './components/Customer/CustomerRegister';
 import Header from './components/Header/Header';
 import OwnerLogin from './components/Owner/OwnerLogin';
-import Ownerhome from './components/Owner/OwnerHome';
 import OwnerRegister from './components/Owner/OwnerRegister';
 import ShopRegister from './components/Owner/ShopRegister';
 import OwnerService from './components/Owner/service/OwnerService';
@@ -23,6 +22,7 @@ import BookSalon from './components/Customer/BookSalon/BookSalon';
 import AddService from './components/Owner/service/AddService';
 import { ProtectedRouteAdmin, ProtectedRouteCust, ProtectedRouteOwner } from './components/Auth/protected';
 import NotFound from './components/NotFound/notfound';
+import CustomerOrders from './components/Customer/orders';
 
 function App() {
   const [login, setLogin] = useState(false);
@@ -53,6 +53,7 @@ function App() {
           <Route path="/customerregister" component={() => { return <CustomerRegister setLogin={setLogin} /> }} />
           <Route path="/customerlogin"  component={()=>{return <CustomerLogin setLogin={setLogin} />}} />
           <ProtectedRouteCust path="/booksalon" component={BookSalon} />
+          <ProtectedRouteCust path="/orders" component={CustomerOrders} />
           <Route path="*" component={NotFound} />
         </Switch>
       </Router>

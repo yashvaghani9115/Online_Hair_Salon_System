@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import OwnerSidebar from './OwnerSidebar';
-import { Card, Button, Dropdown, Table,Badge } from 'react-bootstrap';
+import { Card, Dropdown,Badge } from 'react-bootstrap';
 function OwnerHome() {
     const [selectedbarber, setSelectedBarber] = useState();
     const [barberList, setBarberList] = useState([]);
@@ -134,11 +134,11 @@ function OwnerHome() {
                     <div>
                         <Card style={{ width: "80%", margin: "auto", marginTop: "2em" }} >
                             <Card.Header className="h1 row m-0" style={{ backgroundColor: "#383838", color: "white" }}>
-                                <div className='col - 8 h2'>
+                                <div className='col-md-8 h2'>
                                     Barber : {selectedbarber ? selectedbarber.name : "not selected"}
 
                                 </div>
-                                <div className='col-4 text-right'>
+                                <div className='col-md-4 text-right'>
                                     <Dropdown style={{ marginRight: "16px" }}>
                                         <Dropdown.Toggle variant="success" >
                                             Select Barber

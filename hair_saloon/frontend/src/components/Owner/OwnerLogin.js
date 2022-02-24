@@ -121,12 +121,19 @@ function OwnerLogin({ setLogin }) {
                     setShow(true);
 
                     setLogin(true);
+                    const path = localStorage.getItem("path") 
                     if (res.owner.shopRegisterFlag) {
                         localStorage.setItem("shop", JSON.stringify(res.shop));
                         if (res.shop.verified === "pending")
                             history.push('/verification');
-                        else if (res.shop.verified === "Accept")
+                        else if (res.shop.verified === "Accept"){
+                            if(path){    
+                                console.log("path called")                        
+                                localStorage.removeItem("path")
+                                history.push(""+path+"")
+                            }
                             history.push('/ownerHome');
+                        }
                         else
                             history.push('/verificationReject');
                     } else {

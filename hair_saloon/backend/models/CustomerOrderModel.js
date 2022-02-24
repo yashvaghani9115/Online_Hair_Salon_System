@@ -8,7 +8,8 @@ const CustomerOrderSchema = new mongoose.Schema(
         customer_id :  {type: mongoose.Schema.Types.ObjectId, ref: Customer},
         shop_id : {type: mongoose.Schema.Types.ObjectId, ref: Shop},
         barber_id : {type: mongoose.Schema.Types.ObjectId, ref: Barber},
-        status : {type: String, default: "waiting"}
+        status : {type: String, default: "waiting"},
+        date:{type:Date,required:true}
     }
 )
 
