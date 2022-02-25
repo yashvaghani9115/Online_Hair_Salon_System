@@ -117,22 +117,30 @@ function OwnerLogin({ setLogin }) {
                 if (res.stat) {
 
                     localStorage.setItem("owner", JSON.stringify(res.owner));
+                    localStorage.setItem("prefixLink", JSON.stringify(res.prefix_link));
                     setHeader("Success");
                     setMsg(res.message);
                     setShow(true);
 
-                    setLogin(true);
+                    const path = localStorage.getItem("path") 
                     if (res.owner.shopRegisterFlag) {
                         localStorage.setItem("shop", JSON.stringify(res.shop));
                         if (res.shop.verified === "pending")
-                            history.push('/verification');
-                        else if (res.shop.verified === "Accept")
+                        history.push('/verification');
+                        else if (res.shop.verified === "Accept"){
+                            if(path){    
+                                console.log("path called")                        
+                                localStorage.removeItem("path")
+                                history.push(""+path+"")
+                            }
                             history.push('/ownerHome');
+                        }
                         else
-                            history.push('/verificationReject');
+                        history.push('/verificationReject');
                     } else {
                         history.push("/shopregister");
                     }
+                    setLogin(true);
 
 
 

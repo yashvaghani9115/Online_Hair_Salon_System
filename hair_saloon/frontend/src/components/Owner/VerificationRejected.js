@@ -2,7 +2,8 @@ import React from 'react';
 import { FcExpired } from 'react-icons/fc';
 import { Card, Button } from "react-bootstrap";
 import { useHistory } from 'react-router-dom';
-function VerificationPage() {
+
+function VerificationRejected() {
     const history = useHistory()
     const style = {
         backgroundPosition: "center",
@@ -11,8 +12,8 @@ function VerificationPage() {
         minHeight:"100vh",
         backgroundImage: "url('/img/bg3.jpg')"
     }
-    function manageHome(){
-        history.push('/');
+    function editshop(){
+        history.push('/editShop');
     }
     return (
         <>
@@ -22,11 +23,11 @@ function VerificationPage() {
                     <Card.Body>
                         <FcExpired className='my-4' style={{fontSize:"70px"}} />
                         <Card.Text style={{fontSize:"25px"}}>
-                            Your shop verification pending right now!!! you have to wait for 2-3 working days from register date
+                            Your shop verification is <strong className='text-black'>rejected</strong> , check and your edit shop details.
                         </Card.Text>
                     </Card.Body>
                     <Card.Footer>
-                        <Button onClick={manageHome} variant="primary">Home</Button>
+                        <Button onClick={editshop} variant="primary">Edit Now!</Button>
                     </Card.Footer>
                 </Card>
             </div>
@@ -34,4 +35,4 @@ function VerificationPage() {
     )
 }
 
-export default VerificationPage;
+export default VerificationRejected;

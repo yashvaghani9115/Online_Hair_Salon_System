@@ -109,13 +109,14 @@ export const barberList = async (req, res) => {
   export const bookBarber = async (req, res) => {
     try {
       const { cust_id,barber_id,shop_id} = req.body;
-      const barber = await Barber.findByIdAndUpdate(barber_id,{$push:{customer_ids:cust_id}});
-      const order = await CustomerOrder.create({customer_id:cust_id,shop_id:shop_id,barber_id:barber_id});
-
-
-
-      res.json({ stat: true, message: "Booking Success!" });
-      
+      const custorder = await CustomerOrder.findOne({customer_id:cust_id,status:"waiting"});
+      if(!custorder){
+        const barber = await Barber.findByIdAndUpdate(barber_id,{$push:{customer_ids:cust_id}});
+        const order = await CustomerOrder.create({customer_id:cust_id,shop_id:shop_id,barber_id:barber_id,date:new Date()});
+        res.json({ stat: true, message: "Booking Success!" });
+      }else{
+        res.json({stat:false,message:"You have Already Booked One Seat!"})
+      }      
       
     } catch (err) {
       res.json({ wentWrong: true, message: "Something went wrong !" });

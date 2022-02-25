@@ -268,10 +268,10 @@ function OwnerService() {
     async function set_list(cat) {
         const tmp = list.filter((x) => x.category === cat)
         // console.log(tmp)
-        Setprintlist(tmp.map((o) => {
+        Setprintlist(tmp.map((o,index) => {
 
             return (
-                <tr>
+                <tr key={index}>
                     <th>
                         {++index}
                     </th>

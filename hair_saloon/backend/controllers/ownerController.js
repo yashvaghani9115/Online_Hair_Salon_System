@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import Owner from "../models/ownerModel.js";
 import Shop from "../models/shopModel.js";
 
@@ -8,11 +10,16 @@ export const ownerLogin = async (req, res) => {
     const owner = await Owner.findOne({ email: email, password: password });
     if (owner) {
       const shop = await Shop.findOne({owner_id : owner._id});
+      
+      //generating prefix link for images
+      const prefix_link = process.env.BEGIN_LINK + process.env.CLOUDINARY_NAME + process.env.SUB_FOLDER_PATH;
+        
       res.json({
         stat: true,
         message: "Owner Logged in Sucessfully.",
         owner: owner,
-        shop:shop
+        shop:shop,
+        prefix_link:prefix_link
       });
     } else {
       res.json({

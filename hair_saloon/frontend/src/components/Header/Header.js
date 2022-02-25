@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Dropdown } from "react-bootstrap";
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
-import {  useHistory } from "react-router-dom";
-import {  FaPowerOff, FaUser } from "react-icons/fa";
+import { useHistory } from "react-router-dom";
+import { FaPowerOff, FaHistory } from "react-icons/fa";
 import { MdOutlineMiscellaneousServices } from "react-icons/md";
 import { Modal } from "react-bootstrap";
+import { BsShop } from "react-icons/bs";
 import "./Header.css";
 
 function Header({ setLogin }) {
@@ -86,7 +87,13 @@ function Header({ setLogin }) {
     console.log("log out called")
     localStorage.clear();
     setLogin(false);
-    history.push("/");
+    window.location.replace("/")
+  }
+  function orders() {
+    history.push("/orders");
+  }
+  function editshop() {
+    history.push("/editShop")
   }
 
   return (
@@ -101,17 +108,34 @@ function Header({ setLogin }) {
             Hair Saloon
           </Navbar.Brand>
           <Nav>
-            {localStorage.getItem("customer") ||
+            {(localStorage.getItem("customer") ||
               localStorage.getItem("owner") ||
-              localStorage.getItem("admin") ? (<>
+              localStorage.getItem("admin")) ? (<>
+                {(localStorage.getItem("customer")) ?
+                  <Nav.Item
+                    style={{ borderRadius: "25px" }}
+                    className="btn btn-success"
+                    onClick={orders}>
+                    <FaHistory /> Orders History
+                  </Nav.Item>
 
-              <Nav.Item
-                style={{ borderRadius: "25px" }}
-                className="btn btn-danger"
-                onClick={logout}
-              >
-                <FaPowerOff className="mr-1" /> Logout
-              </Nav.Item></>
+                  : (localStorage.getItem("owner") && localStorage.getItem("shop")) ?
+                    <Nav.Item
+                      style={{ borderRadius: "25px" }}
+                      className="btn btn-success"
+                      onClick={editshop}>
+                      <BsShop className="mr-2 mb-1" size="20px" /> Edit Shop
+                    </Nav.Item>
+                    :
+                    <></>}
+                <Nav.Item
+                  style={{ borderRadius: "25px" }}
+                  className="btn btn-danger"
+                  onClick={logout}
+                >
+
+                  <FaPowerOff className="mr-2 mb-1" size="20px"/> Logout
+                </Nav.Item></>
             ) : (
               <>
                 <Button

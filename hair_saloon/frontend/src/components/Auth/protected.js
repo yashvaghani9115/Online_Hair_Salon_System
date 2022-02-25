@@ -11,6 +11,8 @@ export const ProtectedRouteAdmin = props => {
 
 export const ProtectedRouteOwner = props => {
     if (localStorage.getItem("owner") === null) {
+        const pathname = window.location.pathname
+        localStorage.setItem("path",pathname)
         return <Redirect to="/ownerlogin" />
     }
     return <Route {...props}></Route>

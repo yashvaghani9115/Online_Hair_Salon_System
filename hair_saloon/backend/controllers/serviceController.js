@@ -40,7 +40,7 @@ export const editservice = async (req,res)=>{
       });
     }
   }
-  catch(e) {
+  catch(err) {
     res.json({ wentWrong: true, message: "Something went wrong !" });
     console.log(err.message);
   }

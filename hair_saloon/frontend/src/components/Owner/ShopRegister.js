@@ -1,14 +1,27 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import TimeField from 'react-simple-timefield';
-import './ShopRegister.css';
 import MapPicker from 'react-google-map-picker';
 import { Modal, Button } from 'react-bootstrap';
 import ImagePickerModal from './ImagePickerModal';
 
+import { MDBInput } from 'mdbreact';
+import { BsShop } from 'react-icons/bs';
+import { FaAddressCard } from 'react-icons/fa';
+import { MdOutlineReduceCapacity } from 'react-icons/md';
+
 const DefaultLocation = { lat: 21.101472400442564, lng: 72.82393134493594 };
 const DefaultZoom = 10;
+
 function ShopRegister() {
+    const style = {
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundImage: "url('/img/bg1.jpg')",
+        // height: "91vh"s
+    }
+
     const history = useHistory();
     const [show, setShow] = useState(false);
     const [showImagePicker, setShowImagePicker] = useState(false);
@@ -77,8 +90,8 @@ function ShopRegister() {
     function handlegender(e) {
         setShop({ ...shop, salon_gender_type: e.target.value });
     }
-    
-    
+
+
 
     async function registerShop() {
 
@@ -111,7 +124,7 @@ function ShopRegister() {
                     owner_id: await JSON.parse(localStorage.getItem("owner"))._id,
                     longitude: longitude,
                     latitude: latitude,
-                    encoded_images : selectedImages
+                    encoded_images: selectedImages
                 })
             })
 
@@ -138,66 +151,115 @@ function ShopRegister() {
 
     return (
         <>
-            <div className='main_box'>
-                <div className='after-main'>
-                    <div className='container col-8 px-4 box'>
-                        <div className="header">Shop Register</div>
-                        <div className="row feild">
-                            <div className="col-6 ">
-                                <label className='label1'>Shop Name <span style={{ color: "red" }}> *</span></label><br />
-                                <input type="text" className="text-box" name="shop_name" value={shop.shop_name} onChange={handlechange} placeholder="Shop Name" />
-                            </div>
-                            <div className="col-6">
-                                <label className='label1'>Address <span style={{ color: "red" }}> *</span></label><br />
-                                <input type="text" className="text-box" placeholder="Shop address" name="address" value={shop.address} onChange={handlechange} />
-                            </div>
-                            <div className="col-6 pt-5">
-                                <label className='label1'>Saloon Gender type <span style={{ color: "red" }}> *</span></label><br />
-                                <input type="radio" className='radio' value="Male" onChange={handlegender} name="salon_gender_type" /> <label className='label'>Male</label>
-                                <input type="radio" style={{ marginLeft: "15px" }} className='radio' value="Female" onChange={handlegender} name="salon_gender_type" /> <label className='label'>Female</label>
-                                <input type="radio" style={{ marginLeft: "15px" }} className='radio' value="Both" onChange={handlegender} name="salon_gender_type" /> <label className='label'>Both</label>
-                            </div>
-                            <div className="col-6 pt-5">
-                                <label className='label1'>Capacity <span style={{ color: "red" }}> *</span></label><br />
-                                <input type="text" className="text-box" placeholder="Shop capacity" name="capacity_seats" value={shop.capacity_seats} onChange={handlechange} />
-                            </div>
-                            <div className="col-6 pt-5">
-                                <label className='label1'>Opening time <span style={{ color: "red" }}> *</span></label><br />
-                                <TimeField name="opening_time" value={shop.opening_time} onChange={handlechange} style={{ width: "15%", alignItems: "center", height: "45px", fontFamily: "Open Sans", fontSize: "18px", borderRadius: "2px", borderWidth: "1px", borderColor: "#b9b9b9", textAlign: "center" }} />
-                            </div>
-                            <div className="col-6 pt-5">
-                                <label className='label1'>Closing time <span style={{ color: "red" }}> *</span></label><br />
-                                <TimeField name="closing_time" value={shop.closing_time} onChange={handlechange} style={{ width: "15%", alignItems: "center", height: "45px", fontFamily: "Open Sans", fontSize: "18px", borderRadius: "2px", borderWidth: "1px", borderColor: "#b9b9b9", textAlign: "center" }} />
+            <div className='main' style={style} >
+                <div className='d-flex justify-content-center' style={{ textAlign: "center" }}>
+                    <div className='bg-white ' style={{ width: "150vh", minHeight: "80vh", borderRadius: "25px", boxShadow: "3px 3px rgb(33,37,41)" }} >
 
-                            </div>
-                            <div className='col-6 pt-5'>
-
-                                <label className='label1 rounded'>Select Location <span style={{ color: "red" }}> *</span></label>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <label className='label1 rounded'>Upload Images <span style={{ color: "red" }}> *</span></label><br />
-                                <Button style={{ fontSize: '10px', borderRadius: "4px" }} onClick={() => { setShow(true); }} >Set Location</Button>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                                <Button style={{ fontSize: '10px', borderRadius: "4px" }} onClick={() => setShowImagePicker(true)} >Upload Images</Button>
-                                
-                            </div>
-
-                            <div className='col-6 pt-5'>
-                                <label className='label1'>Verify Your account: </label><br />
-                                <input type="checkbox" onChange={handlecheckbox} /><label style={{ marginLeft: "10px" }} htmlFor="agree"> I verify my <b>credentials for shop </b> and <b>location</b> <span style={{ color: "red" }}>*</span></label><br />
-                                <button className='button' type="submit" disabled={!agree} onClick={() => { registerShop() }}>Verify</button>
-                            </div>
-
-                            {/* <div className='col-12 pt-5 text-center'>
-                                <button className='button'  onClick={() => { handleClick(1) }}>Back</button>
-                            </div> */}
-
+                        <div className='mt-4 text-black'>
+                            <h1 > Shop Register</h1>
                         </div>
-                    </div>
+                        <div className='row form-group ml-2 mt-3'>
+                            <div className='row'>
+                                <div className='row col-md-6'>
+                                    <div className='col-auto mt-3'>
+                                        <BsShop size="27px" />
+                                    </div>
+                                    <div className="form-group col-10">
+                                        <MDBInput containerClass="text-left m-0" icon='' type="text" name="shop_name" value={shop.shop_name} onChange={handlechange} label="Shop Name" />
+                                    </div>
+                                </div>
+                                <div className='row col-md-6'>
 
+                                    <div className='col-auto mt-3 '>
+                                        <FaAddressCard size='27px' />
+                                    </div>
+                                    <div className="form-group col-10">
+                                        <MDBInput containerClass="text-left m-0" label="Shop address" name="address" value={shop.address} onChange={handlechange} />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='row'>
+                                <div className='row col-md-6'>
+                                    <div className='col-auto mt-3'>
+                                        <MdOutlineReduceCapacity size="27px" />
+                                    </div>
+                                    <div className='col-10'>
+                                        <MDBInput containerClass="text-left mt-0 mb-5" type="number" label="Shop capacity" name="capacity_seats" value={shop.capacity_seats} onChange={handlechange} />
+                                    </div>
+                                </div>
+                                <div className='row mt-3 col-md-6'>
+                                    <div className='col-4'>
+                                        <label>Gender Type : </label>
+                                    </div>
+                                    <div className='col-8'>
+                                        <input type="radio" className='form-check-input' value="Male" onChange={handlegender} name="salon_gender_type" /> Male
+                                        <input type="radio" style={{ marginLeft: "15px" }} className='form-check-input' value="Female" onChange={handlegender} name="salon_gender_type" /> Female
+                                        <input type="radio" style={{ marginLeft: "15px" }} className='form-check-input' value="Both" onChange={handlegender} name="salon_gender_type" /> Both
+                                    </div>
+
+                                </div>
+                                <div className='row'>
+                                    <div className='row col-md-6'>
+                                        <div className='col-6'>
+
+                                            <label>Opening Time :</label>
+                                        </div>
+                                        <div className='col-6'>
+
+                                            <span><TimeField name="opening_time" value={shop.opening_time} onChange={handlechange} style={{ width: "30%", height: "45px", fontFamily: "Open Sans", fontSize: "18px" }} /></span>
+                                        </div>
+
+                                    </div>
+                                    <div className='row col-md-6'>
+                                        <div className='col-6'>
+
+                                            <label>Closing time :</label>
+                                        </div>
+                                        <div className='col-6'>
+
+                                            <span ><TimeField name="closing_time" value={shop.closing_time} onChange={handlechange} style={{ width: "30%", height: "45px", fontFamily: "Open Sans", fontSize: "18px" }} /></span>
+                                        </div>
+
+                                    </div>
+                                    <div className='row col-md-6 mt-4'>
+                                        <div className='col-6'>
+
+                                            <label>Select Location :</label>
+                                        </div>
+                                        <div className='col-6'>
+                                            <Button style={{ fontSize: '10px', borderRadius: "4px" }} onClick={() => { setShow(true); }} >Set Location</Button>
+                                        </div>
+
+                                    </div>
+                                    <div className='row col-md-6 mt-4' >
+                                        <div className='col-6'>
+
+                                            <label>Upload Images :</label>
+                                        </div>
+                                        <div className='col-6'>
+                                            <Button style={{ fontSize: '10px', borderRadius: "4px" }} onClick={() => setShowImagePicker(true)} >Upload Images</Button>
+                                        </div>
+
+                                    </div>
+                                    <div className='row mt-5' >
+                                        <div className='text-center'>
+                                            <label className='label1'>Verify Your account: </label><br />
+                                            <input type="checkbox" className='form-check-input' onChange={handlecheckbox} /><label htmlFor="agree"> I verify my <b>credentials for shop </b> and <b>location</b> <span style={{ color: "red" }}>*</span></label><br />
+                                            <Button className='col-6' type="submit" style={{ borderRadius: "20px", color: "white" }} variant='blue' disabled={!agree} onClick={registerShop}>Register</Button>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
+           
             <ImagePickerModal show={showImagePicker} onHide={() => setShowImagePicker(false)} selectedImages={selectedImages} setSelectedImages={setSelectedImages} />
 
             <div className='location'>
@@ -246,3 +308,4 @@ function ShopRegister() {
 }
 
 export default ShopRegister;
+ 

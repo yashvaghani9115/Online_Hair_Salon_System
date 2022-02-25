@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
-function ImagePickerModal(props) {
+function EditImageListModal(props) {
+    const prefixLink = JSON.parse(localStorage.getItem("prefixLink"));
+
     const [fileInputState, setFileInputState] = useState();
     const [errMsg, setErrMsg] = useState('');
-    
-    const { selectedImages, setSelectedImages } = props;
+
+    const { updationflag,setUpdationFlag,old_shop, indexOfImagesToDelete, setIndexOfImagesToDelete, selectedImages, setSelectedImages } = props;
 
     const handleFileInputChange = (e) => {
+        if(!updationflag)setUpdationFlag(true);
         console.log(e.target.files)
         for (let i = 0; i < e.target.files.length; i++) {
             if (e.target.files[i].type == "image/png" || e.target.files[i].type == "image/jpeg") {
@@ -32,9 +35,14 @@ function ImagePickerModal(props) {
         setErrMsg('');
     };
 
-    function removeImage(index) {
+    function removeSelectedImage(index) {
+        if(!updationflag)setUpdationFlag(true);
         //removing element by filter
         setSelectedImages(prev => prev.filter((ele, ind) => ind !== index));
+    }
+    function hideImage(index) {
+        if(!updationflag)setUpdationFlag(true);
+        setIndexOfImagesToDelete((prev) => [...prev, index]);
     }
     function hide() {
         setErrMsg('');
@@ -50,6 +58,19 @@ function ImagePickerModal(props) {
             <Modal.Body>
                 <div className="container h-auto" style={{ backgroundColor: '#f0f8ff' }}>
                     <div className="row my-1">
+                        {old_shop.images_pub_ids.map((pub_id, i) => {
+                            if (indexOfImagesToDelete.indexOf(i) == -1)
+                                return (
+                                    <div key={i} className="col-4 col my-2 cntr">
+                                        <img
+                                            src={prefixLink + pub_id + ".png"}
+                                            alt="chosen"
+                                            style={{ height: '130px', width: '210px' }}
+                                        />
+                                        <button onClick={() => { hideImage(i); }} className="btn1">X</button>
+                                    </div>
+                                );
+                        })}
                         {selectedImages && selectedImages.map((selectedImage, i) => (
                             <div key={i} className="col-4 col my-2 cntr">
                                 <img
@@ -57,7 +78,7 @@ function ImagePickerModal(props) {
                                     alt="chosen"
                                     style={{ height: '130px', width: '210px' }}
                                 />
-                                <button onClick={() => { removeImage(i); }} className="btn1">X</button>
+                                <button onClick={() => { removeSelectedImage(i); }} className="btn1">X</button>
                             </div>
                         ))}
                     </div>
@@ -81,4 +102,4 @@ function ImagePickerModal(props) {
     );
 }
 
-export default ImagePickerModal;
+export default EditImageListModal;
