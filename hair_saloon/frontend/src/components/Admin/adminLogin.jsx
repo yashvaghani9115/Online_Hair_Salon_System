@@ -5,6 +5,7 @@ import { Modal } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import auth from '../Auth/auth';
 import Joi from 'joi-browser';
+import ModalInterface from '../Modal/ModalInterface';
 
 
 function AdminLogin({ setLogin }) {
@@ -170,17 +171,8 @@ function AdminLogin({ setLogin }) {
 
                         <Button type='submit' variant="blue" style={{ borderRadius: "20px" ,color:"white"}} className='col-6 my-4' onClick={validateForm}>Log in</Button>
                     </form>
-                    <Modal size="md" show={show} onHide={handleclose} >
-                        <Modal.Header closeButton>
-                            <Modal.Title id="example-modal-sizes-title-sm">
-                                {header}
-                            </Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body className='bg-light'>{msg}</Modal.Body>
-                        <Modal.Footer>
-                            <Button style={{ borderRadius: "20px"  }} onClick={handleclose}>Close</Button>
-                        </Modal.Footer>
-                    </Modal>
+                    <ModalInterface show={show} setShow={setShow} header={header} msg={msg} />
+
                 </div>
             </div>
         </div>

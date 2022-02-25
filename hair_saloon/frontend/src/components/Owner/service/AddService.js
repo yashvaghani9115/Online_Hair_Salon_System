@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Modal, Dropdown } from "react-bootstrap";
 import { MDBInput } from "mdbreact";
+import ModalInterface from "../../Modal/ModalInterface";
 
 function  AddService() {
   const [show, setShow] = useState(false);
@@ -300,22 +301,7 @@ function  AddService() {
           >
             Add
           </Button>
-          <Modal size="md" show={show} onHide={() => setShow(false)}>
-            <Modal.Header closeButton>
-              <Modal.Title id="example-modal-sizes-title-sm">
-                {header}
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body className="bg-light">{msg}</Modal.Body>
-            <Modal.Footer>
-              <Button
-                style={{ borderRadius: "20px" }}
-                onClick={() => setShow(false)}
-              >
-                Close
-              </Button>
-            </Modal.Footer>
-          </Modal>
+          <ModalInterface show={show} setShow={setShow} header={header} msg={msg} />
         </div>
       </div>
     </div>

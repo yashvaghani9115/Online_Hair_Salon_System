@@ -3,6 +3,7 @@ import OwnerSidebar from './OwnerSidebar';
 import { Navbar, Container, Button, Table } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 import { MDBInput } from 'mdbreact';
+import ModalInterface from '../Modal/ModalInterface';
 
 function Barbermanagement() {
     const [show, setShow] = useState(false);
@@ -10,6 +11,9 @@ function Barbermanagement() {
 
     // const history = useHistory();
     const [header, setHeader] = useState("");
+    const [modalheader,setModalheader] = useState("");
+    const [modalmsg,setModalmsg] = useState("");
+    const [modalshow, setModalshow] = useState(false);
     const [barberList, setbarberList] = useState([]);
     const [barber, setBarber] = useState({
         name: "",
@@ -88,13 +92,17 @@ function Barbermanagement() {
             if (res.wentWrong) {
                 // alert(res.message);
                 setShow(false);
-                alert("Something Wrong");
+                setModalheader("Something Wrong");
+                setModalmsg(res.message);
+                setModalshow(true);
             }
             else {
                 if (res.stat) {
                     // alert(res.message);
                     setShow(false);
-                    alert("Success");
+                    setModalheader("Success");
+                    setModalmsg(res.message);
+                    setModalshow(true);
                     setBarber({ ...dbarber });
                     fetchBarberList();
                     // history.push('/');
@@ -102,13 +110,17 @@ function Barbermanagement() {
                 else {
                     // alert(res.message);
                     setShow(false);
-                    alert(res.message);
+                    setModalheader("Invalid");
+                    setModalmsg(res.message);
+                    setModalshow(true);
                 }
             }
         }
         else {
             setShow(false);
-            alert("Input fields can't be blank.");
+            setModalheader("Invalid");
+            setModalmsg("Input fields can't be blank.");
+            setModalshow(true);
         }
 
     }
@@ -133,13 +145,17 @@ function Barbermanagement() {
             if (res.wentWrong) {
                 // alert(res.message);
                 setShow(false);
-                alert("Something Wrong");
+                setModalheader("Something Wrong");
+                setModalmsg(res.message);
+                setModalshow(true);
             }
             else {
                 if (res.stat) {
                     // alert(res.message);
                     setShow(false);
-                    alert("Success");
+                    setModalheader("Success");
+                    setModalmsg(res.message);
+                    setModalshow(true);
                     setBarber({ ...dbarber });
                     fetchBarberList();
                     // history.push('/');
@@ -147,13 +163,17 @@ function Barbermanagement() {
                 else {
                     // alert(res.message);
                     setShow(false);
-                    alert(res.message);
+                    setModalheader("Invalid");
+                    setModalmsg(res.message);
+                    setModalshow(true);
                 }
             }
         }
         else {
             setShow(false);
-            alert("Input fields can't be blank.");
+            setModalheader("Invalid");
+            setModalmsg("Input fields can't be blank.");
+            setModalshow(true);
         }
     }
     async function deleteBarber(s) {
@@ -166,25 +186,30 @@ function Barbermanagement() {
 
             res = await res.json();
             if (res.wentWrong) {
-                // alert(res.message);
-                alert("Something Wrong");
+                setModalheader("Something Wrong");
+                setModalmsg(res.message);
+                setModalshow(true);
             }
             else {
                 if (res.stat) {
                     // alert(res.message);
-                    alert("Success");
-                    window.location.reload(true);
+                    setModalheader("Success");
+                    setModalmsg(res.message);
+                    setModalshow(true);
+                    fetchBarberList();
                     // history.push('/');
                 }
                 else {
-                    // alert(res.message);
-                    alert(res.message);
+                    setModalheader("Invalid");
+                    setModalmsg(res.message);
+                    setModalshow(true);
                 }
             }
         }
         else {
-            setShow(false);
-            alert("Input fields can't be blank.");
+            setModalheader("Invalid");
+            setModalmsg("Input fields can't be blank.");
+            setModalshow(true);
         }
     }
 
@@ -241,6 +266,7 @@ function Barbermanagement() {
                         </thead>
                         <tbody>{td}</tbody>
                     </Table>
+                    <ModalInterface show={modalshow} setShow={setModalshow} header={modalheader} msg={modalmsg} />
                     <Modal
                         size="lg"
                         show={show}
