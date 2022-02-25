@@ -146,13 +146,10 @@ function EditShop() {
                     if (res.stat) {
                         // localStorage.setItem("shop", JSON.stringify(res.shop));
                         alert(res.message);
-                        if(res.shop.verified=="Accept")
+                     
+                        if(shop.verified=="Accept")
                         {
                             history.push("/ownerHome")
-                        }
-                        else if(res.shop.verified=="Reject")
-                        {
-                            history.push("/verificationReject")
                         }
                         else
                         {
@@ -205,8 +202,8 @@ function EditShop() {
     return (
         <>
             {!response ?
-                <center><div class="spinner-border text-primary " role="status">
-                    <span class="sr-only">Loading...</span>
+                <center><div className="spinner-border text-primary " role="status">
+                    <span className="sr-only text-black">Loading...</span>
                 </div>
                 </center>
                 :

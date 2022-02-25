@@ -135,7 +135,7 @@ function OwnerHome() {
                         <Card style={{ width: "80%", margin: "auto", marginTop: "2em" }} >
                             <Card.Header className="h1 row m-0" style={{ backgroundColor: "#383838", color: "white" }}>
                                 <div className='col-md-8 h2'>
-                                    Barber : {selectedbarber ? selectedbarber.name : "not selected"}
+                                    Barber : {selectedbarber ? selectedbarber.name : "No Barber"}
 
                                 </div>
                                 <div className='col-md-4 text-right'>
@@ -164,7 +164,7 @@ function OwnerHome() {
                             </Card.Header>
                             <Card.Body style={{ height: "60vh", overflow: "auto" }}>
                                 <Card.Text >
-                                    {customerList.length==0 ? <div className='form-control text-center text-danger'>Customer not found</div> : customerList.map((c, index) => <>
+                                    {customerList.length===0 ? <div className='form-control text-center text-danger'>Customer not found</div> : customerList.map((c, index) => <>
                                         <div className="container ml-0 " style={{ position: 'relative' }}>
                                         <div className="row border my-2" style={{ backgroundColor: '#e3e3e3' }}>
                                             <div className="row mb-2 mt-3">

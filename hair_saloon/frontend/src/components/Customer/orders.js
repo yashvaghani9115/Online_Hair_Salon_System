@@ -95,7 +95,7 @@ function CustomerOrders() {
                                                     </MDBCol>
                                                     <MDBCol className='position-relative' md="4">
                                                         <div className='h5' style={{right:"30px" ,position:"absolute",top:"30px"}}>
-                                                            Booked Date : {o.date.slice(0,10)}
+                                                            Booked Date : {!o.date? "no date" :o.date.slice(0,10)}
                                                         </div>
                                                         <h2>
                                                             <div style={{ position: "absolute", bottom: "50px", right: "30px" }}>

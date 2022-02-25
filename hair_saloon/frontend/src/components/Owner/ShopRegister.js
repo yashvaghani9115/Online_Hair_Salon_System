@@ -161,26 +161,26 @@ function ShopRegister() {
                         <div className='row form-group ml-2 mt-3'>
                             <div className='row'>
                                 <div className='row col-md-6'>
-                                    <div className='col-1 mt-3'>
+                                    <div className='col-auto mt-3'>
                                         <BsShop size="27px" />
                                     </div>
-                                    <div className="form-group col-md-10">
+                                    <div className="form-group col-10">
                                         <MDBInput containerClass="text-left m-0" icon='' type="text" name="shop_name" value={shop.shop_name} onChange={handlechange} label="Shop Name" />
                                     </div>
                                 </div>
                                 <div className='row col-md-6'>
 
-                                    <div className='col-1 mt-3 '>
+                                    <div className='col-auto mt-3 '>
                                         <FaAddressCard size='27px' />
                                     </div>
-                                    <div className="form-group col-md-10">
+                                    <div className="form-group col-10">
                                         <MDBInput containerClass="text-left m-0" label="Shop address" name="address" value={shop.address} onChange={handlechange} />
                                     </div>
                                 </div>
                             </div>
                             <div className='row'>
                                 <div className='row col-md-6'>
-                                    <div className='col-1 mt-3'>
+                                    <div className='col-auto mt-3'>
                                         <MdOutlineReduceCapacity size="27px" />
                                     </div>
                                     <div className='col-10'>
@@ -308,59 +308,4 @@ function ShopRegister() {
 }
 
 export default ShopRegister;
- {/* <div className='main_box'>
-                <div className='after-main'>
-                    <div className='container col-8 px-4 box'>
-                        <div className="header">Shop Register</div>
-                        <div className="row feild">
-                            <div className="col-6 ">
-                                <label className='label1'>Shop Name <span style={{ color: "red" }}> *</span></label><br />
-                                <input type="text" className="text-box" name="shop_name" value={shop.shop_name} onChange={handlechange} placeholder="Shop Name" />
-                            </div>
-                            <div className="col-6">
-                                <label className='label1'>Address <span style={{ color: "red" }}> *</span></label><br />
-                                <input type="text" className="text-box" placeholder="Shop address" name="address" value={shop.address} onChange={handlechange} />
-                            </div>
-                            <div className="col-6 pt-5">
-                                <label className='label1'>Saloon Gender type <span style={{ color: "red" }}> *</span></label><br />
-                                <input type="radio" className='radio' value="Male" onChange={handlegender} name="salon_gender_type" /> <label className='label'>Male</label>
-                                <input type="radio" style={{ marginLeft: "15px" }} className='radio' value="Female" onChange={handlegender} name="salon_gender_type" /> <label className='label'>Female</label>
-                                <input type="radio" style={{ marginLeft: "15px" }} className='radio' value="Both" onChange={handlegender} name="salon_gender_type" /> <label className='label'>Both</label>
-                            </div>
-                            <div className="col-6 pt-5">
-                                <label className='label1'>Capacity <span style={{ color: "red" }}> *</span></label><br />
-                                <input type="text" className="text-box" placeholder="Shop capacity" name="capacity_seats" value={shop.capacity_seats} onChange={handlechange} />
-                            </div>
-                            <div className="col-6 pt-5">
-                                <label className='label1'>Opening time <span style={{ color: "red" }}> *</span></label><br />
-                                <TimeField name="opening_time" value={shop.opening_time} onChange={handlechange} style={{ width: "15%", alignItems: "center", height: "45px", fontFamily: "Open Sans", fontSize: "18px", borderRadius: "2px", borderWidth: "1px", borderColor: "#b9b9b9", textAlign: "center" }} />
-                            </div>
-                            <div className="col-6 pt-5">
-                                <label className='label1'>Closing time <span style={{ color: "red" }}> *</span></label><br />
-                                <TimeField name="closing_time" value={shop.closing_time} onChange={handlechange} style={{ width: "15%", alignItems: "center", height: "45px", fontFamily: "Open Sans", fontSize: "18px", borderRadius: "2px", borderWidth: "1px", borderColor: "#b9b9b9", textAlign: "center" }} />
-
-                            </div>
-                            <div className='col-6 pt-5'>
-
-                                <label className='label1 rounded'>Select Location <span style={{ color: "red" }}> *</span></label>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <label className='label1 rounded'>Upload Images <span style={{ color: "red" }}> *</span></label><br />
-                                <Button style={{ fontSize: '10px', borderRadius: "4px" }} onClick={() => { setShow(true); }} >Set Location</Button>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                                <Button style={{ fontSize: '10px', borderRadius: "4px" }} onClick={() => setShowImagePicker(true)} >Upload Images</Button>
-                                
-                            </div>
-
-                            <div className='col-6 pt-5'>
-                                <label className='label1'>Verify Your account: </label><br />
-                                <input type="checkbox" onChange={handlecheckbox} /><label style={{ marginLeft: "10px" }} htmlFor="agree"> I verify my <b>credentials for shop </b> and <b>location</b> <span style={{ color: "red" }}>*</span></label><br />
-                                <button className='button' type="submit" disabled={!agree} onClick={() => { registerShop() }}>Verify</button>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-            </div> */}
+ 

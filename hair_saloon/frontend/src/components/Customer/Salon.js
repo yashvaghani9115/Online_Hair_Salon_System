@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
-import { Button, Modal } from 'react-bootstrap';
-import MapPicker from 'react-google-map-picker';
+import { Button } from 'react-bootstrap';
 
 
 function Salon({ salon, prefixLink }) {
@@ -25,6 +24,7 @@ function Salon({ salon, prefixLink }) {
                     <b>Shop Name : </b>{salon.shop_name}<br />
                     <b>Gender : </b> {salon.salon_gender_type}<br />
                     <b>Time : </b>{salon.opening_time} to {salon.closing_time}<br />
+                    <b>Seat Capacity : </b>{salon.capacity_seats}<br />
                 </p>
 
 
@@ -33,9 +33,11 @@ function Salon({ salon, prefixLink }) {
             <div className="col-md-4 mx-auto border-left" style={{ position: 'relative' }}>
                 <p style={{ fontSize: 'large', paddingLeft: '10px', overflowX: "auto" }}>
                     <b>Address : </b>{salon.address}<br />
-                    <b>Seat Capacity : </b>{salon.capacity_seats}<br />
                 </p>
+                <p>
                 <Button variant="outline-primary" style={{ position: 'absolute', bottom: '0px', right: "0px" }} onClick={bookSalon}><b>Check Now</b></Button>
+                </p>
+
             </div>
             
         </div>
