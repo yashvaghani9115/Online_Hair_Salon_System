@@ -6,10 +6,24 @@ import { Modal, Button } from 'react-bootstrap';
 import EditImageListModal from './EditImageListModal';
 import MapModal from './MapModal';
 
+import { MDBInput } from 'mdbreact';
+import { BsShop } from 'react-icons/bs';
+import { FaAddressCard } from 'react-icons/fa';
+import { MdOutlineReduceCapacity } from 'react-icons/md';
+
 const DefaultLocation = { lat: 21.101472400442564, lng: 72.82393134493594 };
 const DefaultZoom = 10;
 
 function EditShop() {
+    const style = {
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundImage: "url('/img/bg1.jpg')",
+        // height: "91vh"s
+    }
+
+
     const old_shop = JSON.parse(localStorage.getItem("shop"));
     const history = useHistory();
     const [showMap, setShowMap] = useState(false);
@@ -132,7 +146,18 @@ function EditShop() {
                     if (res.stat) {
                         // localStorage.setItem("shop", JSON.stringify(res.shop));
                         alert(res.message);
-                        history.push('/verification');
+                        if(res.shop.verified=="Accept")
+                        {
+                            history.push("/ownerHome")
+                        }
+                        else if(res.shop.verified=="Reject")
+                        {
+                            history.push("/verificationReject")
+                        }
+                        else
+                        {
+                            history.push('/verification');
+                        }
                     }
                     else {
                         alert(res.message);
@@ -185,72 +210,115 @@ function EditShop() {
                 </div>
                 </center>
                 :
-                <>
-                    <div className='main_box'>
-                        <div className='after-main'>
-                            <div className='container col-8 px-4 box'>
-                                <div className="header">Edit Shop</div>
-                                <div className="row feild">
-                                    <div className="col-6 ">
-                                        <label className='label1'>Shop Name <span style={{ color: "red" }}> *</span></label><br />
-                                        <input type="text" className="text-box" name="shop_name" value={shop.shop_name} onChange={handlechange} placeholder="Shop Name" />
+                <div className='main' style={style} >
+                    <div className='d-flex justify-content-center' style={{ textAlign: "center" }}>
+                        <div className='bg-white ' style={{ width: "150vh", minHeight: "75vh", borderRadius: "25px", boxShadow: "3px 3px rgb(33,37,41)" }} >
+
+                            <div className='mt-4 text-black'>
+                                <h1 >Edit Shop</h1>
+                            </div>
+                            <div className='row form-group ml-2 mt-3'>
+                                <div className='row'>
+                                    <div className='row col-md-6'>
+                                        <div className='col-auto mt-3'>
+                                            <BsShop size="27px" />
+                                        </div>
+                                        <div className="form-group col-10">
+                                            <MDBInput containerClass="text-left m-0" icon='' type="text" name="shop_name" value={shop.shop_name} onChange={handlechange} label="Shop Name" />
+                                        </div>
                                     </div>
-                                    <div className="col-6">
-                                        <label className='label1'>Address <span style={{ color: "red" }}> *</span></label><br />
-                                        <input type="text" className="text-box" placeholder="Shop address" name="address" value={shop.address} onChange={handlechange} />
+                                    <div className='row col-md-6'>
+
+                                        <div className='col-auto mt-3 '>
+                                            <FaAddressCard size='27px' />
+                                        </div>
+                                        <div className="form-group col-10">
+                                            <MDBInput containerClass="text-left m-0" label="Shop address" name="address" value={shop.address} onChange={handlechange} />
+                                        </div>
                                     </div>
-                                    <div className="col-6 pt-5">
-                                        <label className='label1'>Saloon Gender type <span style={{ color: "red" }}> *</span></label><br />
-                                        {shop.salon_gender_type == "Male" ?
-                                            <><input type="radio" className='radio' value="Male" defaultChecked onChange={handlegender} name="salon_gender_type" /> <label className='label'>Male</label></> :
-                                            <><input type="radio" className='radio' value="Male" onChange={handlegender} name="salon_gender_type" /> <label className='label'>Male</label></>
-                                        }
-                                        {shop.salon_gender_type == "Female" ?
-                                            <><input type="radio" className='radio' value="Female" defaultChecked onChange={handlegender} name="salon_gender_type" /> <label className='label'>Female</label></> :
-                                            <><input type="radio" className='radio' value="Female" onChange={handlegender} name="salon_gender_type" /> <label className='label'>Female</label></>
-                                        }
-                                        {shop.salon_gender_type == "Both" ?
-                                            <><input type="radio" className='radio' value="Both" defaultChecked onChange={handlegender} name="salon_gender_type" /> <label className='label'>Both</label></> :
-                                            <><input type="radio" className='radio' value="Both" onChange={handlegender} name="salon_gender_type" /> <label className='label'>Both</label></>
-                                        }
+                                </div>
+                                <div className='row'>
+                                    <div className='row col-md-6'>
+                                        <div className='col-1 mt-3'>
+                                            <MdOutlineReduceCapacity size="27px" />
+                                        </div>
+                                        <div className='col-10'>
+                                            <MDBInput containerClass="text-left mt-0 mb-5" type="number" label="Shop capacity" name="capacity_seats" value={shop.capacity_seats} onChange={handlechange} />
+                                        </div>
                                     </div>
-                                    <div className="col-6 pt-5">
-                                        <label className='label1'>Capacity <span style={{ color: "red" }}> *</span></label><br />
-                                        <input type="text" className="text-box" placeholder="Shop capacity" name="capacity_seats" value={shop.capacity_seats} onChange={handlechange} />
-                                    </div>
-                                    <div className="col-6 pt-5">
-                                        <label className='label1'>Opening time <span style={{ color: "red" }}> *</span></label><br />
-                                        <TimeField name="opening_time" value={shop.opening_time} onChange={handlechange} style={{ width: "15%", alignItems: "center", height: "45px", fontFamily: "Open Sans", fontSize: "18px", borderRadius: "2px", borderWidth: "1px", borderColor: "#b9b9b9", textAlign: "center" }} />
-                                    </div>
-                                    <div className="col-6 pt-5">
-                                        <label className='label1'>Closing time <span style={{ color: "red" }}> *</span></label><br />
-                                        <TimeField name="closing_time" value={shop.closing_time} onChange={handlechange} style={{ width: "15%", alignItems: "center", height: "45px", fontFamily: "Open Sans", fontSize: "18px", borderRadius: "2px", borderWidth: "1px", borderColor: "#b9b9b9", textAlign: "center" }} />
+                                    <div className='row mt-3 col-md-6'>
+                                        <div className='col-4'>
+                                            <label>Gender Type : </label>
+                                        </div>
+                                        <div className='col-8'>
+                                            {shop.salon_gender_type == "Male" ?
+                                                <span className="col-auto"><input type="radio" className='form-check-input' value="Male" onChange={handlegender} defaultChecked name="salon_gender_type" /> Male</span> :
+                                                <span className="col-auto"><input type="radio" className='form-check-input' value="Male" onChange={handlegender} name="salon_gender_type" /> Male</span>
+                                            }
+                                            {shop.salon_gender_type == "Female" ?
+                                                <span className="col-auto"><input type="radio" className='form-check-input' value="Female" onChange={handlegender} defaultChecked name="salon_gender_type" /> Female</span> :
+                                                <span className="col-auto"><input type="radio" className='form-check-input' value="Female" onChange={handlegender} name="salon_gender_type" /> Female</span>
+                                            }
+                                            {shop.salon_gender_type == "Both" ?
+                                                <span className="col-auto"><input type="radio" className='form-check-input' value="Both" onChange={handlegender} defaultChecked name="salon_gender_type" /> Both</span> :
+                                                <span className="col-auto"><input type="radio" className='form-check-input' value="Both" onChange={handlegender} name="salon_gender_type" /> Both</span>
+                                            }
+                                        </div>
 
                                     </div>
-                                    <div className='col-6 pt-5'>
+                                    <div className='row'>
+                                        <div className='row col-md-6'>
+                                            <div className='col-6'>
 
-                                        <label className='label1 rounded'>Select Location <span style={{ color: "red" }}> *</span></label>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <label className='label1 rounded'>Upload Images <span style={{ color: "red" }}> *</span></label><br />
+                                                <label>Opening Time :</label>
+                                            </div>
+                                            <div className='col-6'>
 
-                                        <Button style={{ fontSize: '10px', borderRadius: "4px" }} onClick={() => { setDefaultLoc(); setShowMap(true); }} >Set Location</Button>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <span><TimeField name="opening_time" value={shop.opening_time} onChange={handlechange} style={{ width: "30%", height: "45px", fontFamily: "Open Sans", fontSize: "18px" }} /></span>
+                                            </div>
 
-                                        <Button style={{ fontSize: '10px', borderRadius: "4px" }} onClick={() => setShowImagePicker(true)} >Upload Images</Button>
+                                        </div>
+                                        <div className='row col-md-6'>
+                                            <div className='col-6'>
+
+                                                <label>Closing time :</label>
+                                            </div>
+                                            <div className='col-6'>
+
+                                                <span ><TimeField name="closing_time" value={shop.closing_time} onChange={handlechange} style={{ width: "30%", height: "45px", fontFamily: "Open Sans", fontSize: "18px" }} /></span>
+                                            </div>
+
+                                        </div>
+                                        <div className='row col-md-6 mt-4'>
+                                            <div className='col-6'>
+
+                                                <label>Select Location :</label>
+                                            </div>
+                                            <div className='col-6'>
+                                                <Button style={{ fontSize: '10px', borderRadius: "4px" }} onClick={() => { setShowMap(true); }} >Set Location</Button>
+                                            </div>
+
+                                        </div>
+                                        <div className='row col-md-6 mt-4' >
+                                            <div className='col-6'>
+
+                                                <label>Upload Images :</label>
+                                            </div>
+                                            <div className='col-6'>
+                                                <Button style={{ fontSize: '10px', borderRadius: "4px" }} onClick={() => setShowImagePicker(true)} >Upload Images</Button>
+                                            </div>
+
+                                        </div>
+                                        <div className='row mt-5' >
+                                            <div className='text-center'>
+                                                <input type="checkbox" className='form-check-input' onChange={handlecheckbox} /><label htmlFor="agree"> I verify my <b>credentials for shop </b> and <b>location</b> <span style={{ color: "red" }}>*</span></label><br />
+                                                <Button className='col-6' type="submit" style={{ borderRadius: "20px", color: "white" }} variant='blue' disabled={!agree} onClick={editShop}>Edit</Button>
+
+                                            </div>
+
+                                        </div>
 
                                     </div>
-
-                                    <div className='col-6 pt-5'>
-                                        <label className='label1'>Verify Your account: </label><br />
-                                        <input type="checkbox" onChange={handlecheckbox} />
-                                        <label style={{ marginLeft: "10px" }} htmlFor="agree"> I verify my <b>credentials for shop </b> and <b>location</b>
-                                            <span style={{ color: "red" }}>*</span>
-                                        </label><br />
-                                        <button className='button' type="submit" disabled={!agree} onClick={() => { editShop() }}>Verify</button>
-                                    </div>
-
-
 
                                 </div>
                             </div>
@@ -266,7 +334,7 @@ function EditShop() {
                             <MapModal show={showMap} setShow={setShowMap} zoom={zoom} setZoom={setZoom} handleChangeLocation={handleChangeLocation} handleResetLocation={handleResetLocation} shop={shop} updationflag={updationflag} setUpdationFlag={setUpdationFlag} />
                         </>
                     </div>
-                </>
+                </div>
             }
         </>
 

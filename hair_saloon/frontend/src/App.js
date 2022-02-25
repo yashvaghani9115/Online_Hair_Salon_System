@@ -14,6 +14,7 @@ import OwnerService from './components/Owner/service/OwnerService';
 import AdminLogin from './components/Admin/adminLogin';
 import AdminPage from './components/Admin/adminPage';
 import VerificationPage from './components/Owner/VerificationPage';
+import VerificationRejected from './components/Owner/VerificationRejected';
 import ListSalons from './components/Customer/ListSalons';
 import OwnerHome from './components/Owner/OwnerHome';
 import Barbermanagement from './components/Owner/BarberManagement';
@@ -45,6 +46,7 @@ function App() {
           <ProtectedRouteOwner path="/shopregister" component={ShopRegister} />
           <ProtectedRouteOwner path="/editShop" component={EditShop} />
           <ProtectedRouteOwner path="/verification" component={() => { return <VerificationPage  /> }} />
+          <ProtectedRouteOwner path="/verificationReject" component={() => { return <VerificationRejected  /> }} />
           <ProtectedRouteOwner path="/ownerHome" component={OwnerHome} />
           <ProtectedRouteOwner path="/barbermanagement" component={Barbermanagement} />
           <ProtectedRouteOwner path="/ownerHeader" component={OwnerHeader} />
