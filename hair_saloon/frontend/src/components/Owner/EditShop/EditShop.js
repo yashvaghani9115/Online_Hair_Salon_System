@@ -204,8 +204,8 @@ function EditShop() {
         <>
             {!response ?
                 <center><div className="spinner-border text-primary " role="status">
-                    <span className="sr-only text-black">Loading...</span>
                 </div>
+                    <span className="text-white">Loading...</span>
                 </center>
                 :
                 <div className='main' style={style} >

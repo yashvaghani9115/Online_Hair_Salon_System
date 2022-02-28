@@ -14,8 +14,11 @@ function ListSalons() {
     // const history = useHistory();
     const [salonList, setsalonList] = useState([]);
     const [prefixLink, setPrefixLink] = useState('');
+    const [response, setResponse] = useState(true);
+
 
     async function fetchSalonList(lon, lat) {
+        setResponse(false);
         var res = await fetch("http://localhost:9700/customer/listShops", {
             method: "POST",
             headers: {
@@ -39,6 +42,7 @@ function ListSalons() {
             if (res.stat) {
                 setsalonList(res.shops);
                 setPrefixLink(res.prefix_link);
+                setResponse(true);
             } else {
                 // setHeader("Invalid");
                 // setMsg(res.message);
@@ -76,9 +80,17 @@ function ListSalons() {
                     Near By Salon
                 </h1>
             </Card.Header>
+            {!response ?
+                <center>
+                    <div className="spinner-border text-primary mt-5" role="status"></div>
+                    <span className="text-white">Loading...</span>
+
+                </center>
+                :
             <div className="container mt-5" style={{ width: '60vw' }}>
                 {salonList.map((s, index) => <Salon key={index} salon={s}  prefixLink={prefixLink} />)}
             </div>
+            }   
 
         </div>
     )

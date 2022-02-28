@@ -3,7 +3,6 @@ import { Button } from 'react-bootstrap';
 import { MDBInput } from 'mdbreact';
 import { Modal } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-import auth from '../Auth/auth';
 import Joi from 'joi-browser';
 
 
