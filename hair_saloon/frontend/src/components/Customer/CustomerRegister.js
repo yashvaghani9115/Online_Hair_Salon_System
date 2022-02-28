@@ -5,6 +5,7 @@ import { MDBInput } from 'mdbreact';
 import { Modal } from 'react-bootstrap';
 import { FaUserCircle } from 'react-icons/fa';
 import Joi from 'joi-browser';
+import ModalInterface from '../Modal/ModalInterface';
 
 
 function CustomerRegister({ setLogin }) {
@@ -228,22 +229,7 @@ function CustomerRegister({ setLogin }) {
                         <br />
                         <Button type='submit' className='col-6' style={{ borderRadius: "20px" ,color:"white"}} variant="blue" onClick={validateForm}>Register</Button>
                     </form>
-                    <Modal
-                        size="md"
-                        show={show}
-                        onHide={() => setShow(false)}
-
-                    >
-                        <Modal.Header closeButton>
-                            <Modal.Title id="example-modal-sizes-title-sm">
-                                {header}
-                            </Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body className='bg-light'>{msg}</Modal.Body>
-                        <Modal.Footer>
-                            <Button style={{ borderRadius: "20px" }} onClick={() => setShow(false)}>Close</Button>
-                        </Modal.Footer>
-                    </Modal>
+                    <ModalInterface show={show} setShow={setShow} header={header} msg={msg} />
                     <p className="text-right">
                         <br />
                         Already Loged In Click <a href='/customerlogin'>Here</a>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Table, Card, Nav, Modal, Dropdown } from 'react-bootstrap';
 import { MDBInput } from 'mdbreact';
 import OwnerSidebar from '../OwnerSidebar';
+import ModalInterface from '../../Modal/ModalInterface';
 
 
 function OwnerService() {
@@ -9,6 +10,9 @@ function OwnerService() {
     const [print_list, Setprintlist] = useState([]);
     const [show, setShow] = useState(false);
     const [header, setHeader] = useState("");
+    const [modalheader,setModalheader] = useState("");
+    const [modalmsg,setModalmsg] = useState("");
+    const [modalshow, setModalshow] = useState(false);
     const [service, setService] = useState({
         service_name: "",
         price: 0,
@@ -49,9 +53,9 @@ function OwnerService() {
 
         if (res.wentWrong) {
             alert(res.message);
-            // setHeader("Something Wrong");
-            // setMsg(res.message);
-            // setShow(true);
+            setModalheader("Something Wrong");
+            setModalmsg(res.message);
+            setModalshow(true);
         } else {
             if (res.stat) {
                 // let shop = {name:res.shoplist[0].owner_id,location:res.shoplist[0].location_id,gender:res.shoplist[0].salon_gender_type,shop_name:res.shoplist[0].shop_name};
@@ -92,9 +96,9 @@ function OwnerService() {
 
 
             } else {
-                // setHeader("Invalid");
-                // setMsg(res.message);
-                // setShow(true);
+                setModalheader("Invalid");
+            setModalmsg("Something went wrong");
+            setModalshow(true);
             }
         }
     }
@@ -126,13 +130,17 @@ function OwnerService() {
                 // setHeader("Something Wrong");
                 setShow(false);
 
-                alert(res.message);
+                setModalheader("Something Wrong");
+                setModalmsg(res.message);
+                setModalshow(true);
                 // setShow(true);
             } else {
                 if (res.stat) {
                     //   setHeader("Success");
                     setHeader(false)
-                    alert(res.message);
+                    setModalheader("Success");
+                    setModalmsg(res.message);
+                    setModalshow(true);
                     window.location.reload(true);
 
 
@@ -141,14 +149,19 @@ function OwnerService() {
                 } else {
                     //   setHeader("Invalid");
                     setHeader(false);
-                    alert(res.message);
+                    setModalheader("Invalid");
+                    setModalmsg(res.message);
+                    setModalshow(true);
 
                     //   setShow(true);
                 }
             }
         } else {
             //   setHeader("Invalid");
-            alert("Input Field can't be blank");
+            setShow(false);
+            setModalheader("Invalid");
+            setModalmsg("Input fields can't be blank.");
+            setModalshow(true);
             //   setShow(true);
         }
     }
@@ -182,13 +195,17 @@ function OwnerService() {
             if (res.wentWrong) {
                 // alert(res.message);
                 setShow(false);
-                alert("Something Wrong");
+                setModalheader("Something Wrong");
+                setModalmsg(res.message);
+                setModalshow(true);
             }
             else {
                 if (res.stat) {
                     // alert(res.message);
                     setShow(false);
-                    alert("Edit success");
+                    setModalheader("Success");
+                    setModalmsg(res.message);
+                    setModalshow(true);
                     setService({ ...dservice });
                     window.location.reload(true);
 
@@ -197,13 +214,17 @@ function OwnerService() {
                 else {
                     // alert(res.message);
                     setShow(false);
-                    alert(res.message);
+                    setModalheader("Invalid");
+                    setModalmsg(res.message);
+                    setModalshow(true);
                 }
             }
         }
         else {
             setShow(false);
-            alert("Input fields can't be blank.");
+            setModalheader("Invalid");
+            setModalmsg("Input fields can't be blank.");
+            setModalshow(true);
         }
     }
     async function deleteservice(s) {
@@ -216,25 +237,32 @@ function OwnerService() {
 
             res = await res.json();
             if (res.wentWrong) {
-                // alert(res.message);
-                alert("Something Wrong");
+                setModalheader("Something Wrong");
+                setModalmsg(res.message);
+                setModalshow(true);
             }
             else {
                 if (res.stat) {
                     // alert(res.message);
-                    alert("Delete Success");
+                    setModalheader("Success");
+                    setModalmsg(res.message);
+                    setModalshow(true);
                     window.location.reload(true);
                     // history.push('/');
                 }
                 else {
                     // alert(res.message);
-                    alert(res.message);
+                    setModalheader("Invalid");
+                    setModalmsg(res.message);
+                    setModalshow(true);
                 }
             }
         }
         else {
             setShow(false);
-            alert("Input fields can't be blank.");
+            setModalheader("Invalid");
+            setModalmsg("Input fields can't be blank.");
+            setModalshow(true);
         }
     }
     async function set_list(cat) {
@@ -365,6 +393,8 @@ function OwnerService() {
                                 </Card.Text>
                             </Card.Body>
                         </Card>
+                    <ModalInterface show={modalshow} setShow={setModalshow} header={modalheader} msg={modalmsg} />
+
                         <Modal
                             size="lg"
                             show={show}

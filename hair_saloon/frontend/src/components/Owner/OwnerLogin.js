@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap';
 import { MDBInput } from 'mdbreact';
 import { Modal } from 'react-bootstrap';
 import Joi from 'joi-browser';
+import ModalInterface from '../Modal/ModalInterface';
 
 
 function OwnerLogin({ setLogin }) {
@@ -190,22 +191,7 @@ function OwnerLogin({ setLogin }) {
 
                         <Button variant="blue" type="submit" style={{ borderRadius: "20px", color: "white" }} className='col-6' onClick={validateForm}>Log in</Button>
                     </form>
-                    <Modal
-                        size="md"
-                        show={show}
-                        onHide={() => setShow(false)}
-
-                    >
-                        <Modal.Header closeButton>
-                            <Modal.Title id="example-modal-sizes-title-sm">
-                                {header}
-                            </Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body className='bg-light'>{msg}</Modal.Body>
-                        <Modal.Footer>
-                            <Button style={{ borderRadius: "20px" }} onClick={() => setShow(false)}>Close</Button>
-                        </Modal.Footer>
-                    </Modal>
+                    <ModalInterface show={show} setShow={setShow} header={header} msg={msg} />
 
                     <p className="text-right text-dark">
                         <br />

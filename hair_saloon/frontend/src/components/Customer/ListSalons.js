@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 // import { useHistory } from "react-router-dom";
 import { Card } from "react-bootstrap";
+import ModalInterface from "../Modal/ModalInterface";
 import Salon from "./Salon";
 
 function ListSalons() {
+    const [show, setShow] = useState(false);
+    const [header, setHeader] = useState("");
+    const [msg, setMsg] = useState("");
     const style = {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -34,19 +38,18 @@ function ListSalons() {
         res = await res.json();
 
         if (res.wentWrong) {
-            alert(res.message);
-            // setHeader("Something Wrong");
-            // setMsg(res.message);
-            // setShow(true);
+            setHeader("Something Wrong");
+            setMsg(res.message);
+            setShow(true);
         } else {
             if (res.stat) {
                 setsalonList(res.shops);
                 setPrefixLink(res.prefix_link);
                 setResponse(true);
             } else {
-                // setHeader("Invalid");
-                // setMsg(res.message);
-                // setShow(true);
+                setHeader("Invalid");
+                setMsg(res.message);
+                setShow(true);
             }
         }
 
@@ -58,11 +61,10 @@ function ListSalons() {
     }
 
     function failAccess() {
-        // setHeader("Fail to Access");
-        // setMsg(`Unable to access your location !
-        // Please enable it`);
-        // setShow(true);
-        alert("failed , please enable location access!")
+        setHeader("Fail to Access");
+        setMsg(`Unable to access your location !
+        Please enable it`);
+        setShow(true);
     }
     function getPosInState(position) {
         // console.log(position.coords.longitude);
@@ -91,6 +93,8 @@ function ListSalons() {
                 {salonList.map((s, index) => <Salon key={index} salon={s}  prefixLink={prefixLink} />)}
             </div>
             }   
+            <ModalInterface show={show} setShow={setShow} header={header} msg={msg} />
+
 
         </div>
     )
