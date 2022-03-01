@@ -41,7 +41,7 @@ function Barber({ b,selectedSalon }) {
                 <Card.Body>
                     <Card.Title>
                         <div >
-                            Your Turn :  <Badge bg="dark">{b.customer_ids.length + 1}</Badge>
+                            No. In Queue :  <Badge bg="dark">{b.customer_ids.length + 1}</Badge>
                         </div>
                     </Card.Title>
                     <Card.Text style={{fontSize:"12px"}}>

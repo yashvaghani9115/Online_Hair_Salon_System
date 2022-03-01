@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Redirect, Route, useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { MDBInput } from 'mdbreact';
 import { Modal } from 'react-bootstrap';
 import { FaUserCircle } from 'react-icons/fa';
 import Joi from 'joi-browser';
 import ModalInterface from '../../Modal/ModalInterface';
+import Verification from './Verification';
 
 
 function CustomerRegister({ setLogin }) {
@@ -13,13 +14,14 @@ function CustomerRegister({ setLogin }) {
     const [show, setShow] = useState(false);
     const [header, setHeader] = useState("");
     const [msg, setMsg] = useState("");
-
+    // const correctOtp = useState();
     const [customer, setCustomer] = useState({
         name: "",
         mobile_num: "",
         email: "",
         password: "",
-        cpassword: ""
+        cpassword: "",
+        otp:Math.floor(Math.random() * (9999 - 1111 + 1)) + 1111
     })
     const style = {
         backgroundPosition: "center",
@@ -35,7 +37,8 @@ function CustomerRegister({ setLogin }) {
         mobile_num: Joi.string().length(10).regex(/^[0-9]+$/).label('Mobile number'),
         email: Joi.string().email().required().label('Email'),
         password: Joi.string().min(8).required().label('Password'),
-        cpassword: Joi.string().min(8).required().label('Confirm Password')
+        cpassword: Joi.string().min(8).required().label('Confirm Password'),
+        otp:Joi.number().required().label('Otp')
     };
 
     const validateForm = (event) => {
@@ -45,7 +48,9 @@ function CustomerRegister({ setLogin }) {
         console.log(result);
         const { error } = result;
         if (!error) {
-            register();
+            sendMail()
+            localStorage.setItem('before_verification',JSON.stringify(customer));
+            history.push("/otpVerification")
             console.log("register called");
             return null;
         } else {
@@ -72,14 +77,41 @@ function CustomerRegister({ setLogin }) {
         const { error } = result;
         return error ? error.details[0].message : null;
     };
+    async function sendMail() {
+        var res = await fetch("http://localhost:9700/customer/sendmail", {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                otp: customer.otp,
+                cust_mail: customer.email
+            })
+        })
+        res = await res.json();
+        console.log(res)
+        if (res.wentWrong) {
+            alert(res.message);
+        }
+        else {
+            if (res.stat) {
+                alert(res.message);
+                // setLogin(true);
+                // setHeader("Success");
+                // setMsg(res.message);
+                // setShow(true);
 
-
-
-
-
-
-    //validation end
-
+                // history.push('/');
+            }
+            else {
+                alert(res.message);
+                // setHeader("Invalid");
+                // setMsg(res.message);
+                // setShow(true);
+            }
+        }
+    }
 
     function handlechange(e) {
         const { name, value } = e.target;
@@ -121,61 +153,7 @@ function CustomerRegister({ setLogin }) {
     // useEffect(() => {
     //     getLocation();
     // }, []);
-    async function register() {
-
-        const { name, mobile_num, email, password } = customer;
-        console.log(customer);
-        if (name && mobile_num && email && password) {
-            var res = await fetch("http://localhost:9700/customer/customerRegister", {
-                method: "POST",
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    name: name,
-                    email: email,
-                    mobile_num: mobile_num,
-                    password: password
-                })
-            })
-
-            res = await res.json();
-            console.log(res)
-            if (res.wentWrong) {
-                // alert(res.message);
-                setHeader("Something Wrong");
-                setMsg(res.message);
-                setShow(true);
-            }
-            else {
-                if (res.stat) {
-                    localStorage.setItem("customer", JSON.stringify(res.customer));
-                    // alert(res.message);
-                    setLogin(true);
-                    setHeader("Success");
-                    setMsg(res.message);
-                    setShow(true);
-                    
-                    history.push('/');
-                }
-                else {
-                    // alert(res.message);
-                    setHeader("Invalid");
-                    setMsg(res.message);
-                    setShow(true);
-                }
-            }
-        }
-        else {
-            setHeader("Invalid");
-            setMsg("Input fields can't be blank.");
-            setShow(true);
-        }
-
-    }
-
-    return (
+        return (
         <div className='main' style={style}>
             <div className='d-flex justify-content-center '>
                 <div className='col-lg-5 bg-white ' style={{ borderRadius: "25px", boxShadow: "3px 3px rgb(33,37,41)" }} >
@@ -184,7 +162,7 @@ function CustomerRegister({ setLogin }) {
                         <h1 > Customer SignUp</h1>
 
                     </div>
-                    <form className="ui form">
+                    {/* <form className="ui form"> */}
                         <div className="form-group col-auto">
                             <MDBInput containerClass="text-left" icon='user' label="Email Address" type="text" name="email" value={customer.email} onChange={handlechange} />
                         </div>
@@ -227,8 +205,8 @@ function CustomerRegister({ setLogin }) {
                             </div>
                         )}
                         <br />
-                        <Button type='submit' className='col-6' style={{ borderRadius: "20px" ,color:"white"}} variant="blue" onClick={validateForm}>Register</Button>
-                    </form>
+                        <Button  className='col-6' style={{ borderRadius: "20px" ,color:"white"}} variant="blue" onClick={validateForm}>Register</Button>
+                    {/* </form> */}
                     <ModalInterface show={show} setShow={setShow} header={header} msg={msg} />
                     <p className="text-right">
                         <br />

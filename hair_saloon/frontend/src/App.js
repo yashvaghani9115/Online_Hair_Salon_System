@@ -24,6 +24,7 @@ import { ProtectedRouteAdmin, ProtectedRouteCust, ProtectedRouteOwner } from './
 import NotFound from './components/NotFound/notfound';
 import CustomerOrders from './components/Customer/Orders/orders';
 import EditShop from './components/Owner/EditShop/EditShop';
+import Verification from './components/Customer/Authentication/Verification';
 
 function App() {
   const [login, setLogin] = useState(false);
@@ -54,6 +55,7 @@ function App() {
           {/* Customer */}
           <Route path="/customerregister" component={() => { return <CustomerRegister setLogin={setLogin} /> }} />
           <Route path="/customerlogin"  component={()=>{return <CustomerLogin setLogin={setLogin} />}} />
+          <Route path="/otpVerification"  component={()=>{return <Verification setLogin={setLogin} />}} />
           <ProtectedRouteCust path="/booksalon" component={BookSalon} />
           <ProtectedRouteCust path="/orders" component={CustomerOrders} />
           <Route path="*" component={NotFound} />
