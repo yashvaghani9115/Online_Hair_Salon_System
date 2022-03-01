@@ -4,23 +4,22 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
 
-import CustomerLogin from './components/Customer/CustomerLogin';
-import CustomerRegister from './components/Customer/CustomerRegister';
+import CustomerLogin from './components/Customer/Authentication/CustomerLogin';
+import CustomerRegister from './components/Customer/Authentication/CustomerRegister';
 import Header from './components/Header/Header';
-import OwnerLogin from './components/Owner/OwnerLogin';
-import OwnerRegister from './components/Owner/OwnerRegister';
-import ShopRegister from './components/Owner/ShopRegister';
+import OwnerLogin from './components/Owner/Authentication/OwnerLogin';
+import OwnerRegister from './components/Owner/Authentication/OwnerRegister';
+import ShopRegister from './components/Owner/Authentication/ShopRegister';
 import OwnerService from './components/Owner/service/OwnerService';
 import AdminLogin from './components/Admin/adminLogin';
 import AdminPage from './components/Admin/adminPage';
-import VerificationPage from './components/Owner/VerificationPage';
-import VerificationRejected from './components/Owner/VerificationRejected';
-import ListSalons from './components/Customer/ListSalons';
-import OwnerHome from './components/Owner/OwnerHome';
-import Barbermanagement from './components/Owner/BarberManagement';
-import OwnerHeader from './components/Owner/OwnerHeader';
+import VerificationPage from './components/Owner/Authentication/VerificationPage';
+import VerificationRejected from './components/Owner/Authentication/VerificationRejected';
+import ListSalons from './components/Customer/Home/ListSalons';
+import OwnerHome from './components/Owner/Home/OwnerHome';
+import Barbermanagement from './components/Owner/Barber/BarberManagement';
+import OwnerHeader from './components/Owner/Authentication/OwnerHeader';
 import BookSalon from './components/Customer/BookSalon/BookSalon';
-import AddService from './components/Owner/service/AddService';
 import { ProtectedRouteAdmin, ProtectedRouteCust, ProtectedRouteOwner } from './components/Auth/protected';
 import NotFound from './components/NotFound/notfound';
 import CustomerOrders from './components/Customer/Orders/orders';
@@ -51,7 +50,6 @@ function App() {
           <ProtectedRouteOwner path="/barbermanagement" component={Barbermanagement} />
           <ProtectedRouteOwner path="/ownerHeader" component={OwnerHeader} />
           <ProtectedRouteOwner path="/ownerService" component={OwnerService} />
-          <ProtectedRouteOwner path="/addService" component={AddService} />
 
           {/* Customer */}
           <Route path="/customerregister" component={() => { return <CustomerRegister setLogin={setLogin} /> }} />

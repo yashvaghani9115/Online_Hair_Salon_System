@@ -5,7 +5,7 @@ import { MDBInput } from 'mdbreact';
 import { Modal } from 'react-bootstrap';
 import { FaUserCircle } from 'react-icons/fa';
 import Joi from 'joi-browser';
-import ModalInterface from '../Modal/ModalInterface';
+import ModalInterface from '../../Modal/ModalInterface';
 
 
 function CustomerRegister({ setLogin }) {

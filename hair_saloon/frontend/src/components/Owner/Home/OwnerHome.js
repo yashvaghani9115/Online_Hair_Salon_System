@@ -164,7 +164,7 @@ function OwnerHome() {
                             </Card.Header>
                             <Card.Body style={{ height: "60vh", overflow: "auto" }}>
                                 <Card.Text >
-                                    {customerList.length===0 ? <div className='form-control text-center text-danger'>Customer not found</div> : customerList.map((c, index) => <>
+                                    {customerList.length===0 ? <div className='form-control text-center text-dark'>Customer not found</div> : customerList.map((c, index) => <>
                                         <div className="container ml-0 " style={{ position: 'relative' }}>
                                         <div className="row border my-2" style={{ backgroundColor: '#e3e3e3' }}>
                                             <div className="row mb-2 mt-3">

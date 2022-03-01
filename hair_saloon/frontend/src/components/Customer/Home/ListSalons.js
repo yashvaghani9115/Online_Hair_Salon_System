@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 // import { useHistory } from "react-router-dom";
 import { Card,Nav } from "react-bootstrap";
-import ModalInterface from "../Modal/ModalInterface";
+import ModalInterface from "../../Modal/ModalInterface";
 import Salon from "./Salon";
 
 function ListSalons() {
@@ -81,8 +81,9 @@ function ListSalons() {
 
     return (
         <div style={style}>
-            <center><Card.Header  style={{width:"60%"}}>
-                <Nav variant="pills" defaultActiveKey="Both">
+           <center><Card.Header  style={{width:"60%"}}>
+            
+                <Nav variant="pills" defaultActiveKey="Both" className="justify-content-center">
                     <Nav.Item>
                         <Nav.Link onClick={() => { set_list("Both") }} eventKey="Both" >Both</Nav.Link>
                     </Nav.Item>
@@ -96,9 +97,10 @@ function ListSalons() {
                 </Nav>
             </Card.Header>
             </center>
+           
             {!response ?
                 <center>
-                    <div style={{ width: "50px", height: "50px" }} className="spinner-border text-primary mt-5 mr-3" role="status"></div>
+                    <div style={{ width: "50px", height: "50px" }} className="spinner-border text-primary mt-3 mr-3" role="status"></div>
                     <span className="text-white">Loading...</span>
 
                 </center>

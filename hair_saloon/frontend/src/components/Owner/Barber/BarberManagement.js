@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import OwnerSidebar from './OwnerSidebar';
+import OwnerSidebar from '../Home/OwnerSidebar';
 import { Navbar, Container, Button, Table } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 import { MDBInput } from 'mdbreact';
-import ModalInterface from '../Modal/ModalInterface';
+import ModalInterface from '../../Modal/ModalInterface';
 
 function Barbermanagement() {
     const [show, setShow] = useState(false);

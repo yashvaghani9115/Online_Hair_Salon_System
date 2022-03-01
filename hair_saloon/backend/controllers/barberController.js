@@ -9,7 +9,12 @@ export const addBarber = async (req, res) => {
 
     let barber = await Barber.findOne({email:email});
     let shop = await Shop.findOne({owner_id:owner_id});
-
+    if(shop.capacity_seats<shop.barber_ids.length+1){
+      res.json({
+        stat: false,
+        message: "You cann't add barber more than capacity of salon",
+      });
+    }
     if(barber){
         res.json({
             stat: false,

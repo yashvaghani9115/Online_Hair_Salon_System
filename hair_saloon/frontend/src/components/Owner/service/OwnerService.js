@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Table, Card, Nav, Modal, Dropdown } from 'react-bootstrap';
 import { MDBInput } from 'mdbreact';
-import OwnerSidebar from '../OwnerSidebar';
+import OwnerSidebar from '../Home/OwnerSidebar';
 import ModalInterface from '../../Modal/ModalInterface';
 
 

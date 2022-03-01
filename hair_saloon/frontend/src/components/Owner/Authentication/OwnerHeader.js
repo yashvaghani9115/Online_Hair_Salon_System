@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import OwnerRegister from "./OwnerRegister";
-import ShopRegister from "./ShopRegister";
+import OwnerRegister from "../Authentication/OwnerRegister";
+import ShopRegister from "../Authentication/ShopRegister";
 function OwnerHeader() {
   const [state, setState] = useState(1);
 
