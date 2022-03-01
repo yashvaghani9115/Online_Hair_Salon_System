@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import TimeField from 'react-simple-timefield';
-import './ShopRegister.css';
 import { Modal, Button } from 'react-bootstrap';
 import EditImageListModal from './EditImageListModal';
 import MapPicker from 'react-google-map-picker';

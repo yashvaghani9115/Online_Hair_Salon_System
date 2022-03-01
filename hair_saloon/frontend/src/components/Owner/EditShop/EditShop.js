@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import TimeField from 'react-simple-timefield';
-import './ShopRegister.css';
 import { Modal, Button } from 'react-bootstrap';
 import EditImageListModal from './EditImageListModal';
 import MapModal from './MapModal';
@@ -139,12 +138,14 @@ function EditShop() {
 
                 res = await res.json();
                 setResponse(true);
+                // console.log(res.shop);
                 if (res.wentWrong) {
                     alert(res.message);
                 }
                 else {
                     if (res.stat) {
-                        // localStorage.setItem("shop", JSON.stringify(res.shop));
+                        localStorage.removeItem("shop");
+                        localStorage.setItem("shop",JSON.stringify(res.shop));
                         alert(res.message);
                      
                         if(shop.verified=="Accept")
@@ -203,8 +204,8 @@ function EditShop() {
         <>
             {!response ?
                 <center><div className="spinner-border text-primary " role="status">
-                    <span className="sr-only text-black">Loading...</span>
                 </div>
+                    <span className="text-white">Loading...</span>
                 </center>
                 :
                 <div className='main' style={style} >

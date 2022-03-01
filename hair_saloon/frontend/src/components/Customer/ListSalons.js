@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 // import { useHistory } from "react-router-dom";
-import { Card } from "react-bootstrap";
+import { Card,Nav } from "react-bootstrap";
 import ModalInterface from "../Modal/ModalInterface";
 import Salon from "./Salon";
 
@@ -17,9 +17,13 @@ function ListSalons() {
     }
     // const history = useHistory();
     const [salonList, setsalonList] = useState([]);
+    const [filterList, setFilterList] = useState([]);
     const [prefixLink, setPrefixLink] = useState('');
+    const [response, setResponse] = useState(true);
+
 
     async function fetchSalonList(lon, lat) {
+        setResponse(false);
         var res = await fetch("http://localhost:9700/customer/listShops", {
             method: "POST",
             headers: {
@@ -41,7 +45,9 @@ function ListSalons() {
         } else {
             if (res.stat) {
                 setsalonList(res.shops);
+                setFilterList(res.shops.filter((x) => x.salon_gender_type === "Both"))
                 setPrefixLink(res.prefix_link);
+                setResponse(true);
             } else {
                 setHeader("Invalid");
                 setMsg(res.message);
@@ -55,7 +61,9 @@ function ListSalons() {
             navigator.geolocation.getCurrentPosition(getPosInState, failAccess);
         }
     }
-
+    function set_list(gender) {
+        setFilterList(salonList.filter((x) => x.salon_gender_type === gender))
+    }
     function failAccess() {
         setHeader("Fail to Access");
         setMsg(`Unable to access your location !
@@ -73,14 +81,39 @@ function ListSalons() {
 
     return (
         <div style={style}>
-            <Card.Header style={{ backgroundColor: "#d8d8d8", textAlign: "center" }}>
-                <h1>
-                    Near By Salon
-                </h1>
+            <center><Card.Header  style={{width:"60%"}}>
+                <Nav variant="pills" defaultActiveKey="Both">
+                    <Nav.Item>
+                        <Nav.Link onClick={() => { set_list("Both") }} eventKey="Both" >Both</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link onClick={() => { set_list("Male") }} eventKey="Male">Male</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link onClick={() => { set_list("Femate") }} eventKey="Female" >Female</Nav.Link>
+                    </Nav.Item>
+                    
+                </Nav>
             </Card.Header>
-            <div className="container mt-5" style={{ width: '60vw' }}>
-                {salonList.map((s, index) => <Salon key={index} salon={s}  prefixLink={prefixLink} />)}
-            </div>
+            </center>
+            {!response ?
+                <center>
+                    <div style={{ width: "50px", height: "50px" }} className="spinner-border text-primary mt-5 mr-3" role="status"></div>
+                    <span className="text-white">Loading...</span>
+
+                </center>
+                :
+                <div className="container " style={{ width: '60vw' }}>
+                    {filterList.length == 0 ?
+                    <div>
+                        <h4 className="form-control mt-5">
+                            No Salon Found
+                        </h4>
+                    </div>
+                    :
+                    filterList.map((s, index) => <Salon key={index} salon={s} prefixLink={prefixLink} />)}
+                </div>
+            }
             <ModalInterface show={show} setShow={setShow} header={header} msg={msg} />
 
 

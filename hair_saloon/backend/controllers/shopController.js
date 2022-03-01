@@ -84,7 +84,7 @@ export const editShop = async (req, res) => {
         }
         await shop.set({shop_name:shop_name, address:address, opening_time:opening_time, closing_time:closing_time, salon_gender_type:salon_gender_type,verified:status, capacity_seats:capacity_seats,images_pub_ids:images_ids_array});   
         await shop.save();
-        res.json({ stat: true, message: "Shop details updated successfully!." });
+        res.json({ stat: true,shop:shop ,message: "Shop details updated successfully!." });
     }
     catch (err) {
         res.json({ wentWrong: true, message: "Something went wrong !" });

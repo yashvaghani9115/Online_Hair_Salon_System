@@ -135,7 +135,7 @@ function OwnerHome() {
                         <Card style={{ width: "80%", margin: "auto", marginTop: "2em" }} >
                             <Card.Header className="h1 row m-0" style={{ backgroundColor: "#383838", color: "white" }}>
                                 <div className='col-md-8 h2'>
-                                    Barber : {selectedbarber ? selectedbarber.name : "No Barber"}
+                                   {selectedbarber ? selectedbarber.name : "No Barber"}
 
                                 </div>
                                 <div className='col-md-4 text-right'>

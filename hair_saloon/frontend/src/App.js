@@ -23,7 +23,7 @@ import BookSalon from './components/Customer/BookSalon/BookSalon';
 import AddService from './components/Owner/service/AddService';
 import { ProtectedRouteAdmin, ProtectedRouteCust, ProtectedRouteOwner } from './components/Auth/protected';
 import NotFound from './components/NotFound/notfound';
-import CustomerOrders from './components/Customer/orders';
+import CustomerOrders from './components/Customer/Orders/orders';
 import EditShop from './components/Owner/EditShop/EditShop';
 
 function App() {

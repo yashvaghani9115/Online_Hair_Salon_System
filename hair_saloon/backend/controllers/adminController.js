@@ -51,20 +51,17 @@ export const getAllRequest = async (req, res) => {
     try {
         const {verified} = req.body;
       const shoplist = await Shop.find({verified:verified});
-      const ownerlist = await Owner.find({});
-      let detailslist = Array();
-      shoplist.forEach(shop => {
+      let ownerlist = []
+      for(let i=0;i<shoplist.length;i++){
         // console.log(shop.owner_id);
-
-        let owner_name = ownerlist.filter((x)=>x._id.equals(shop.owner_id))[0].name
-        detailslist.push({...shop,owner_name})
-        
-      })
+        ownerlist.push((await Owner.findById(shoplist[i].owner_id)))
+      }
       // console.log(detailslist);
       if (shoplist.length != 0) {
         res.json({
           stat: true,
-          shoplist: detailslist,
+          shoplist: shoplist,
+          ownerlist :ownerlist,
           message: "shop found!",
         });
       } else {
