@@ -122,7 +122,7 @@ export const listShops = async (req, res) => {
                 shopList.push(shops[i]);
             }
         }
-        
+        shopList.sort((a, b)=> {return b.avg_rating-a.avg_rating;});
         //generating prefix link for images
         const prefix_link = process.env.BEGIN_LINK + process.env.CLOUDINARY_NAME + process.env.SUB_FOLDER_PATH;
         

@@ -1,7 +1,7 @@
 import express from 'express';
 import { bookBarber } from '../controllers/barberController.js';
 import { customerLogin,customerRegister, sendMail} from '../controllers/customerController.js';
-import { orderList } from '../controllers/orderController.js';
+import { orderList, updateRating } from '../controllers/orderController.js';
 import { getOwner } from '../controllers/ownerController.js';
 import { getlocation, listShops } from '../controllers/shopController.js';
 
@@ -15,5 +15,6 @@ router.route("/getlocation").post(getlocation);
 router.route("/getowner").post(getOwner);
 router.route("/bookbarber").post(bookBarber);
 router.route("/listorders").post(orderList);
+router.route("/updateRating").post(updateRating);
 
 export default router;

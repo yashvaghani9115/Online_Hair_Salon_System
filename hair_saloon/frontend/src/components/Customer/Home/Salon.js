@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { Button } from 'react-bootstrap';
 import { FcOk } from 'react-icons/fc';
 import { AiFillCloseCircle } from 'react-icons/ai';
+import StarRatings from 'react-star-ratings';
 
 function Salon({ salon, prefixLink }) {
     const history = useHistory();
@@ -36,9 +37,21 @@ function Salon({ salon, prefixLink }) {
             </div>
 
             <div className="col-md-4 mx-auto border-left" style={{ position: 'relative' }}>
+            
                 <p style={{ fontSize: '20px', paddingLeft: '10px', overflowX: "auto", fontFamily: "Monaco" }}>
                     <b>Address : </b>{salon.address}<br />
                 </p>
+                <span className="float-right mt-5">
+                        <StarRatings
+                            style={{ position: 'absolute', bottom: '0px', left: "0px" }}
+                            rating={salon.avg_rating}
+                            starRatedColor="#ff9529"
+                            numberOfStars={5}
+                            name='rating'
+                            starDimension='15px'
+                        />
+                        <div className="ml-2 display-inline rounded-pill badge badge-warning text-dark">{salon.number_of_rating}</div>
+                    </span>
                 <p>
                     <Button variant="outline-primary" style={{ position: 'absolute', bottom: '0px', right: "0px" }} onClick={bookSalon}><b>Check Now</b></Button>
                 </p>

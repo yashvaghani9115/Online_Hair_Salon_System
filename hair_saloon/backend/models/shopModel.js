@@ -13,6 +13,8 @@ const shopSchema = new mongoose.Schema(
         salon_gender_type : { type: String, required: true } ,
         capacity_seats : { type: Number, required: true },
         verified : {type:String,required:true,default:"pending"},
+        number_of_rating : {type:Number,default:0},
+        avg_rating : {type:Number,default:0},
         location_id:{type: mongoose.Schema.Types.ObjectId,ref:Location},
         barber_ids:[{type: mongoose.Schema.Types.ObjectId,ref:Barber}],
         owner_id : {type: mongoose.Schema.Types.ObjectId, ref: Owner},

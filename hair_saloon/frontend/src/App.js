@@ -22,7 +22,7 @@ import OwnerHeader from './components/Owner/Authentication/OwnerHeader';
 import BookSalon from './components/Customer/BookSalon/BookSalon';
 import { ProtectedRouteAdmin, ProtectedRouteCust, ProtectedRouteOwner } from './components/Auth/protected';
 import NotFound from './components/NotFound/notfound';
-import CustomerOrders from './components/Customer/Orders/orders';
+import CustomerOrders from './components/Customer/Orders/CustomerOrders';
 import EditShop from './components/Owner/EditShop/EditShop';
 import Verification from './components/Customer/Authentication/Verification';
 

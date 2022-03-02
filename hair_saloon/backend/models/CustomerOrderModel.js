@@ -9,6 +9,7 @@ const CustomerOrderSchema = new mongoose.Schema(
         shop_id : {type: mongoose.Schema.Types.ObjectId, ref: Shop},
         barber_id : {type: mongoose.Schema.Types.ObjectId, ref: Barber},
         status : {type: String, default: "waiting"},
+        rating : {type:Number,default:0},
         date:{type:Date,required:true}
     }
 )
