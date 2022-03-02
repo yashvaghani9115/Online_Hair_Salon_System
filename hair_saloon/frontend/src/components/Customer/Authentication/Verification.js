@@ -5,11 +5,11 @@ import { MDBInput } from 'mdbreact';
 import Joi from 'joi-browser';
 import ModalInterface from '../../Modal/ModalInterface';
 
-function Verification({setLogin}) {
+function Verification({ setLogin }) {
     const history = useHistory()
     const customer = JSON.parse(localStorage.getItem('before_verification'));
+    const [correctOtp,setCorrectOtp] = useState()
     const [otp, setOtp] = useState();
-    const [newotp,setNewOtp] =useState();
     const [show, setShow] = useState(false);
     const [header, setHeader] = useState("");
     const [msg, setMsg] = useState("");
@@ -32,11 +32,14 @@ function Verification({setLogin}) {
         console.log(result);
         const { error } = result;
         if (!error) {
-            console.log("cust",customer.otp,"otp",parseInt(otp),"newotp",newotp)
-            if(customer.otp === parseInt(otp) || newotp === parseInt(otp)){
+            
+            if (correctOtp === parseInt(otp)) {
                 register()
-            }else{
-                alert("Entered Otp is Wrong")
+            } else {
+                // alert("Entered Otp is Wrong")
+                setHeader("Invalid");
+                setMsg("Entered Otp is Wrong");
+                setShow(true);
             }
             console.log("otp verification called");
             return null;
@@ -61,7 +64,7 @@ function Verification({setLogin}) {
         const { error } = result;
         return error ? error.details[0].message : null;
     };
-    
+
 
 
     function handlechange(e) {
@@ -110,6 +113,7 @@ function Verification({setLogin}) {
                 if (res.stat) {
                     localStorage.removeItem('before_verification');
                     localStorage.setItem("customer", JSON.stringify(res.customer));
+                    localStorage.setItem("prefixLink", JSON.stringify(res.prefix_link));
                     alert(res.message);
                     setLogin(true);
 
@@ -133,7 +137,7 @@ function Verification({setLogin}) {
 
     }
     async function sendMail(otp) {
-        setNewOtp(otp)
+        setCorrectOtp(otp)
         var res = await fetch("http://localhost:9700/customer/sendmail", {
             method: "POST",
             headers: {
@@ -169,6 +173,7 @@ function Verification({setLogin}) {
         }
     }
     useEffect(() => {
+        sendMail(Math.floor(Math.random() * (9999 - 1111 + 1)) + 1111)
     }, [])
 
     return (
@@ -181,18 +186,18 @@ function Verification({setLogin}) {
 
                     </div>
                     {/* <form className="ui form"> */}
-                        <div className="form-group col-auto">
-                            <MDBInput containerClass="text-left text-dark" label="Enter Otp" icon='user' type="number" name="otp" value={otp} onChange={handlechange} />
+                    <div className="form-group col-auto">
+                        <MDBInput containerClass="text-left text-dark" label="Enter Otp" icon='user' type="number" name="otp" value={otp} onChange={handlechange} />
+                    </div>
+                    {errors.otp && (
+                        <div className="text-danger text-left ml-5" >
+                            {errors.otp}
                         </div>
-                        {errors.otp && (
-                            <div className="text-danger text-left ml-5" >
-                                {errors.otp}
-                            </div>
-                        )}
-                        <Button variant="blue" style={{ borderRadius: "20px", color: "white" }} onClick={validateForm} className='col-6' >Verify</Button>
+                    )}
+                    <Button variant="blue" style={{ borderRadius: "20px", color: "white" }} onClick={validateForm} className='col-6' >Verify</Button>
                     {/* </form> */}
                     <div className="text-right my-4">
-                         Resend Otp From <Link onClick={()=>{sendMail(Math.floor(Math.random() * (9999 - 1111 + 1)) + 1111)}} to='#' className='mt-5'>Here</Link>
+                        Resend Otp From <Link onClick={() => { sendMail(Math.floor(Math.random() * (9999 - 1111 + 1)) + 1111) }} to='#' className='mt-5'>Here</Link>
                     </div>
                     <ModalInterface show={show} setShow={setShow} header={header} msg={msg} />
 

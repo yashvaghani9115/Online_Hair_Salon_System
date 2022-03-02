@@ -115,6 +115,7 @@ function CustomerLogin({ setLogin }) {
             else {
                 if (res.stat) {
                     localStorage.setItem("customer", JSON.stringify(res.customer));
+                    localStorage.setItem("prefixLink", JSON.stringify(res.prefix_link));
                     // alert(res.message);
                     setHeader("Success");
                     setMsg(res.message);

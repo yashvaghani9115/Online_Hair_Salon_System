@@ -2,11 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Redirect, Route, useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { MDBInput } from 'mdbreact';
-import { Modal } from 'react-bootstrap';
-import { FaUserCircle } from 'react-icons/fa';
 import Joi from 'joi-browser';
 import ModalInterface from '../../Modal/ModalInterface';
-import Verification from './Verification';
 
 
 function CustomerRegister({ setLogin }) {
@@ -21,7 +18,6 @@ function CustomerRegister({ setLogin }) {
         email: "",
         password: "",
         cpassword: "",
-        otp:Math.floor(Math.random() * (9999 - 1111 + 1)) + 1111
     })
     const style = {
         backgroundPosition: "center",
@@ -38,7 +34,6 @@ function CustomerRegister({ setLogin }) {
         email: Joi.string().email().required().label('Email'),
         password: Joi.string().min(8).required().label('Password'),
         cpassword: Joi.string().min(8).required().label('Confirm Password'),
-        otp:Joi.number().required().label('Otp')
     };
 
     const validateForm = (event) => {
@@ -48,10 +43,9 @@ function CustomerRegister({ setLogin }) {
         console.log(result);
         const { error } = result;
         if (!error) {
-            sendMail()
             localStorage.setItem('before_verification',JSON.stringify(customer));
-            history.push("/otpVerification")
             console.log("register called");
+            history.push("/otpVerification")
             return null;
         } else {
             const errorData = {};
@@ -77,41 +71,45 @@ function CustomerRegister({ setLogin }) {
         const { error } = result;
         return error ? error.details[0].message : null;
     };
-    async function sendMail() {
-        var res = await fetch("http://localhost:9700/customer/sendmail", {
-            method: "POST",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                otp: customer.otp,
-                cust_mail: customer.email
-            })
-        })
-        res = await res.json();
-        console.log(res)
-        if (res.wentWrong) {
-            alert(res.message);
-        }
-        else {
-            if (res.stat) {
-                alert(res.message);
-                // setLogin(true);
-                // setHeader("Success");
-                // setMsg(res.message);
-                // setShow(true);
+    // async function sendMail() {
+    //     var res = await fetch("http://localhost:9700/customer/sendmail", {
+    //         method: "POST",
+    //         headers: {
+    //             "Accept": "application/json",
+    //             "Content-Type": "application/json"
+    //         },
+    //         body: JSON.stringify({
+    //             otp: customer.otp,
+    //             cust_mail: customer.email
+    //         })
+    //     })
+    //     res = await res.json();
+    //     console.log(res)
+    //     if (res.wentWrong) {
+    //         // alert(res.message);
+    //         setHeader("Invalid");
+    //         setMsg(res.message);
+    //         setShow(true);
+    //     }
+    //     else {
+    //         if (res.stat) {
+    //             alert(res.message);
+    //             // setLogin(true);
+    //             // setHeader("Success");
+    //             // setMsg(res.message);
+    //             // setShow(true);
 
-                // history.push('/');
-            }
-            else {
-                alert(res.message);
-                // setHeader("Invalid");
-                // setMsg(res.message);
-                // setShow(true);
-            }
-        }
-    }
+    //             history.push("/otpVerification")
+
+    //         }
+    //         else {
+    //             // alert(res.message);
+    //             setHeader("Invalid");
+    //             setMsg(res.message);
+    //             setShow(true);
+    //         }
+    //     }
+    // }
 
     function handlechange(e) {
         const { name, value } = e.target;
@@ -134,25 +132,6 @@ function CustomerRegister({ setLogin }) {
         setErrors(errorData);
     }
 
-    // function getLocation() {
-    //     if (navigator.geolocation) {
-    //       navigator.geolocation.getCurrentPosition(getPosInState,failAccess);
-    //     } 
-    // }
-
-    // function failAccess(){
-    //     setHeader("Fail to Access");
-    //     setMsg(`Unable to access your location !
-    //     Please enable it`);
-    //     setShow(true);
-    // }   
-    // function getPosInState(position) {
-    //     console.log(position.coords.longitude);
-    //     setCustomer({...customer, longitude:position.coords.longitude, latitude:position.coords.latitude})
-    // }
-    // useEffect(() => {
-    //     getLocation();
-    // }, []);
         return (
         <div className='main' style={style}>
             <div className='d-flex justify-content-center '>
