@@ -10,13 +10,13 @@ function ListPhotos({ selectedSalon, prefixLink }) {
                         // <div className="col my-1" key={index}>
                         //     <img style={{height:"180px",width:"250px"}} src={prefixLink + pub_id + ".png"}></img>
                         // </div>
-                        <>
-                        <div className="col-md-4 my-2 p-0 ">
+                        
+                        <div className="col-md-4 my-2 p-0 "  key={index} >
                            
                             <img className="col-12" style={{height:"130px"}} src={prefixLink + pub_id + ".png"}></img>
                             
                         </div>
-                        </>                        
+                                               
                         )
                 }
             </div>

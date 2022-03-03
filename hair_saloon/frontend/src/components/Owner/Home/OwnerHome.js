@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import OwnerSidebar from './OwnerSidebar';
 import { Card, Dropdown,Badge } from 'react-bootstrap';
+import ModalInterface from '../../Modal/ModalInterface';
 function OwnerHome() {
     const [selectedbarber, setSelectedBarber] = useState();
     const [barberList, setBarberList] = useState([]);
     const [customerList, setCustomerList] = useState([]);
-
+    const [show, setShow] = useState(false);
+    const [header, setHeader] = useState("");
+    const [msg, setMsg] = useState("");
 
     const style = {
         backgroundPosition: "center",
@@ -82,13 +85,19 @@ function OwnerHome() {
         res = await res.json();
 
         if (res.wentWrong) {
-            alert(res.message);
+            setHeader("Something Wrong");
+            setMsg(res.message);
+            setShow(true);
 
         } else {
             if (res.stat) {
-                alert(res.message);
+                setHeader("Success");
+                setMsg(res.message);
+                setShow(true);
             } else {
-                alert(res.message);
+                setHeader("Invalid");
+                setMsg(res.message);
+                setShow(true);
             }
         }
         fetchCustomers(selectedbarber._id);
@@ -109,13 +118,19 @@ function OwnerHome() {
         res = await res.json();
 
         if (res.wentWrong) {
-            alert(res.message);
+            setHeader("Something Wrong");
+            setMsg(res.message);
+            setShow(true);
 
         } else {
             if (res.stat) {
-                alert(res.message);
+                setHeader("Success");
+                setMsg(res.message);
+                setShow(true);
             } else {
-                alert(res.message);
+                setHeader("Invalid");
+                setMsg(res.message);
+                setShow(true);
             }
         }
         fetchCustomers(selectedbarber._id);
@@ -195,6 +210,8 @@ function OwnerHome() {
                 </div>
             </div>
         </div>
+        <ModalInterface show={show} setShow={setShow} header={header} msg={msg} />
+
     </>
 
     )

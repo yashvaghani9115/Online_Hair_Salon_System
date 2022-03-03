@@ -106,7 +106,7 @@ function ListSalons() {
                 </center>
                 :
                 
-                <div className="container " style={{ width: '60vw' }}>
+                <div className="container " style={{ width: '65vw' }}>
                     {filterList.length == 0 ?
                     <div>
                         <h4 className="form-control mt-5">

@@ -89,7 +89,7 @@ function CustomerOrders() {
                                 orderList.length == 0 ?
                                     <div className='form-control text-center'>No List Found</div>
                                     : orderList.map((o, index) =>
-                                        <Order o={o} index={index} prefixLink={prefixLink} cust={cust} fetchOrders={fetchOrders} />)}
+                                        <Order o={o} key={index} prefixLink={prefixLink} cust={cust} fetchOrders={fetchOrders} />)}
                         </Card.Body>
                     </Card>
                 </center>
