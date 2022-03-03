@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
+import ModalInterface from "../../Modal/ModalInterface";
 
 function SummaryModal({ show, setShow, selectedSalon, selectedBarber }) {
+    const [modalheader,setModalheader] = useState("");
+    const [modalmsg,setModalmsg] = useState("");
+    const [modalshow, setModalshow] = useState(false);
     const customer = JSON.parse(localStorage.getItem("customer"))
     async function BookBarber() {
         setShow(false);
@@ -19,15 +23,22 @@ function SummaryModal({ show, setShow, selectedSalon, selectedBarber }) {
         });
         res = await res.json();
         if (res.wentWrong) {
-            alert(res.message);
             setShow(false);
+            setModalheader("Something Wrong");
+            setModalmsg(res.message);
+            setModalshow(true);
         } else {
             if (res.stat) {
+                setShow(false);
+                setModalheader("Success");
+                setModalmsg(res.message);
+                setModalshow(true);
                 sendMail()
-                alert(res.message);
             } else {
-
-                alert(res.message);
+                setShow(false);
+                setModalheader("Invalid");
+                setModalmsg(res.message);
+                setModalshow(true);
             }
         }
     }
@@ -52,19 +63,20 @@ function SummaryModal({ show, setShow, selectedSalon, selectedBarber }) {
         res = await res.json();
         console.log(res)
         if (res.wentWrong) {
-            alert(res.message);
+            setModalheader("Something Wrong");
+            setModalmsg(res.message);
+            setModalshow(true);
         }
         else {
             if (res.stat) {
-                alert(res.message);
-                // setHeader("Success");
-                // setMsg(res.message);
-                // setShow(true);
-
-                // history.push('/orders');
+                setModalheader("Success");
+                setModalmsg(res.message);
+                setModalshow(true);
             }
             else {
-                alert(res.message);
+                setModalheader("Invalid");
+                setModalmsg(res.message);
+                setModalshow(true);
             }
         }
     }
@@ -92,6 +104,8 @@ function SummaryModal({ show, setShow, selectedSalon, selectedBarber }) {
                     </Button>
                 </Modal.Footer>
             </Modal>
+            <ModalInterface show={modalshow} setShow={setModalshow} header={modalheader} msg={modalmsg} />
+
         </>
     );
 }

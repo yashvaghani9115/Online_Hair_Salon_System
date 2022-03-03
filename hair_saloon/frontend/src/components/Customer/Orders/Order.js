@@ -4,9 +4,9 @@ import { MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBRow, MDBCol, MDBCa
 import { useHistory } from 'react-router-dom';
 import CustomerRating from '../CustomerRating/CustomerRating';
 
-function Order({ o, index,prefixLink, cust ,fetchOrders}) {
+function Order({ o,prefixLink, cust ,fetchOrders}) {
     return (
-        <div key={index} className='my-2'>
+        <div  className='my-2'>
             <MDBCard >
                 <MDBRow className='g-0'>
                     <MDBCol md='3'>

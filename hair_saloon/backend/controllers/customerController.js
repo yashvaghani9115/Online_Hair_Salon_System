@@ -68,6 +68,7 @@ export const sendMail = async (req, res) => {
                 Barber Email :`+ barber_email + `<br />
                 Number In Queue :<strong>`+ turn + `</strong>
                 <br/>
+                Approximate waiting time: `+ Math.floor(((turn-1)*15)/60) + ` : ` + ((turn-1)*15)%60 +` hr<br/> 
                 Thank You Visit Again.
                 
             </p>`
