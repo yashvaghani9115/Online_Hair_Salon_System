@@ -1,5 +1,5 @@
 import StarRatings from 'react-star-ratings';
-import React, { useState } from 'react';
+import React from 'react';
 
 function CustomerRating({ o, fetchOrders }) {
     
@@ -30,7 +30,7 @@ function CustomerRating({ o, fetchOrders }) {
         }
 
     }
-    if (o.rating == 0) {
+    if (o.rating === 0) {
         return (
             <>
                 <StarRatings
