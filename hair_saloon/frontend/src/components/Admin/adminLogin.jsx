@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { MDBInput } from 'mdbreact';
-import { Modal } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import Joi from 'joi-browser';
 import ModalInterface from '../Modal/ModalInterface';
