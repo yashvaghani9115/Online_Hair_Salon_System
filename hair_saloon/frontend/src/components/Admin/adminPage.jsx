@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Table, Card, Button } from "react-bootstrap";
+import ModalInterface from "../Modal/ModalInterface";
 import ShopDetailsModal from "./ShopDetailsModal";
 
 function AdminPage() {
@@ -7,7 +8,9 @@ function AdminPage() {
   const [showShopDetails, setShowShopDetails] = useState(false);
   const [fullList, setFullList] = useState([]);
   const [listObj,setListObj] = useState();
-
+  const [show, setShow] = useState(false);
+  const [header, setHeader] = useState("");
+  const [msg, setMsg] = useState("");
   const style = {
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
@@ -55,10 +58,14 @@ function AdminPage() {
     res = await res.json();
 
     if (res.wentWrong) {
-      alert(res.message);
+      setHeader("Something Wrong");
+      setMsg(res.message);
+      setShow(true);
     } else {
       if (res.stat) {
-        alert(res.message);
+        setHeader("Success");
+        setMsg(res.message);
+        setShow(true);
         window.location.reload(true);
       }
     }
@@ -146,6 +153,7 @@ function AdminPage() {
         </Card.Footer>
       </Card>
       {listObj && <ShopDetailsModal show={showShopDetails} onHide={() => setShowShopDetails(false)} listObj={listObj} prefixLink={prefixLink} />}
+      <ModalInterface show={show} setShow={setShow} header={header} msg={msg} />
     </div>
   );
 }
