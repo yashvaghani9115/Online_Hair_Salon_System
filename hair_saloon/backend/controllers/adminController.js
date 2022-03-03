@@ -1,6 +1,8 @@
 import Admin from "../models/Admin.js";
 import Owner from "../models/ownerModel.js";
 import Shop from '../models/shopModel.js';
+import dotenv from "dotenv";
+dotenv.config()
 
 export const adminLogin = async (req, res) => {
     try {
@@ -57,11 +59,13 @@ export const getAllRequest = async (req, res) => {
         ownerlist.push((await Owner.findById(shoplist[i].owner_id)))
       }
       // console.log(detailslist);
+      const prefix_link = process.env.BEGIN_LINK + process.env.CLOUDINARY_NAME + process.env.SUB_FOLDER_PATH;
       if (shoplist.length != 0) {
         res.json({
           stat: true,
           shoplist: shoplist,
           ownerlist :ownerlist,
+          prefix_link : prefix_link,
           message: "shop found!",
         });
       } else {

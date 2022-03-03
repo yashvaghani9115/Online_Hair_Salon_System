@@ -6,6 +6,17 @@ import Joi from 'joi-browser';
 import ModalInterface from '../../Modal/ModalInterface';
 
 function Verification({ setLogin }) {
+    //for reloading 
+    window.onbeforeunload = (event) => {
+        const e = event || window.event;
+        // Cancel the event
+        e.preventDefault();
+        if (e) {
+          e.returnValue = ''; // Legacy method for cross browser support
+        }
+        return ''; // Legacy method for cross browser support
+      };
+
     const history = useHistory()
     const customer = JSON.parse(localStorage.getItem('before_verification'));
     const [correctOtp,setCorrectOtp] = useState()
@@ -21,7 +32,7 @@ function Verification({ setLogin }) {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        height: "90vh",
+        minHeight: "90vh",
         backgroundImage: "url('/img/bg2.jpg')"
     }
 

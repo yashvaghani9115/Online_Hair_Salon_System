@@ -35,7 +35,7 @@ function CustomerRating({ o, fetchOrders }) {
             <>
                 <StarRatings
                     rating={o.rating}
-                    starRatedColor="blue"
+                    starRatedColor="#ff9529"
                     changeRating={updateRating}
                     numberOfStars={5}
                     name='rating'
@@ -49,7 +49,7 @@ function CustomerRating({ o, fetchOrders }) {
         return (
             <StarRatings
                 rating={o.rating}
-                starRatedColor="blue"
+                starRatedColor="#ff9529"
                 numberOfStars={5}
                 name='rating'
                 starDimension='25px'

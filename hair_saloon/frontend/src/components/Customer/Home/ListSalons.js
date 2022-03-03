@@ -91,7 +91,7 @@ function ListSalons() {
                         <Nav.Link onClick={() => { set_list("Male") }} eventKey="Male">Male</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link onClick={() => { set_list("Femate") }} eventKey="Female" >Female</Nav.Link>
+                        <Nav.Link onClick={() => { set_list("Female") }} eventKey="Female" >Female</Nav.Link>
                     </Nav.Item>
                     
                 </Nav>
@@ -105,6 +105,7 @@ function ListSalons() {
 
                 </center>
                 :
+                
                 <div className="container " style={{ width: '60vw' }}>
                     {filterList.length == 0 ?
                     <div>
