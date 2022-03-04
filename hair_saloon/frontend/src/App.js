@@ -25,6 +25,7 @@ import NotFound from './components/NotFound/notfound';
 import CustomerOrders from './components/Customer/Orders/CustomerOrders';
 import EditShop from './components/Owner/EditShop/EditShop';
 import Verification from './components/Customer/Authentication/Verification';
+import Footer from './components/Footer/Footer';
 
 function App() {
   const [login, setLogin] = useState(false);
@@ -61,7 +62,7 @@ function App() {
           <Route path="*" component={NotFound} />
         </Switch>
       </Router>
-      {/* <Footer/> */}
+      <Footer/>
     </div>
 
   );

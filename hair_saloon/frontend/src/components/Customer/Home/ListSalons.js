@@ -106,7 +106,7 @@ function ListSalons() {
                 </center>
                 :
                 
-                <div className="container " style={{ width: '65vw' }}>
+                <div className="container pb-5" style={{ width: '60vw' }}>
                     {filterList.length == 0 ?
                     <div>
                         <h4 className="form-control mt-5">
@@ -118,8 +118,6 @@ function ListSalons() {
                 </div>
             }
             <ModalInterface show={show} setShow={setShow} header={header} msg={msg} />
-
-
         </div>
     )
 }

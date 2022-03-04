@@ -203,7 +203,7 @@ function EditShop() {
     return (
         <>
             {!response ?
-                <center><div className="spinner-border text-primary " role="status">
+                <center style={{height:"100vh"}}><div className="spinner-border text-primary "  role="status">
                 </div>
                     <span className="text-white">Loading...</span>
                 </center>
