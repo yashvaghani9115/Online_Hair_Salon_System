@@ -11,8 +11,8 @@ function Barbermanagement() {
 
     // const history = useHistory();
     const [header, setHeader] = useState("");
-    const [modalheader,setModalheader] = useState("");
-    const [modalmsg,setModalmsg] = useState("");
+    const [modalheader, setModalheader] = useState("");
+    const [modalmsg, setModalmsg] = useState("");
     const [modalshow, setModalshow] = useState(false);
     const [barberList, setbarberList] = useState([]);
     const [barber, setBarber] = useState({
@@ -249,23 +249,27 @@ function Barbermanagement() {
                 <div className='col-auto' style={{ width: "75%" }} >
                     <Navbar bg="dark" className='mt-4 rounded'>
                         <Container>
-                            <Navbar.Brand className='text-light ml-3'>Barber Details</Navbar.Brand>
-                            <Button variant="success" onClick={() => { setBarber({ ...dbarber }); setHeader("Add Barber"); setShow(true) }} className="rounded my-0 align-items-end">Add Barber</Button>
+                            <Navbar.Brand className='text-light ml-3'>Employee Details</Navbar.Brand>
+                            <Button variant="success" onClick={() => { setBarber({ ...dbarber }); setHeader("Add Barber"); setShow(true) }} className="rounded my-0 align-items-end">Add Employee</Button>
                         </Container>
                     </Navbar>
-                    <Table className='text-center rounded'>
-                        <thead>
-                            <tr style={{ color: "white" }}>
-                                <th>#</th>
-                                <th>Barber Name</th>
-                                <th>Email</th>
-                                <th>Mobile Number</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>{td}</tbody>
-                    </Table>
+                    <div className='col-auto overflow-auto'>
+
+                        <Table className='text-center rounded'>
+                            <thead>
+                                <tr style={{ color: "white" }}>
+                                    <th>#</th>
+                                    <th>Employee Name</th>
+                                    <th>Email</th>
+                                    <th>Mobile Number</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>{td}</tbody>
+                        </Table>
+                    </div>
+
                     <ModalInterface show={modalshow} setShow={setModalshow} header={modalheader} msg={modalmsg} />
                     <Modal
                         size="lg"

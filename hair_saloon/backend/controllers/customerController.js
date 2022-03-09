@@ -64,8 +64,8 @@ export const sendMail = async (req, res) => {
                 Your Name :`+ customer_name + `<br/>
                 Shop Name : `+ salon_name + `<br />
                 Address : `+ salon_add + `<br />
-                Barber Name :`+ barber_name + `<br />
-                Barber Email :`+ barber_email + `<br />
+                Employee Name :`+ barber_name + `<br />
+                Employee Email :`+ barber_email + `<br />
                 Number In Queue :<strong>`+ turn + `</strong>
                 <br/>
                 Approximate waiting time: `+ Math.floor(((turn-1)*15)/60) + ` : ` + ((turn-1)*15)%60 +` hr<br/> 

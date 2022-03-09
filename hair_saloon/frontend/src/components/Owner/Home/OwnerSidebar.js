@@ -27,7 +27,7 @@ const OwnerSidebar = () => {
               <CDBSidebarMenuItem icon="user">Employee Management</CDBSidebarMenuItem>
             </NavLink>
             <NavLink exact to="/ownerservice" activeClassName="activeClicked">
-              <CDBSidebarMenuItem icon="table">Hair Style Management</CDBSidebarMenuItem>
+              <CDBSidebarMenuItem icon="table">HairService Management</CDBSidebarMenuItem>
             </NavLink>
           </CDBSidebarMenu>
         </CDBSidebarContent>
