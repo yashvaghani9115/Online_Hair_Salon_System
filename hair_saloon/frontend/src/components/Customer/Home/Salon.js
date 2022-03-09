@@ -28,7 +28,6 @@ function Salon({ salon, prefixLink }) {
                     <b>Shop Name : </b>{salon.shop_name}<br />
                     <b>Gender : </b> {salon.salon_gender_type}<br />
                     <b>Time : </b>{salon.opening_time} to {salon.closing_time}<br />
-                    <b>Seat Capacity : </b>{salon.capacity_seats}<br />
                     <span >
                         <StarRatings
                             

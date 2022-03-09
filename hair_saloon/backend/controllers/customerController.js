@@ -54,6 +54,14 @@ export const sendMail = async (req, res) => {
         });
         if (otp == -1) {
             const { customer_name, salon_name, salon_add, barber_name, barber_email, turn } = req.body;
+            const min = ((turn-1)*15)%60;
+            const hour = Math.floor(((turn-1)*15)/60);
+            let str="";
+            if(min == 0 && hour == 0){
+                str = "<b>You are First In Queue.</b>" 
+            }else{
+                str = `Approximate waiting time: `+ hour + ` : ` +min +` hr<br/>`
+            }
             var mailOptions = {
                 from:process.env.SECRET_MAIL_ID ,
                 to: cust_mail,
@@ -64,11 +72,11 @@ export const sendMail = async (req, res) => {
                 Your Name :`+ customer_name + `<br/>
                 Shop Name : `+ salon_name + `<br />
                 Address : `+ salon_add + `<br />
-                Employee Name :`+ barber_name + `<br />
-                Employee Email :`+ barber_email + `<br />
+                Stylist Name :`+ barber_name + `<br />
+                Stylist Email :`+ barber_email + `<br />
                 Number In Queue :<strong>`+ turn + `</strong>
                 <br/>
-                Approximate waiting time: `+ Math.floor(((turn-1)*15)/60) + ` : ` + ((turn-1)*15)%60 +` hr<br/> 
+                 `+str+`
                 Thank You Visit Again.
                 
             </p>`

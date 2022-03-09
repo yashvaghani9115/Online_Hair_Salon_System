@@ -87,7 +87,7 @@ function BookSalon() {
           </MDBTabsItem>
           <MDBTabsItem>
             <MDBTabsLink onClick={() => handleBasicClick('tab4')} active={basicActive === 'tab4'}>
-              Employee Details
+              Stylist Details
             </MDBTabsLink>
           </MDBTabsItem>
         </MDBTabs>

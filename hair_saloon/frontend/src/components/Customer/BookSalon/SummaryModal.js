@@ -92,8 +92,8 @@ function SummaryModal({ show, setShow, selectedSalon, selectedBarber }) {
                     Your Name : {customer.name}<br/>
                     Shop Name : {selectedSalon.shop_name}<br />
                     Address : {selectedSalon.address}<br />
-                    Employee Name : {selectedBarber.name}<br />
-                    Employee Email : {selectedBarber.email}<br />
+                    Stylist Name : {selectedBarber.name}<br />
+                    Stylist Email : {selectedBarber.email}<br />
                     Number In Queue :<strong> {selectedBarber.customer_ids.length + 1}</strong><br />
                     <hr/>
                     

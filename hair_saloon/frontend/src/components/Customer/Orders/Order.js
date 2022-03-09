@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Card } from 'react-bootstrap';
+import React from 'react';
 import { MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBRow, MDBCol, MDBCardText, MDBBadge, MDBBtn } from 'mdb-react-ui-kit'
-import { useHistory } from 'react-router-dom';
 import CustomerRating from '../CustomerRating/CustomerRating';
 
 function Order({ o,prefixLink, cust ,fetchOrders}) {
@@ -19,7 +17,7 @@ function Order({ o,prefixLink, cust ,fetchOrders}) {
                             <MDBCardTitle className='h2 text-black'>{o.shop.shop_name}</MDBCardTitle>
                             <MDBCardText>
                                 <h5><></>{o.shop.address}</h5>
-                                Barber :{o.barber.name}
+                                Stylist :{o.barber.name}
                                 <br />
                                 Email:{o.barber.email}
                                 {o.status=="completed" &&
