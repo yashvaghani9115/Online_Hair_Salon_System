@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button, Col } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { MDBInput } from 'mdbreact';
 import Joi from 'joi-browser';
 import ModalInterface from '../../Modal/ModalInterface';
-
-
-
 
 function OwnerRegister({ handleClick, setLogin }) {
     const history = useHistory()
@@ -26,9 +23,10 @@ function OwnerRegister({ handleClick, setLogin }) {
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundImage: "url('/img/bg1.jpg')",
-        // height: "91vh"s
     }
+
     //validation start
+
     const [errors, setErrors] = useState({});
     const schema = {
         name: Joi.string().min(2).max(20).required().label('Owner Name'),
@@ -42,11 +40,9 @@ function OwnerRegister({ handleClick, setLogin }) {
         event.preventDefault();
         const result = Joi.validate(owner,
             schema, { abortEarly: false });
-        console.log(result);
         const { error } = result;
         if (!error) {
             register();
-            console.log("register called");
             return null;
         } else {
             const errorData = {};
@@ -55,7 +51,6 @@ function OwnerRegister({ handleClick, setLogin }) {
                 const message = item.message;
                 errorData[name] = message;
             }
-            console.log(errors);
             setErrors(errorData);
             if (owner.password !== owner.cpassword) {
                 errorData["cpassword"] = "Confirm Password doesn't match with Password";
@@ -72,11 +67,6 @@ function OwnerRegister({ handleClick, setLogin }) {
         const { error } = result;
         return error ? error.details[0].message : null;
     };
-
-
-
-
-
 
     //validation end
 
@@ -120,9 +110,7 @@ function OwnerRegister({ handleClick, setLogin }) {
             })
 
             res = await res.json();
-            console.log(res)
             if (res.wentWrong) {
-                // alert(res.message);
                 setHeader("Something Wrong");
                 setMsg(res.message);
                 setShow(true);
@@ -130,16 +118,13 @@ function OwnerRegister({ handleClick, setLogin }) {
             else {
                 if (res.stat) {
                     localStorage.setItem("owner", JSON.stringify(res.owner));
-                    // alert(res.message);
                     setHeader("Success");
                     setMsg(res.message);
                     setShow(true);
                     setLogin(true);
                     history.push('/shopregister');
-                    // history.push('/');
                 }
                 else {
-                    // alert(res.message);
                     setHeader("Invalid");
                     setMsg(res.message);
                     setShow(true);
@@ -151,17 +136,14 @@ function OwnerRegister({ handleClick, setLogin }) {
             setMsg("Input fields can't be blank.");
             setShow(true);
         }
-
     }
 
     return (
         <div className='main' style={style} >
             <div className='d-flex justify-content-center' style={{ textAlign: "center" }}>
                 <div className='col-lg-5 bg-white ' style={{ borderRadius: "25px", boxShadow: "3px 3px rgb(33,37,41)" }} >
-
                     <div className='mt-4 text-black'>
                         <h1 > Owner SignUp</h1>
-
                     </div>
                     <form className="ui form">
                         <div className="form-group col-auto">
@@ -205,9 +187,6 @@ function OwnerRegister({ handleClick, setLogin }) {
                                 {errors.cpassword}
                             </div>
                         )}
-
-
-
                         <Button className='col-6' type='submit' style={{ borderRadius: "20px" ,color:"white"}} variant="blue" onClick={validateForm}>Register</Button>
                     </form>
                     <ModalInterface show={show} setShow={setShow} header={header} msg={msg} />
@@ -215,12 +194,9 @@ function OwnerRegister({ handleClick, setLogin }) {
                         <br />
                         Already Loged In Click <a href='/ownerlogin'>Here</a>
                     </p>
-
-
                 </div>
             </div>
         </div>
-
     )
 }
 

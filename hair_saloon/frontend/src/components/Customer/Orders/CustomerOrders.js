@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
-import { MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBRow, MDBCol, MDBCardText, MDBBadge, MDBBtn } from 'mdb-react-ui-kit'
 import { useHistory } from 'react-router-dom';
 import Order from './Order';
 import ModalInterface from '../../Modal/ModalInterface';
@@ -22,6 +21,7 @@ function CustomerOrders() {
         minHeight: "100vh",
         backgroundImage: "url('/img/bg3.jpg')"
     }
+
     async function fetchOrders(msg) {
         if (msg) {
             setHeader("Rating Submitted.");
@@ -44,32 +44,20 @@ function CustomerOrders() {
 
         if (res.wentWrong) {
             alert(res.message);
-            // setHeader("Something Wrong");
-            // setMsg(res.message);
-            // setShow(true);
         } else {
             if (res.stat) {
-                // console.log(res.orders)
                 setOrderList(res.orders);
                 setResponse(true)
-                // setCustomer(cust);
-                // setTurn()
-            } else {
-                // setHeader("Invalid");
-                // setMsg(res.message);
-                // setShow(true);
             }
         }
-
-
-
     }
+
     useEffect(() => {
         fetchOrders();
     }, [])
+
     return (
         <>
-
             <div className='pt-5' style={style}>
                 <center>
                     <Card style={{ maxWidth: "70%", maxWeight: "400px", textAlign: "left" }}>
@@ -82,8 +70,8 @@ function CustomerOrders() {
                         <Card.Body className='bg-dark'>
                             {!response ?
                                 <center>
-                                    <div class="spinner-border text-primary " role="status"></div>
-                                    <span class="text-white">Loading...</span>
+                                    <div className="spinner-border text-primary " role="status"></div>
+                                    <span className="text-white">Loading...</span>
                                 </center>
                                 :
                                 orderList.length == 0 ?
@@ -94,12 +82,9 @@ function CustomerOrders() {
                     </Card>
                 </center>
                 <ModalInterface show={show} setShow={setShow} header={header} msg={msg} />
-
             </div>
-
         </>
     )
-
 }
 
 export default CustomerOrders;

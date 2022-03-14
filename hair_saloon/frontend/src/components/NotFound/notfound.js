@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Button, Card } from 'react-bootstrap';
 
 function NotFound() {
@@ -9,6 +9,7 @@ function NotFound() {
         height: "100vh",
         backgroundImage: "url('/img/bg3.jpg')"
     }
+
     return (
         <>
             <div className='main' style={style} >
@@ -31,9 +32,7 @@ function NotFound() {
                         </Card>
                     </div>
                 </div>
-
             </div>
-
         </>
     )
 }

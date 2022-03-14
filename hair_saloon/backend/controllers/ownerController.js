@@ -6,20 +6,19 @@ import Shop from "../models/shopModel.js";
 export const ownerLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
-    // console.log(req.body);
     const owner = await Owner.findOne({ email: email, password: password });
     if (owner) {
-      const shop = await Shop.findOne({owner_id : owner._id});
-      
+      const shop = await Shop.findOne({ owner_id: owner._id });
+
       //generating prefix link for images
       const prefix_link = process.env.BEGIN_LINK + process.env.CLOUDINARY_NAME + process.env.SUB_FOLDER_PATH;
-        
+
       res.json({
         stat: true,
         message: "Owner Logged in Sucessfully.",
         owner: owner,
-        shop:shop,
-        prefix_link:prefix_link
+        shop: shop,
+        prefix_link: prefix_link
       });
     } else {
       res.json({
@@ -33,26 +32,26 @@ export const ownerLogin = async (req, res) => {
   }
 };
 
-export const getOwner=
-  async (req,res)=>{
-    try{
-        const {owner_id} = req.body;
-        const owner = await Owner.findById(owner_id);
-        if(owner){
-            res.json({ stat: true,owner:owner, message: "Owner" });
-             
-        }else{
-            res.json({
-                stat:false,
-                message:"Owner Not Found"
-            });
-        }
+export const getOwner =
+  async (req, res) => {
+    try {
+      const { owner_id } = req.body;
+      const owner = await Owner.findById(owner_id);
+      if (owner) {
+        res.json({ stat: true, owner: owner, message: "Owner" });
+
+      } else {
+        res.json({
+          stat: false,
+          message: "Owner Not Found"
+        });
+      }
     }
-    catch(err){
-        res.json({ wentWrong: true, message: "Something went wrong !" });
-        console.log(err.message);
+    catch (err) {
+      res.json({ wentWrong: true, message: "Something went wrong !" });
+      console.log(err.message);
     }
-}
+  }
 
 export const ownerRegister = async (req, res) => {
   try {

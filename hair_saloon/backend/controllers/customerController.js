@@ -2,7 +2,7 @@ import Customer from "../models/customerModel.js";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 dotenv.config()
-// import client from "@sendgrid/mail";
+
 export const customerLogin = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -35,13 +35,13 @@ export const customerRegister = async (req, res) => {
 
             res.json({ stat: true, customer: result, prefix_link: prefix_link, message: "Customer registered sucessfully." });
         }
-
     }
     catch (err) {
         res.json({ wentWrong: true, message: "Something went wrong !" });
         console.log(err.message);
     }
 }
+
 export const sendMail = async (req, res) => {
     try {
         const { otp, cust_mail } = req.body
@@ -119,4 +119,4 @@ export const sendMail = async (req, res) => {
         res.json({ wentWrong: true, message: "Something went wrong !" });
         console.log(err.message);
     }
-}
+};

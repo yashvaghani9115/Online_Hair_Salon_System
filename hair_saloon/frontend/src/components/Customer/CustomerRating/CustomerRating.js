@@ -2,8 +2,6 @@ import StarRatings from 'react-star-ratings';
 import React from 'react';
 
 function CustomerRating({ o, fetchOrders }) {
-    
-
     async function updateRating(newRating, name) {
         var res = await fetch("http://localhost:9700/customer/updateRating", {
             method: "POST",
@@ -41,7 +39,6 @@ function CustomerRating({ o, fetchOrders }) {
                     name='rating'
                     starDimension='25px'
                 />
-
             </>
         );
     }

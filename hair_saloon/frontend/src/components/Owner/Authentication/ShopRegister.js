@@ -4,7 +4,6 @@ import TimeField from 'react-simple-timefield';
 import MapPicker from 'react-google-map-picker';
 import { Modal, Button } from 'react-bootstrap';
 import ImagePickerModal from './ImagePickerModal';
-
 import { MDBInput } from 'mdbreact';
 import { BsShop } from 'react-icons/bs';
 import { FaAddressCard } from 'react-icons/fa';
@@ -19,7 +18,6 @@ function ShopRegister() {
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundImage: "url('/img/bg1.jpg')",
-        // height: "91vh"s
     }
 
     const history = useHistory();
@@ -27,7 +25,6 @@ function ShopRegister() {
     const [showImagePicker, setShowImagePicker] = useState(false);
     const [selectedImages, setSelectedImages] = useState([]);
 
-    // const [fileInputState,setFileInputState] = useState('');
     const [shop, setShop] = useState({
         shop_name: "",
         address: "",
@@ -41,17 +38,13 @@ function ShopRegister() {
     })
     const [defaultLocation, setDefaultLocation] = useState(DefaultLocation);
 
-    // const [location, setLocation] = useState(defaultLocation);
-
     const [agree, setAgree] = useState(false);
     const [zoom, setZoom] = useState(DefaultZoom);
     function handlecheckbox() {
         setAgree(!agree);
     }
     function handleChangeLocation(lat, lng) {
-        // setLocation({ lat: lat, lng: lng });
         setShop({ ...shop, longitude: lng, latitude: lat });
-
     }
 
     function handleChangeZoom(newZoom) {
@@ -59,17 +52,12 @@ function ShopRegister() {
     }
 
     function handleResetLocation() {
-        // setDefaultLocation({ ...DefaultLocation });
         getLocation();
-        // setShop({...shop,longitude:defaultLocation.lng,latitude:defaultLocation.lat})
-        // setLocation({ ...DefaultLocation });
         setZoom(DefaultZoom);
     }
 
-
     function handlechange(e) {
         const { name, value } = e.target;
-
         setShop(
             {
                 ...shop,
@@ -77,6 +65,7 @@ function ShopRegister() {
             }
         )
     }
+
     function getLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(getPosInState);
@@ -87,14 +76,12 @@ function ShopRegister() {
         setDefaultLocation({ lat: position.coords.latitude, lng: position.coords.longitude })
         setShop({ ...shop, longitude: position.coords.longitude, latitude: position.coords.latitude })
     }
+
     function handlegender(e) {
         setShop({ ...shop, salon_gender_type: e.target.value });
     }
 
-
-
     async function registerShop() {
-
         const {
             shop_name,
             address,
@@ -105,7 +92,6 @@ function ShopRegister() {
             longitude,
             latitude
         } = shop;
-        console.log(shop);
         if (shop_name && address && opening_time && closing_time && salon_gender_type && capacity_seats && longitude && latitude && selectedImages.length) {
             var res = await fetch("http://localhost:9700/owner/addShop", {
                 method: "POST",
@@ -134,7 +120,6 @@ function ShopRegister() {
             }
             else {
                 if (res.stat) {
-                    // localStorage.setItem("shop", JSON.stringify(res.shop));
                     alert(res.message);
                     history.push('/verification');
                 }
@@ -146,7 +131,6 @@ function ShopRegister() {
         else {
             alert("Input fields can't be blank.");
         }
-
     }
 
     return (
@@ -154,7 +138,6 @@ function ShopRegister() {
             <div className='main' style={style} >
                 <div className='d-flex justify-content-center' style={{ textAlign: "center" }}>
                     <div className='bg-white ' style={{ width: "150vh", minHeight: "80vh", borderRadius: "25px", boxShadow: "3px 3px rgb(33,37,41)" }} >
-
                         <div className='mt-4 text-black'>
                             <h1 > Shop Register</h1>
                         </div>
@@ -169,7 +152,6 @@ function ShopRegister() {
                                     </div>
                                 </div>
                                 <div className='row col-md-6'>
-
                                     <div className='col-auto mt-3 '>
                                         <FaAddressCard size='27px' />
                                     </div>
@@ -196,75 +178,57 @@ function ShopRegister() {
                                         <input type="radio" style={{ marginLeft: "15px" }} className='form-check-input' value="Female" onChange={handlegender} name="salon_gender_type" /> Female
                                         <input type="radio" style={{ marginLeft: "15px" }} className='form-check-input' value="Both" onChange={handlegender} name="salon_gender_type" /> Both
                                     </div>
-
                                 </div>
                                 <div className='row'>
                                     <div className='row col-md-6'>
                                         <div className='col-6'>
-
                                             <label>Opening Time :</label>
                                         </div>
                                         <div className='col-6'>
-
                                             <span><TimeField name="opening_time" value={shop.opening_time} onChange={handlechange} style={{ width: "30%", height: "45px", fontFamily: "Open Sans", fontSize: "18px" }} /></span>
                                         </div>
-
                                     </div>
                                     <div className='row col-md-6'>
                                         <div className='col-6'>
-
                                             <label>Closing time :</label>
                                         </div>
                                         <div className='col-6'>
-
                                             <span ><TimeField name="closing_time" value={shop.closing_time} onChange={handlechange} style={{ width: "30%", height: "45px", fontFamily: "Open Sans", fontSize: "18px" }} /></span>
                                         </div>
-
                                     </div>
                                     <div className='row col-md-6 mt-4'>
                                         <div className='col-6'>
-
                                             <label>Select Location :</label>
                                         </div>
                                         <div className='col-6'>
                                             <Button style={{ fontSize: '10px', borderRadius: "4px" }} onClick={() => { setShow(true); }} >Set Location</Button>
                                         </div>
-
                                     </div>
                                     <div className='row col-md-6 mt-4' >
                                         <div className='col-6'>
-
                                             <label>Upload Images :</label>
                                         </div>
                                         <div className='col-6'>
                                             <Button style={{ fontSize: '10px', borderRadius: "4px" }} onClick={() => setShowImagePicker(true)} >Upload Images</Button>
                                         </div>
-
                                     </div>
                                     <div className='row mt-5' >
                                         <div className='text-center'>
                                             <label className='label1'>Verify Your account: </label><br />
                                             <input type="checkbox" className='form-check-input' onChange={handlecheckbox} /><label htmlFor="agree"> I verify my <b>credentials for shop </b> and <b>location</b> <span style={{ color: "red" }}>*</span></label><br />
                                             <Button className='col-6' type="submit" style={{ borderRadius: "20px", color: "white" }} variant='blue' disabled={!agree} onClick={registerShop}>Register</Button>
-
                                         </div>
-
                                     </div>
-
                                 </div>
-
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
-           
+
             <ImagePickerModal show={showImagePicker} onHide={() => setShowImagePicker(false)} selectedImages={selectedImages} setSelectedImages={setSelectedImages} />
 
             <div className='location'>
-
-
                 <>
                     <Modal
                         size="xl"
@@ -303,9 +267,7 @@ function ShopRegister() {
                 </>
             </div>
         </>
-
     )
 }
 
 export default ShopRegister;
- 

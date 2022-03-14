@@ -9,7 +9,6 @@ function Barbermanagement() {
     const [show, setShow] = useState(false);
     let index = 0;
 
-    // const history = useHistory();
     const [header, setHeader] = useState("");
     const [modalheader, setModalheader] = useState("");
     const [modalmsg, setModalmsg] = useState("");
@@ -42,6 +41,7 @@ function Barbermanagement() {
             }
         )
     }
+
     async function fetchBarberList() {
         var res = await fetch("http://localhost:9700/owner/listBarbers", {
             method: "POST",
@@ -58,19 +58,15 @@ function Barbermanagement() {
 
         if (res.wentWrong) {
             alert(res.message);
-
         } else {
             if (res.stat) {
                 setbarberList(res.barbers);
-                console.log(res.barbers);
-            } else {
-
             }
         }
 
     }
-    async function addBarber() {
 
+    async function addBarber() {
         const { name, mobile_num, email } = barber;
         if (name && mobile_num && email) {
             var res = await fetch("http://localhost:9700/owner/addBarber", {
@@ -88,9 +84,7 @@ function Barbermanagement() {
             })
 
             res = await res.json();
-            console.log(res)
             if (res.wentWrong) {
-                // alert(res.message);
                 setShow(false);
                 setModalheader("Something Wrong");
                 setModalmsg(res.message);
@@ -98,17 +92,14 @@ function Barbermanagement() {
             }
             else {
                 if (res.stat) {
-                    // alert(res.message);
                     setShow(false);
                     setModalheader("Success");
                     setModalmsg(res.message);
                     setModalshow(true);
                     setBarber({ ...dbarber });
                     fetchBarberList();
-                    // history.push('/');
                 }
                 else {
-                    // alert(res.message);
                     setShow(false);
                     setModalheader("Invalid");
                     setModalmsg(res.message);
@@ -124,11 +115,13 @@ function Barbermanagement() {
         }
 
     }
+
     function editBarber(s) {
         setBarber(s);
         setShow(true);
         setHeader("Edit Barber");
     }
+
     async function editbarber() {
         if (barber) {
             var res = await fetch("http://localhost:9700/owner/editBarber", {
@@ -141,9 +134,7 @@ function Barbermanagement() {
             })
 
             res = await res.json();
-            console.log(res)
             if (res.wentWrong) {
-                // alert(res.message);
                 setShow(false);
                 setModalheader("Something Wrong");
                 setModalmsg(res.message);
@@ -151,17 +142,14 @@ function Barbermanagement() {
             }
             else {
                 if (res.stat) {
-                    // alert(res.message);
                     setShow(false);
                     setModalheader("Success");
                     setModalmsg(res.message);
                     setModalshow(true);
                     setBarber({ ...dbarber });
                     fetchBarberList();
-                    // history.push('/');
                 }
                 else {
-                    // alert(res.message);
                     setShow(false);
                     setModalheader("Invalid");
                     setModalmsg(res.message);
@@ -176,14 +164,13 @@ function Barbermanagement() {
             setModalshow(true);
         }
     }
+
     async function deleteBarber(s) {
-        console.log(s);
         const owner_id = await JSON.parse(localStorage.getItem("owner"))._id;
         if (s) {
             var res = await fetch(`http://localhost:9700/owner/deleteBarber/${s}&${owner_id}`, {
                 method: "DELETE",
             })
-
             res = await res.json();
             if (res.wentWrong) {
                 setModalheader("Something Wrong");
@@ -192,12 +179,10 @@ function Barbermanagement() {
             }
             else {
                 if (res.stat) {
-                    // alert(res.message);
                     setModalheader("Success");
                     setModalmsg(res.message);
                     setModalshow(true);
                     fetchBarberList();
-                    // history.push('/');
                 }
                 else {
                     setModalheader("Invalid");
@@ -216,7 +201,6 @@ function Barbermanagement() {
     useEffect(() => {
         fetchBarberList();
     }, []);
-
 
     const td = barberList.map((s) => {
         return (
@@ -238,7 +222,6 @@ function Barbermanagement() {
             </tr>
         );
     });
-
 
     return (<>
         <div className='container-fluid' style={style}>
@@ -276,7 +259,6 @@ function Barbermanagement() {
                         show={show}
                         onHide={() => setShow(false)}
                         className='text-center'
-
                     >
                         <Modal.Header closeButton>
                             <Modal.Title id="example-modal-sizes-title-sm">

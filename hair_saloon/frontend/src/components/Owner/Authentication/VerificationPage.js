@@ -2,6 +2,7 @@ import React from 'react';
 import { FcExpired } from 'react-icons/fc';
 import { Card, Button } from "react-bootstrap";
 import { useHistory } from 'react-router-dom';
+
 function VerificationPage() {
     const history = useHistory()
     const style = {
@@ -14,6 +15,7 @@ function VerificationPage() {
     function manageHome(){
         history.push('/');
     }
+    
     return (
         <>
             <div className="pt-5 text-center" style={style} >

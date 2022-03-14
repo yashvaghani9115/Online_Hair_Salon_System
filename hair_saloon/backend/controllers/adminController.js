@@ -1,4 +1,4 @@
-import Admin from "../models/Admin.js";
+import Admin from "../models/adminModel.js";
 import Owner from "../models/ownerModel.js";
 import Shop from '../models/shopModel.js';
 import dotenv from "dotenv";
@@ -48,14 +48,15 @@ export const approveRegistration = async (req, res) => {
     res.json({ wentWrong: true, message: "Something went wrong !" });
     console.log(err.message);
   }
-}
+};
+
 export const getFullListOfShopsWithOwners = async (req, res) => {
   try {
     const { verified } = req.body;
     const shoplist = await Shop.find({ verified: verified });
     let fullList = []
     for (let i = 0; i < shoplist.length; i++) {
-      fullList.push({shop:shoplist[i],owner:await Owner.findById(shoplist[i].owner_id)});
+      fullList.push({ shop: shoplist[i], owner: await Owner.findById(shoplist[i].owner_id) });
     }
     const prefix_link = process.env.BEGIN_LINK + process.env.CLOUDINARY_NAME + process.env.SUB_FOLDER_PATH;
     if (shoplist.length != 0) {

@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from 'react-bootstrap';
-import { MDBInput } from 'mdbreact';
 import { Modal } from 'react-bootstrap';
 
 function ShopDetailsModal(props) {
-
+    
     const { show, onHide, listObj, prefixLink } = props;
     const shop = listObj.shop;
     const owner = listObj.owner;
     return (
-        <Modal show={show} onHide={onHide} size="lg"  aria-labelledby="contained-modal-title-vcenter">
+        <Modal show={show} onHide={onHide} size="lg" aria-labelledby="contained-modal-title-vcenter">
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
                     <h2>{shop.shop_name}</h2>

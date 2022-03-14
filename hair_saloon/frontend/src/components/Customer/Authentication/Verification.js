@@ -12,14 +12,14 @@ function Verification({ setLogin }) {
         // Cancel the event
         e.preventDefault();
         if (e) {
-          e.returnValue = ''; // Legacy method for cross browser support
+            e.returnValue = ''; // Legacy method for cross browser support
         }
         return ''; // Legacy method for cross browser support
-      };
+    };
 
     const history = useHistory()
     const customer = JSON.parse(localStorage.getItem('before_verification'));
-    const [correctOtp,setCorrectOtp] = useState()
+    const [correctOtp, setCorrectOtp] = useState()
     const [otp, setOtp] = useState();
     const [show, setShow] = useState(false);
     const [header, setHeader] = useState("");
@@ -40,19 +40,16 @@ function Verification({ setLogin }) {
         event.preventDefault();
         const result = Joi.validate({ otp },
             schema, { abortEarly: false });
-        console.log(result);
         const { error } = result;
         if (!error) {
-            
+
             if (correctOtp === parseInt(otp)) {
                 register()
             } else {
-                // alert("Entered Otp is Wrong")
                 setHeader("Invalid");
                 setMsg("Entered Otp is Wrong");
                 setShow(true);
             }
-            console.log("otp verification called");
             return null;
         } else {
             const errorData = {};
@@ -61,7 +58,6 @@ function Verification({ setLogin }) {
                 const message = item.message;
                 errorData[name] = message;
             }
-            console.log(errors);
             setErrors(errorData);
             return errorData;
         }
@@ -75,8 +71,6 @@ function Verification({ setLogin }) {
         const { error } = result;
         return error ? error.details[0].message : null;
     };
-
-
 
     function handlechange(e) {
         const { name, value } = e.target;
@@ -96,7 +90,6 @@ function Verification({ setLogin }) {
     async function register() {
 
         const { name, mobile_num, email, password } = customer;
-        // console.log(customer);
         if (name && mobile_num && email && password) {
             var res = await fetch("http://localhost:9700/customer/customerRegister", {
                 method: "POST",
@@ -113,9 +106,7 @@ function Verification({ setLogin }) {
             })
 
             res = await res.json();
-            console.log(res)
             if (res.wentWrong) {
-                // alert(res.message);
                 setHeader("Something Wrong");
                 setMsg(res.message);
                 setShow(true);
@@ -131,7 +122,6 @@ function Verification({ setLogin }) {
                     history.push('/');
                 }
                 else {
-                    // alert(res.message);
                     setHeader("Invalid");
                     setMsg(res.message);
                     setShow(true);
@@ -139,14 +129,13 @@ function Verification({ setLogin }) {
             }
         }
         else {
-            // alert("Input fields can't be blank.");
-
             setHeader("Invalid");
             setMsg("Input fields can't be blank.");
             setShow(true);
         }
 
     }
+
     async function sendMail(otp) {
         setCorrectOtp(otp)
         var res = await fetch("http://localhost:9700/customer/sendmail", {
@@ -161,22 +150,16 @@ function Verification({ setLogin }) {
             })
         })
         res = await res.json();
-        console.log(res)
         if (res.wentWrong) {
             alert(res.message);
         }
         else {
             if (res.stat) {
-                // alert(res.message);
-                // setLogin(true);
                 setHeader("Success");
                 setMsg(res.message);
                 setShow(true);
-
-                // history.push('/');
             }
             else {
-                // alert(res.message);
                 setHeader("Invalid");
                 setMsg(res.message);
                 setShow(true);
@@ -196,7 +179,6 @@ function Verification({ setLogin }) {
                         <h1 >Otp Verification</h1>
 
                     </div>
-                    {/* <form className="ui form"> */}
                     <div className="form-group col-auto">
                         <MDBInput containerClass="text-left text-dark" label="Enter Otp" icon='user' type="number" name="otp" value={otp} onChange={handlechange} />
                     </div>
@@ -213,10 +195,9 @@ function Verification({ setLogin }) {
                     <ModalInterface show={show} setShow={setShow} header={header} msg={msg} />
 
                 </div>
-
             </div>
         </div>
     )
-
 }
+
 export default Verification;

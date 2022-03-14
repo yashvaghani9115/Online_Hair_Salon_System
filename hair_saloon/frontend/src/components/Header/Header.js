@@ -22,7 +22,6 @@ function Header({ setLogin }) {
             variant="light"
             style={{ borderRadius: "20px" }}
           >
-
             <img src="/img/user.jpg"
               alt="user"
               style={{ borderRadius: "20px" }}
@@ -79,19 +78,21 @@ function Header({ setLogin }) {
 
           </Dropdown.Menu>
         </Dropdown>
-
       </div>
     </div>
   );
+
   function logout() {
     console.log("log out called")
     localStorage.clear();
     setLogin(false);
     window.location.replace("/")
   }
+
   function orders() {
     history.push("/orders");
   }
+
   function editshop() {
     history.push("/editShop")
   }
@@ -134,7 +135,7 @@ function Header({ setLogin }) {
                   onClick={logout}
                 >
 
-                  <FaPowerOff className="mr-2 mb-1" size="20px"/> Logout
+                  <FaPowerOff className="mr-2 mb-1" size="20px" /> Logout
                 </Nav.Item></>
             ) : (
               <>

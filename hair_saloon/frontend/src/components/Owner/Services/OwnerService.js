@@ -10,8 +10,8 @@ function OwnerService() {
     const [print_list, Setprintlist] = useState([]);
     const [show, setShow] = useState(false);
     const [header, setHeader] = useState("");
-    const [modalheader,setModalheader] = useState("");
-    const [modalmsg,setModalmsg] = useState("");
+    const [modalheader, setModalheader] = useState("");
+    const [modalmsg, setModalmsg] = useState("");
     const [modalshow, setModalshow] = useState(false);
     const [service, setService] = useState({
         service_name: "",
@@ -33,9 +33,6 @@ function OwnerService() {
         backgroundImage: "url('/img/bg3.jpg')"
     }
     let shop_gender = JSON.parse(localStorage.getItem("shop")).salon_gender_type;
-    console.log(shop_gender)
-
-
 
     async function getList() {
         var res = await fetch("http://localhost:9700/owner/listServices", {
@@ -58,7 +55,6 @@ function OwnerService() {
             setModalshow(true);
         } else {
             if (res.stat) {
-                // let shop = {name:res.shoplist[0].owner_id,location:res.shoplist[0].location_id,gender:res.shoplist[0].salon_gender_type,shop_name:res.shoplist[0].shop_name};
                 setList(res.servicelist);
                 const tmp = res.servicelist.filter((x) => x.category === "Hair Style")
                 Setprintlist(tmp.map((o) => {
@@ -97,8 +93,8 @@ function OwnerService() {
 
             } else {
                 setModalheader("Invalid");
-            setModalmsg("Something went wrong");
-            setModalshow(true);
+                setModalmsg("Something went wrong");
+                setModalshow(true);
             }
         }
     }
@@ -125,44 +121,29 @@ function OwnerService() {
             });
             res = await res.json();
             if (res.wentWrong) {
-                // alert(res.message);
-
-                // setHeader("Something Wrong");
                 setShow(false);
-
                 setModalheader("Something Wrong");
                 setModalmsg(res.message);
                 setModalshow(true);
-                // setShow(true);
             } else {
                 if (res.stat) {
-                    //   setHeader("Success");
                     setHeader(false)
                     setModalheader("Success");
                     setModalmsg(res.message);
                     setModalshow(true);
                     window.location.reload(true);
-
-
-                    //   setShow(true);
-                    // history.push('/ownerService');
                 } else {
-                    //   setHeader("Invalid");
                     setHeader(false);
                     setModalheader("Invalid");
                     setModalmsg(res.message);
                     setModalshow(true);
-
-                    //   setShow(true);
                 }
             }
         } else {
-            //   setHeader("Invalid");
             setShow(false);
             setModalheader("Invalid");
             setModalmsg("Input fields can't be blank.");
             setModalshow(true);
-            //   setShow(true);
         }
     }
     function handleChange(e) {
@@ -191,9 +172,7 @@ function OwnerService() {
             })
 
             res = await res.json();
-            console.log(res)
             if (res.wentWrong) {
-                // alert(res.message);
                 setShow(false);
                 setModalheader("Something Wrong");
                 setModalmsg(res.message);
@@ -201,18 +180,14 @@ function OwnerService() {
             }
             else {
                 if (res.stat) {
-                    // alert(res.message);
                     setShow(false);
                     setModalheader("Success");
                     setModalmsg(res.message);
                     setModalshow(true);
                     setService({ ...dservice });
                     window.location.reload(true);
-
-                    // history.push('/');
                 }
                 else {
-                    // alert(res.message);
                     setShow(false);
                     setModalheader("Invalid");
                     setModalmsg(res.message);
@@ -228,7 +203,6 @@ function OwnerService() {
         }
     }
     async function deleteservice(s) {
-        console.log(s);
         const owner_id = await JSON.parse(localStorage.getItem("owner"))._id;
         if (s) {
             var res = await fetch(`http://localhost:9700/owner/deleteService/${s}&${owner_id}`, {
@@ -243,15 +217,12 @@ function OwnerService() {
             }
             else {
                 if (res.stat) {
-                    // alert(res.message);
                     setModalheader("Success");
                     setModalmsg(res.message);
                     setModalshow(true);
                     window.location.reload(true);
-                    // history.push('/');
                 }
                 else {
-                    // alert(res.message);
                     setModalheader("Invalid");
                     setModalmsg(res.message);
                     setModalshow(true);
@@ -267,9 +238,7 @@ function OwnerService() {
     }
     async function set_list(cat) {
         const tmp = list.filter((x) => x.category === cat)
-        // console.log(tmp)
-        Setprintlist(tmp.map((o,index) => {
-
+        Setprintlist(tmp.map((o, index) => {
             return (
                 <tr key={index}>
                     <th>
@@ -297,16 +266,12 @@ function OwnerService() {
             );
         })
         )
-
-
     }
-
 
     useEffect(() => {
         getList()
-
     }, []);
-
+    
     return (
         <div className='container-fluid' style={style} >
             <div className='row'>
@@ -314,22 +279,16 @@ function OwnerService() {
                     <OwnerSidebar />
                 </div>
                 <div className='col-auto' style={{ width: "75%" }} >
-
                     <div>
-
-
                         <Card style={{ width: "80%", margin: "auto", marginTop: "2em" }} >
                             <Card.Header className="h1" style={{ backgroundColor: "#383838", color: "white" }}>
                                 Sevices
                                 <Button onClick={() => { setService({ ...dservice }); setHeader("Add Service"); setShow(true) }} className="btn btn-success float-right">
                                     Add Service
                                 </Button>
-
                             </Card.Header>
-
                             <Card.Header >
                                 <div >
-
                                     <Nav variant="pills" defaultActiveKey="Hair Style">
                                         <Nav.Item>
                                             <Nav.Link onClick={() => { set_list("Hair Style") }} eventKey="Hair Style">Hair Style</Nav.Link>
@@ -393,7 +352,7 @@ function OwnerService() {
                                 </Card.Text>
                             </Card.Body>
                         </Card>
-                    <ModalInterface show={modalshow} setShow={setModalshow} header={modalheader} msg={modalmsg} />
+                        <ModalInterface show={modalshow} setShow={setModalshow} header={modalheader} msg={modalmsg} />
 
                         <Modal
                             size="lg"
@@ -419,14 +378,11 @@ function OwnerService() {
                                                 <MDBInput containerClass="text-left text-dark" label="Price" type="number" name="price" onChange={handleChange} value={service.price} />
                                             </div>
                                             <div className="form-group col-auto">
-
-                                                    
                                                 {(shop_gender == "Both") ?
                                                     <Dropdown style={{ marginRight: "16px" }}>
                                                         <Dropdown.Toggle variant="dark" className="form-control p-2">
                                                             Select Gender
                                                         </Dropdown.Toggle>
-
                                                         <Dropdown.Menu className="bg-dark">
                                                             <Dropdown.Item
                                                                 className="text-primary"
@@ -449,10 +405,10 @@ function OwnerService() {
 
                                                     : (shop_gender === "Male") ?
                                                         <Dropdown style={{ marginRight: "16px" }}>
-                                                         <Dropdown.Toggle variant="dark" className="form-control p-2">
-                                                             Select Gender
-                                                         </Dropdown.Toggle>
-                                                        <Dropdown.Menu className="bg-dark">
+                                                            <Dropdown.Toggle variant="dark" className="form-control p-2">
+                                                                Select Gender
+                                                            </Dropdown.Toggle>
+                                                            <Dropdown.Menu className="bg-dark">
                                                                 <Dropdown.Item
                                                                     className="text-primary"
                                                                     onClick={() => {
@@ -461,19 +417,15 @@ function OwnerService() {
                                                                 >
                                                                     Male
                                                                 </Dropdown.Item>
-                                                                </Dropdown.Menu>
+                                                            </Dropdown.Menu>
                                                         </Dropdown>
-                                                        // <>
-                                                        //     <p style={{ display: "none" }} onLoad={() => { setService({ ...service, gender_type: true }) }}></p>
-                                                        // </>
-
 
                                                         :
                                                         <Dropdown style={{ marginRight: "16px" }}>
-                                                         <Dropdown.Toggle variant="dark" className="form-control p-2">
-                                                             Select Gender
-                                                         </Dropdown.Toggle>
-                                                        <Dropdown.Menu className="bg-dark">
+                                                            <Dropdown.Toggle variant="dark" className="form-control p-2">
+                                                                Select Gender
+                                                            </Dropdown.Toggle>
+                                                            <Dropdown.Menu className="bg-dark">
                                                                 <Dropdown.Item
                                                                     className="text-primary"
                                                                     onClick={() => {
@@ -482,15 +434,10 @@ function OwnerService() {
                                                                 >
                                                                     Female
                                                                 </Dropdown.Item>
-                                                                </Dropdown.Menu>
+                                                            </Dropdown.Menu>
                                                         </Dropdown>
-                                                        // <>
-                                                        //     <p style={{ display: "none" }} onLoad={() => { setService({ ...service, gender_type: false }) }}></p>
-                                                        // </>
 
                                                 }
-
-
                                                 {/* </Dropdown> */}
                                                 <MDBInput containerClass="text-left text-dark" label="Gender" value={service.gender_type === true ? "Male" : "Female"} title="please select from below" />
                                             </div>
@@ -649,7 +596,6 @@ function OwnerService() {
                                                 </Dropdown>
                                                 <MDBInput containerClass="text-left text-dark" value={service.category} title="Please select from below " label="Category" />
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -658,8 +604,6 @@ function OwnerService() {
                                 <Button style={{ borderRadius: "20px", color: "white" }} variant="blue" onClick={() => { if (header === "Add Service") { addService(); } else { editService(); } setShow(false); }}>{header}</Button>
                             </Modal.Footer>
                         </Modal>
-
-
                     </div>
                 </div>
             </div>

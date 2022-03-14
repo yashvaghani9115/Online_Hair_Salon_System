@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import Barber from "./barberModel.js";
 import Location  from "./locationModel.js";
 import Owner from "./ownerModel.js";
-import Service from "./hair_service.js";
+import Service from "./serviceModel.js";
 
 const shopSchema = new mongoose.Schema(
     {
@@ -20,11 +20,6 @@ const shopSchema = new mongoose.Schema(
         owner_id : {type: mongoose.Schema.Types.ObjectId, ref: Owner},
         hair_service_id :  [{ type:  mongoose.Schema.Types.ObjectId, ref: Service }],
         images_pub_ids : [] //public ids of images stored on cloudinary
-
-        //location_id:{type:String,required:true}
-        // booked_seats :{ type: Number, required: true },
-        
-        // barber_id : { type: String, required: true }
     }
 )
 

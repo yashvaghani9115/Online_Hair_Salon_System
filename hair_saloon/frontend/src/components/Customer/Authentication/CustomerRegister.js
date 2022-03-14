@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Redirect, Route, useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { MDBInput } from 'mdbreact';
 import Joi from 'joi-browser';
@@ -11,7 +11,6 @@ function CustomerRegister({ setLogin }) {
     const [show, setShow] = useState(false);
     const [header, setHeader] = useState("");
     const [msg, setMsg] = useState("");
-    // const correctOtp = useState();
     const [customer, setCustomer] = useState({
         name: "",
         mobile_num: "",
@@ -40,11 +39,9 @@ function CustomerRegister({ setLogin }) {
         event.preventDefault();
         const result = Joi.validate(customer,
             schema, { abortEarly: false });
-        console.log(result);
         const { error } = result;
         if (!error) {
             localStorage.setItem('before_verification',JSON.stringify(customer));
-            console.log("register called");
             history.push("/otpVerification")
             return null;
         } else {
@@ -54,7 +51,6 @@ function CustomerRegister({ setLogin }) {
                 const message = item.message;
                 errorData[name] = message;
             }
-            console.log(errors);
             setErrors(errorData);
             if (customer.password !== customer.cpassword) {
                 errorData["cpassword"] = "Confirm Password doesn't match with Password";
@@ -71,46 +67,7 @@ function CustomerRegister({ setLogin }) {
         const { error } = result;
         return error ? error.details[0].message : null;
     };
-    // async function sendMail() {
-    //     var res = await fetch("http://localhost:9700/customer/sendmail", {
-    //         method: "POST",
-    //         headers: {
-    //             "Accept": "application/json",
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify({
-    //             otp: customer.otp,
-    //             cust_mail: customer.email
-    //         })
-    //     })
-    //     res = await res.json();
-    //     console.log(res)
-    //     if (res.wentWrong) {
-    //         // alert(res.message);
-    //         setHeader("Invalid");
-    //         setMsg(res.message);
-    //         setShow(true);
-    //     }
-    //     else {
-    //         if (res.stat) {
-    //             alert(res.message);
-    //             // setLogin(true);
-    //             // setHeader("Success");
-    //             // setMsg(res.message);
-    //             // setShow(true);
-
-    //             history.push("/otpVerification")
-
-    //         }
-    //         else {
-    //             // alert(res.message);
-    //             setHeader("Invalid");
-    //             setMsg(res.message);
-    //             setShow(true);
-    //         }
-    //     }
-    // }
-
+    
     function handlechange(e) {
         const { name, value } = e.target;
         let errorData = { ...errors };

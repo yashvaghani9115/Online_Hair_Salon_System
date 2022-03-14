@@ -3,7 +3,7 @@ import Barber from "./barberModel.js";
 import Customer from "./customerModel.js";
 import Shop from "./shopModel.js";
 
-const CustomerOrderSchema = new mongoose.Schema(
+const customerOrderSchema = new mongoose.Schema(
     {
         customer_id :  {type: mongoose.Schema.Types.ObjectId, ref: Customer},
         shop_id : {type: mongoose.Schema.Types.ObjectId, ref: Shop},
@@ -14,5 +14,5 @@ const CustomerOrderSchema = new mongoose.Schema(
     }
 )
 
-const CustomerOrder = mongoose.model("CustomerOrder", CustomerOrderSchema);
+const CustomerOrder = mongoose.model("CustomerOrder", customerOrderSchema);
 export default CustomerOrder;

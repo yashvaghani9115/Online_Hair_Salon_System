@@ -1,4 +1,4 @@
-import React, {useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Service from "./Service";
 
 function ListServices({ selectedSalon }) {
@@ -12,7 +12,7 @@ function ListServices({ selectedSalon }) {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                shop_id : selectedSalon._id
+                shop_id: selectedSalon._id
             })
         })
 
@@ -20,27 +20,19 @@ function ListServices({ selectedSalon }) {
 
         if (res.wentWrong) {
             alert(res.message);
-            // setHeader("Something Wrong");
-            // setMsg(res.message);
-            // setShow(true);
         } else {
             if (res.stat) {
                 setServices(res.servicelist);
-
-            } else {
-                // setHeader("Invalid");
-                // setMsg(res.message);
-                // setShow(true);
             }
         }
-
     }
-    useEffect(()=>{
+    useEffect(() => {
         fetchServices()
-    },[]);
+    }, []);
+
     return (
         <div className="container ml-0 " style={{ position: 'relative' }}>
-            {services.length == 0 ? "No services Found":services.map((s,index) => <Service s={s} key={index} />)}
+            {services.length == 0 ? "No services Found" : services.map((s, index) => <Service s={s} key={index} />)}
         </div>
     )
 }

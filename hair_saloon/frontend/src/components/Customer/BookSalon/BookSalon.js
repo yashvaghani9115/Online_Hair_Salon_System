@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import {
   MDBTabs,
   MDBTabsItem,
@@ -20,50 +19,44 @@ function BookSalon() {
     backgroundSize: "cover",
     minHeight: "max-content",
     backgroundImage: "url('/img/bg3.jpg')"
-}
+  }
   const [basicActive, setBasicActive] = useState('tab1');
-  const [location,setLocation] = useState({});
+  const [location, setLocation] = useState({});
   const selectedSalon = JSON.parse(localStorage.getItem("selectedSalon"));
   const prefixLink = JSON.parse(localStorage.getItem("prefixLink"));
+
   const handleBasicClick = (value) => {
     if (value === basicActive) {
       return;
     }
-
     setBasicActive(value);
   };
-  async function getlocation(){
+
+  async function getlocation() {
     var res = await fetch("http://localhost:9700/customer/getlocation", {
-            method: "POST",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                loc_id : selectedSalon.location_id
-            })
-        })
-        res = await res.json();
-        if (res.wentWrong) {
-          alert(res.message);
-          // setHeader("Something Wrong");
-          // setMsg(res.message);
-          // setShow(true);
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        loc_id: selectedSalon.location_id
+      })
+    })
+    res = await res.json();
+    if (res.wentWrong) {
+      alert(res.message);
+    } else {
+      if (res.stat) {
+        setLocation(res.location);
       } else {
-          if (res.stat) {
-            setLocation(res.location);
-              
-          } else {
-            alert(res.message);
-              // setHeader("Invalid");
-              // setMsg(res.message);
-              // setShow(true);
-          }
+        alert(res.message);
       }
+    }
   }
-  useEffect(()=>{
+  useEffect(() => {
     getlocation();
-  },[])
+  }, [])
 
   return (
     <div style={style} className="pb-3">
@@ -97,13 +90,13 @@ function BookSalon() {
             <ListServices selectedSalon={selectedSalon} />
           </MDBTabsPane>
           <MDBTabsPane show={basicActive === 'tab2'}>
-            <AboutSalon location={location}  selectedSalon={selectedSalon} />
+            <AboutSalon location={location} selectedSalon={selectedSalon} />
           </MDBTabsPane>
           <MDBTabsPane show={basicActive === 'tab3'}>
-            <ListPhotos selectedSalon={selectedSalon} prefixLink={prefixLink}/>
+            <ListPhotos selectedSalon={selectedSalon} prefixLink={prefixLink} />
           </MDBTabsPane>
           <MDBTabsPane show={basicActive === 'tab4'}>
-            <ListBarbers selectedSalon={selectedSalon}/>
+            <ListBarbers selectedSalon={selectedSalon} />
           </MDBTabsPane>
         </MDBTabsContent>
       </div>

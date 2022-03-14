@@ -7,7 +7,7 @@ function AdminPage() {
   const [prefixLink, setPrefixLink] = useState("")
   const [showShopDetails, setShowShopDetails] = useState(false);
   const [fullList, setFullList] = useState([]);
-  const [listObj,setListObj] = useState();
+  const [listObj, setListObj] = useState();
   const [show, setShow] = useState(false);
   const [header, setHeader] = useState("");
   const [msg, setMsg] = useState("");
@@ -38,7 +38,7 @@ function AdminPage() {
       if (res.stat) {
         setPrefixLink(res.prefix_link);
         setFullList(res.fullList);
-      } 
+      }
     }
   }
 
@@ -70,7 +70,7 @@ function AdminPage() {
       }
     }
   }
-  function shownow(obj){
+  function shownow(obj) {
     setListObj(obj);
     setShowShopDetails(true);
   }
@@ -80,7 +80,7 @@ function AdminPage() {
   let i = 1;
   let td = fullList.map((obj, index) => {
     return (
-      <tr  key={index}>
+      <tr key={index}>
         <td>
           <strong>{i++}</strong>
         </td>
@@ -130,18 +130,17 @@ function AdminPage() {
       <Card style={{ width: "70%", margin: "auto" }}>
         <Card.Header className="h1">Admin Page</Card.Header>
         <Card.Body className="overflow-auto">
-            <Table bordered hover>
-              <thead className="bg-dark text-white">
-                <tr>
-                  <th>#</th>
-                  <th>Shop Name</th>
-                  <th>Details</th>
-                  {/* <th>Show Shop</th> */}
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>{td}</tbody>
-            </Table>
+          <Table bordered hover>
+            <thead className="bg-dark text-white">
+              <tr>
+                <th>#</th>
+                <th>Shop Name</th>
+                <th>Details</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>{td}</tbody>
+          </Table>
         </Card.Body>
         <Card.Footer>
           <Button

@@ -31,27 +31,20 @@ function AboutSalon({ selectedSalon, location }) {
 
     if (res.wentWrong) {
       alert(res.message);
-      // setHeader("Something Wrong");
-      // setMsg(res.message);
-      // setShow(true);
     } else {
       if (res.stat) {
         setOwner(res.owner);
-      } else {
-        // setHeader("Invalid");
-        // setMsg(res.message);
-        // setShow(true);
       }
     }
   }
   function handleResetLocation() {
     setDefaultLocation({ lat: location.latitude, lng: location.longitude })
     setZoom(DefaultZoom)
-
   }
   useEffect(() => {
     getOwner()
-  },[])
+  }, [])
+
   return (
     <>
       <MDBCard id='about' className='shadow-sm about-card'>
@@ -65,22 +58,17 @@ function AboutSalon({ selectedSalon, location }) {
           <div className="row">
             <div className="col-md-8">
               <MDBCardTitle>
-
                 <span className="address-title">Address</span>
               </MDBCardTitle>
 
               <MDBCardText>
-
                 <span className="text-dark">{selectedSalon.address}</span>
               </MDBCardText>
             </div>
             <div className="col-md-4">
               <Button variant="outline-orange" onClick={() => { setShow(true); handleResetLocation() }}><b>Show On Map</b></Button>
             </div>
-
           </div>
-
-
         </MDBCardBody>
       </MDBCard>
       <Modal size="m" show={show} onHide={() => setShow(false)}>

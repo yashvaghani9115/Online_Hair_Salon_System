@@ -4,11 +4,9 @@ import { Modal, Button } from 'react-bootstrap';
 function ImagePickerModal(props) {
     const [fileInputState, setFileInputState] = useState();
     const [errMsg, setErrMsg] = useState('');
-    
     const { selectedImages, setSelectedImages } = props;
 
     const handleFileInputChange = (e) => {
-        console.log(e.target.files)
         for (let i = 0; i < e.target.files.length; i++) {
             if (e.target.files[i].type == "image/png" || e.target.files[i].type == "image/jpeg") {
                 encodeAndAppend(e.target.files[i]);
@@ -26,7 +24,6 @@ function ImagePickerModal(props) {
             setSelectedImages((prev) => [...prev, reader.result]);
         };
         reader.onerror = () => {
-            console.error('something went wrong!');
             setErrMsg('something went wrong!');
         };
         setErrMsg('');

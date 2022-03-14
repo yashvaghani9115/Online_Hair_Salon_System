@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { MDBInput } from 'mdbreact';
-import { Modal } from 'react-bootstrap';
 import Joi from 'joi-browser';
 import ModalInterface from '../../Modal/ModalInterface';
-
 
 function OwnerLogin({ setLogin }) {
     const history = useHistory()
@@ -23,7 +21,9 @@ function OwnerLogin({ setLogin }) {
         height: "100vh",
         backgroundImage: "url('/img/bg1.jpg')"
     }
+
     //validation start
+
     const [errors, setErrors] = useState({});
     const schema = {
         email: Joi.string().email().required().label('Email'),
@@ -34,11 +34,9 @@ function OwnerLogin({ setLogin }) {
         event.preventDefault();
         const result = Joi.validate(owner,
             schema, { abortEarly: false });
-        console.log(result);
         const { error } = result;
         if (!error) {
             login();
-            console.log("login called");
             return null;
         } else {
             const errorData = {};
@@ -47,7 +45,6 @@ function OwnerLogin({ setLogin }) {
                 const message = item.message;
                 errorData[name] = message;
             }
-            console.log(errors);
             setErrors(errorData);
             return errorData;
         }
@@ -62,14 +59,7 @@ function OwnerLogin({ setLogin }) {
         return error ? error.details[0].message : null;
     };
 
-
-
-
-
-
     //validation end
-
-
 
     function handlechange(e) {
         const { name, value } = e.target;
@@ -90,8 +80,6 @@ function OwnerLogin({ setLogin }) {
     }
 
     async function login() {
-
-        console.log("login");
         const { email, password } = owner;
         if (email && password) {
             var res = await fetch("http://localhost:9700/owner/ownerLogin", {
@@ -129,7 +117,6 @@ function OwnerLogin({ setLogin }) {
                         history.push('/verification');
                         else if (res.shop.verified === "Accept"){
                             if(path){    
-                                console.log("path called")                        
                                 localStorage.removeItem("path")
                                 history.push(""+path+"")
                             }
@@ -141,9 +128,6 @@ function OwnerLogin({ setLogin }) {
                         history.push("/shopregister");
                     }
                     setLogin(true);
-
-
-
                 }
                 else {
                     setHeader("Invalid");
@@ -157,18 +141,14 @@ function OwnerLogin({ setLogin }) {
             setMsg("Input fields can't be blank.");
             setShow(true);
         }
-
     }
 
     return (
-
         <div style={style} className="main">
             <div className='d-flex justify-content-center'>
-
                 <div className='col-lg-5 bg-white' style={{ borderRadius: "25px", boxShadow: "3px 3px rgb(33,37,41)" }}>
                     <div className='mt-4 text-black'>
                         <h1 >Owner SignIn</h1>
-
                     </div>
                     <form className="ui form">
                         <div className="form-group col-auto">
@@ -188,22 +168,16 @@ function OwnerLogin({ setLogin }) {
                                 {errors.password}
                             </div>
                         )}
-
                         <Button variant="blue" type="submit" style={{ borderRadius: "20px", color: "white" }} className='col-6' onClick={validateForm}>Log in</Button>
                     </form>
                     <ModalInterface show={show} setShow={setShow} header={header} msg={msg} />
-
                     <p className="text-right text-dark">
                         <br />
                         Sign Up From <a href='/ownerregister'>Here</a>
                     </p>
-
                 </div>
-
             </div>
         </div>
-
-
     )
 }
 

@@ -1,8 +1,8 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { MDBInput } from 'mdbreact';
-import  Joi  from 'joi-browser';
+import Joi from 'joi-browser';
 import ModalInterface from '../../Modal/ModalInterface';
 
 function CustomerLogin({ setLogin }) {
@@ -21,9 +21,8 @@ function CustomerLogin({ setLogin }) {
         height: "90vh",
         backgroundImage: "url('/img/bg2.jpg')"
     }
+
     //validation start
-
-
 
     const [errors, setErrors] = useState({});
     const schema = {
@@ -35,11 +34,9 @@ function CustomerLogin({ setLogin }) {
         event.preventDefault();
         const result = Joi.validate(customer,
             schema, { abortEarly: false });
-        console.log(result);
         const { error } = result;
         if (!error) {
             login();
-            console.log("login  called");
             return null;
         } else {
             const errorData = {};
@@ -48,7 +45,6 @@ function CustomerLogin({ setLogin }) {
                 const message = item.message;
                 errorData[name] = message;
             }
-            console.log(errors);
             setErrors(errorData);
             return errorData;
         }
@@ -63,12 +59,8 @@ function CustomerLogin({ setLogin }) {
         return error ? error.details[0].message : null;
     };
 
-
-
-
-
-
     //validation end
+
     function handlechange(e) {
         const { name, value } = e.target;
         let errorData = { ...errors };
@@ -88,7 +80,6 @@ function CustomerLogin({ setLogin }) {
     }
 
     async function login() {
-
         const { email, password } = customer;
         if (email && password) {
             var res = await fetch("http://localhost:9700/customer/customerLogin", {
@@ -106,8 +97,6 @@ function CustomerLogin({ setLogin }) {
             res = await res.json();
 
             if (res.wentWrong) {
-                // alert(res.message);
-
                 setHeader("Something Wrong");
                 setMsg(res.message);
                 setShow(true);
@@ -116,17 +105,16 @@ function CustomerLogin({ setLogin }) {
                 if (res.stat) {
                     localStorage.setItem("customer", JSON.stringify(res.customer));
                     localStorage.setItem("prefixLink", JSON.stringify(res.prefix_link));
-                    // alert(res.message);
                     setHeader("Success");
                     setMsg(res.message);
                     setShow(true);
 
                     setLogin(true);
-                    const path = localStorage.getItem("path") 
-                    if(path){
+                    const path = localStorage.getItem("path")
+                    if (path) {
                         localStorage.removeItem("path")
-                        history.push(""+path+"")
-                    }else{
+                        history.push("" + path + "")
+                    } else {
                         history.push("/")
                     }
                 }
@@ -144,9 +132,6 @@ function CustomerLogin({ setLogin }) {
         }
 
     }
-
-
-
 
     return (
         <div style={style} className="main">
@@ -176,7 +161,7 @@ function CustomerLogin({ setLogin }) {
                         )}
                         <br />
 
-                        <Button variant="blue" type="submit" style={{ borderRadius: "20px" ,color:"white" }} className='col-6' onClick={validateForm}>Log in</Button>
+                        <Button variant="blue" type="submit" style={{ borderRadius: "20px", color: "white" }} className='col-6' onClick={validateForm}>Log in</Button>
                     </form>
                     <ModalInterface show={show} setShow={setShow} header={header} msg={msg} />
 
@@ -189,8 +174,6 @@ function CustomerLogin({ setLogin }) {
 
             </div>
         </div>
-
-
     )
 }
 

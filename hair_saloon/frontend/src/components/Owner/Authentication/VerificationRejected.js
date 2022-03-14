@@ -12,9 +12,11 @@ function VerificationRejected() {
         minHeight:"100vh",
         backgroundImage: "url('/img/bg3.jpg')"
     }
+
     function editshop(){
         history.push('/editShop');
     }
+    
     return (
         <>
             <div className="pt-5 text-center" style={style} >

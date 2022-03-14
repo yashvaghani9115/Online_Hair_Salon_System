@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 
 function SalonCarousel({ selectedSalon, prefixLink }) {
     const history = useHistory();
+
     const caraousel_items = selectedSalon.images_pub_ids.map((pub_id, index) => {
         if (index == 0) {
             return (
@@ -13,7 +14,7 @@ function SalonCarousel({ selectedSalon, prefixLink }) {
                 </MDBCarouselItem>
             );
         }
-        else{
+        else {
             return (
                 <MDBCarouselItem key={index}>
                     <MDBCarouselElement style={{ height: '450px' }} src={prefixLink + pub_id + ".png"} alt='...' />
@@ -21,14 +22,15 @@ function SalonCarousel({ selectedSalon, prefixLink }) {
             );
         }
     });
+
     return (
         <div className='container shadow pt-3  rounded' style={{ width: '100vw' }}>
             <MDBCard className='mb-3'>
                 <MDBCardBody>
                     <MDBCardTitle id="carousel-title">{selectedSalon.shop_name}
-                    <Button onClick={()=>{
-                        history.goBack()
-                    }} className="float-right btn btn-dark">Back</Button>
+                        <Button onClick={() => {
+                            history.goBack()
+                        }} className="float-right btn btn-dark">Back</Button>
                     </MDBCardTitle>
                     <MDBCardText>
                         {selectedSalon.address}

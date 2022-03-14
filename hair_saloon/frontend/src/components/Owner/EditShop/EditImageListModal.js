@@ -3,15 +3,12 @@ import { Modal, Button } from 'react-bootstrap';
 
 function EditImageListModal(props) {
     const prefixLink = JSON.parse(localStorage.getItem("prefixLink"));
-
     const [fileInputState, setFileInputState] = useState();
     const [errMsg, setErrMsg] = useState('');
-
     const { updationflag,setUpdationFlag,old_shop, indexOfImagesToDelete, setIndexOfImagesToDelete, selectedImages, setSelectedImages } = props;
 
     const handleFileInputChange = (e) => {
         if(!updationflag)setUpdationFlag(true);
-        console.log(e.target.files)
         for (let i = 0; i < e.target.files.length; i++) {
             if (e.target.files[i].type == "image/png" || e.target.files[i].type == "image/jpeg") {
                 encodeAndAppend(e.target.files[i]);
@@ -29,7 +26,6 @@ function EditImageListModal(props) {
             setSelectedImages((prev) => [...prev, reader.result]);
         };
         reader.onerror = () => {
-            console.error('something went wrong!');
             setErrMsg('something went wrong!');
         };
         setErrMsg('');
@@ -82,7 +78,6 @@ function EditImageListModal(props) {
                             </div>
                         ))}
                     </div>
-
                 </div>
                 <br />
                 <input

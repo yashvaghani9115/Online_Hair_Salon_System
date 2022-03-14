@@ -1,5 +1,4 @@
 import React, { useState,useEffect } from "react";
-import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText } from 'mdb-react-ui-kit';
 import Barber from "./Barber";
 
 function ListBarbers({ selectedSalon }) {
@@ -22,22 +21,13 @@ function ListBarbers({ selectedSalon }) {
 
     if (res.wentWrong) {
       alert(res.message);
-      // setHeader("Something Wrong");
-      // setMsg(res.message);
-      // setShow(true);
     } else {
       if (res.stat) {
-        
         setBarberList(res.barbers);
-
-      } else {
-        // setHeader("Invalid");
-        // setMsg(res.message);
-        // setShow(true);
       }
     }
-
   }
+  
   useEffect(() => {
     fetchBarberList()
   }, []);

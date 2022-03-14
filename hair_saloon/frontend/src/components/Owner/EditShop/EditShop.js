@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import TimeField from 'react-simple-timefield';
-import { Modal, Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import EditImageListModal from './EditImageListModal';
 import MapModal from './MapModal';
 
@@ -19,10 +19,7 @@ function EditShop() {
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundImage: "url('/img/bg1.jpg')",
-        // height: "91vh"s
     }
-
-
     const old_shop = JSON.parse(localStorage.getItem("shop"));
     const history = useHistory();
     const [showMap, setShowMap] = useState(false);
@@ -44,8 +41,6 @@ function EditShop() {
     })
     const [defaultLocation, setDefaultLocation] = useState(DefaultLocation);
 
-    // const [location, setLocation] = useState(defaultLocation);
-
     const [agree, setAgree] = useState(false);
     const [zoom, setZoom] = useState(DefaultZoom);
     function handlecheckbox() {
@@ -56,19 +51,11 @@ function EditShop() {
         setShop({ ...shop, longitude: lng, latitude: lat });
     }
 
-    function handleChangeZoom(newZoom) {
-        setZoom(newZoom);
-    }
-
     function handleResetLocation() {
-        // setDefaultLocation({ ...DefaultLocation });
         getLocation();
         if (!updationflag) setUpdationFlag(true);
-        // setShop({...shop,longitude:defaultLocation.lng,latitude:defaultLocation.lat})
-        // setLocation({ ...DefaultLocation });
         setZoom(DefaultZoom);
     }
-
 
     function handlechange(e) {
         if (!updationflag) setUpdationFlag(true);
@@ -81,6 +68,7 @@ function EditShop() {
             }
         )
     }
+
     function getLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(getPosInState);
@@ -91,6 +79,7 @@ function EditShop() {
         setDefaultLocation({ lat: position.coords.latitude, lng: position.coords.longitude })
         setShop({ ...shop, longitude: position.coords.longitude, latitude: position.coords.latitude })
     }
+
     function handlegender(e) {
         if (!updationflag) setUpdationFlag(true);
         setShop({ ...shop, salon_gender_type: e.target.value });
@@ -134,11 +123,8 @@ function EditShop() {
                         images_to_add: selectedImages,
                     })
                 })
-
-
                 res = await res.json();
                 setResponse(true);
-                // console.log(res.shop);
                 if (res.wentWrong) {
                     alert(res.message);
                 }
@@ -168,6 +154,7 @@ function EditShop() {
         }
 
     }
+
     async function getOldLocation() {
         var res = await fetch("http://localhost:9700/customer/getlocation", {
             method: "POST",
@@ -193,9 +180,7 @@ function EditShop() {
             }
         }
     }
-    function setDefaultLoc() {
-        setDefaultLocation({ lat: shop.latitude, lng: shop.longitude });
-    }
+
     useEffect(() => {
         getOldLocation();
     }, [])
@@ -211,7 +196,6 @@ function EditShop() {
                 <div className='main' style={style} >
                     <div className='d-flex justify-content-center' style={{ textAlign: "center" }}>
                         <div className='bg-white ' style={{ width: "150vh", minHeight: "75vh", borderRadius: "25px", boxShadow: "3px 3px rgb(33,37,41)" }} >
-
                             <div className='mt-4 text-black'>
                                 <h1 >Edit Shop</h1>
                             </div>
@@ -226,7 +210,6 @@ function EditShop() {
                                         </div>
                                     </div>
                                     <div className='row col-md-6'>
-
                                         <div className='col-auto mt-3 '>
                                             <FaAddressCard size='27px' />
                                         </div>
@@ -262,80 +245,62 @@ function EditShop() {
                                                 <span className="col-auto"><input type="radio" className='form-check-input' value="Both" onChange={handlegender} name="salon_gender_type" /> Both</span>
                                             }
                                         </div>
-
                                     </div>
                                     <div className='row'>
                                         <div className='row col-md-6'>
                                             <div className='col-6'>
-
                                                 <label>Opening Time :</label>
                                             </div>
                                             <div className='col-6'>
-
                                                 <span><TimeField name="opening_time" value={shop.opening_time} onChange={handlechange} style={{ width: "30%", height: "45px", fontFamily: "Open Sans", fontSize: "18px" }} /></span>
                                             </div>
-
                                         </div>
                                         <div className='row col-md-6'>
                                             <div className='col-6'>
-
                                                 <label>Closing time :</label>
                                             </div>
                                             <div className='col-6'>
-
                                                 <span ><TimeField name="closing_time" value={shop.closing_time} onChange={handlechange} style={{ width: "30%", height: "45px", fontFamily: "Open Sans", fontSize: "18px" }} /></span>
                                             </div>
-
                                         </div>
                                         <div className='row col-md-6 mt-4'>
                                             <div className='col-6'>
-
                                                 <label>Select Location :</label>
                                             </div>
                                             <div className='col-6'>
                                                 <Button style={{ fontSize: '10px', borderRadius: "4px" }} onClick={() => { setShowMap(true); }} >Set Location</Button>
                                             </div>
-
                                         </div>
                                         <div className='row col-md-6 mt-4' >
                                             <div className='col-6'>
-
                                                 <label>Upload Images :</label>
                                             </div>
                                             <div className='col-6'>
                                                 <Button style={{ fontSize: '10px', borderRadius: "4px" }} onClick={() => setShowImagePicker(true)} >Upload Images</Button>
                                             </div>
-
                                         </div>
                                         <div className='row mt-5' >
                                             <div className='text-center'>
                                                 <input type="checkbox" className='form-check-input' onChange={handlecheckbox} /><label htmlFor="agree"> I verify my <b>credentials for shop </b> and <b>location</b> <span style={{ color: "red" }}>*</span></label><br />
                                                 <Button className='col-6' type="submit" style={{ borderRadius: "20px", color: "white" }} variant='blue' disabled={!agree} onClick={editShop}>Edit</Button>
-
                                             </div>
-
                                         </div>
-
                                     </div>
-
                                 </div>
                             </div>
-
                         </div>
                     </div>
+
                     <EditImageListModal show={showImagePicker} onHide={() => setShowImagePicker(false)} selectedImages={selectedImages} setSelectedImages={setSelectedImages} indexOfImagesToDelete={indexOfImagesToDelete} setIndexOfImagesToDelete={setIndexOfImagesToDelete} old_shop={old_shop} updationflag={updationflag} setUpdationFlag={setUpdationFlag} />
 
                     <div className='location'>
-
-
                         <>
-                            <MapModal show={showMap} setShow={setShowMap} zoom={zoom} setZoom={setZoom} handleChangeLocation={handleChangeLocation} handleResetLocation={handleResetLocation} shop={shop} updationflag={updationflag} setUpdationFlag={setUpdationFlag} />
+                            <MapModal show={showMap} setShow={setShowMap} zoom={zoom} setZoom={setZoom} handleChangeLocation={handleChangeLocation} handleResetLocation={handleResetLocation} shop={shop}  />
                         </>
                     </div>
                 </div>
             }
         </>
-
     )
 }
 

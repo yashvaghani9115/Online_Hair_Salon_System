@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import TimeField from 'react-simple-timefield';
+import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import EditImageListModal from './EditImageListModal';
 import MapPicker from 'react-google-map-picker';
 
 function MapModal(props) {
-    const { show,setShow,updationflag,setUpdationFlag,handleChangeLocation,handleResetLocation,defaultLocation,shop,zoom,setZoom } = props;
+    const { show, setShow, handleChangeLocation, handleResetLocation, shop, zoom, setZoom } = props;
     return (
         <Modal
             size="xl"
@@ -29,13 +26,13 @@ function MapModal(props) {
                         <label className='l1'>Zoom:</label><input type='text' className='text-box1' value={zoom} disabled />
                     </div>
                 </div>
-                <MapPicker defaultLocation={{lat:shop.latitude,lng:shop.longitude}}
+                <MapPicker defaultLocation={{ lat: shop.latitude, lng: shop.longitude }}
                     zoom={zoom}
                     containerElement={<div style={{ height: '100%' }} />}
                     mapTypeId="roadmap"
                     style={{ height: '700px' }}
                     onChangeLocation={handleChangeLocation}
-                    onChangeZoom={(newZoom)=>setZoom(newZoom)}
+                    onChangeZoom={(newZoom) => setZoom(newZoom)}
                     apiKey='AIzaSyD07E1VvpsN_0FvsmKAj4nK9GnLq-9jtj8' />
             </Modal.Body>
             <Modal.Footer>

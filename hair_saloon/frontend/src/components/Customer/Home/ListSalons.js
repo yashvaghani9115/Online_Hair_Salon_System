@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import { useHistory } from "react-router-dom";
-import { Card,Nav } from "react-bootstrap";
+import { Card, Nav } from "react-bootstrap";
 import ModalInterface from "../../Modal/ModalInterface";
 import Salon from "./Salon";
 
@@ -15,12 +14,10 @@ function ListSalons() {
         minHeight: "100vh",
         backgroundImage: "url('/img/bg3.jpg')"
     }
-    // const history = useHistory();
     const [salonList, setsalonList] = useState([]);
     const [filterList, setFilterList] = useState([]);
     const [prefixLink, setPrefixLink] = useState('');
     const [response, setResponse] = useState(true);
-
 
     async function fetchSalonList(lon, lat) {
         setResponse(false);
@@ -71,18 +68,16 @@ function ListSalons() {
         setShow(true);
     }
     function getPosInState(position) {
-        // console.log(position.coords.longitude);
         fetchSalonList(position.coords.longitude, position.coords.latitude);
     }
     useEffect(() => {
         getLocation();
     }, []);
 
-
     return (
         <div style={style}>
-           <center><Card.Header  style={{width:"60%"}}>
-            
+            <center><Card.Header style={{ width: "60%" }}>
+
                 <Nav variant="pills" defaultActiveKey="Both" className="justify-content-center">
                     <Nav.Item>
                         <Nav.Link onClick={() => { set_list("Both") }} eventKey="Both" >Both</Nav.Link>
@@ -93,11 +88,11 @@ function ListSalons() {
                     <Nav.Item>
                         <Nav.Link onClick={() => { set_list("Female") }} eventKey="Female" >Female</Nav.Link>
                     </Nav.Item>
-                    
+
                 </Nav>
             </Card.Header>
             </center>
-           
+
             {!response ?
                 <center>
                     <div style={{ width: "50px", height: "50px" }} className="spinner-border text-primary mt-3 mr-3" role="status"></div>
@@ -105,16 +100,16 @@ function ListSalons() {
 
                 </center>
                 :
-                
+
                 <div className="container pb-5" style={{ width: '60vw' }}>
                     {filterList.length == 0 ?
-                    <div>
-                        <h4 className="form-control mt-5">
-                            No Salon Found
-                        </h4>
-                    </div>
-                    :
-                    filterList.map((s, index) => <Salon key={index} salon={s} prefixLink={prefixLink} />)}
+                        <div>
+                            <h4 className="form-control mt-5">
+                                No Salon Found
+                            </h4>
+                        </div>
+                        :
+                        filterList.map((s, index) => <Salon key={index} salon={s} prefixLink={prefixLink} />)}
                 </div>
             }
             <ModalInterface show={show} setShow={setShow} header={header} msg={msg} />

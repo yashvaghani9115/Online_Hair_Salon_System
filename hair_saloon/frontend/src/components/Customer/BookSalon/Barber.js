@@ -4,35 +4,6 @@ import SummaryModal from "./SummaryModal";
 
 function Barber({ b,selectedSalon }) {
     const [showSummary, setShowSummary] = useState(false);
-    // async function book(){
-    //     var res = await fetch("http://localhost:9700/customer/bookbarbar", {
-    //   method: "POST",
-    //   headers: {
-    //     "Accept": "application/json",
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify({
-        
-    //   })
-    // })
-
-    // res = await res.json();
-
-    // if (res.wentWrong) {
-    //   alert(res.message);
-    //   // setHeader("Something Wrong");
-    //   // setMsg(res.message);
-    //   // setShow(true);
-    // } else {
-    //   if (res.stat) {
-    //     setOwner(res.owner);
-    //   } else {
-    //     // setHeader("Invalid");
-    //     // setMsg(res.message);
-    //     // setShow(true);
-    //   }
-    // }
-    // }
     return (
         <>
         <div className="col-md-4 my-2" >

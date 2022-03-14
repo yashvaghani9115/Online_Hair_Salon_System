@@ -37,11 +37,9 @@ function AdminLogin({ setLogin }) {
         event.preventDefault();
         const result = Joi.validate(admin,
             schema, { abortEarly: false });
-        console.log(result);
         const { error } = result;
         if (!error) {
             login();
-            console.log("login  called");
             return null;
         } else {
             const errorData = {};
@@ -50,7 +48,6 @@ function AdminLogin({ setLogin }) {
                 const message = item.message;
                 errorData[name] = message;
             }
-            console.log(errors);
             setErrors(errorData);
             return errorData;
         }
@@ -85,12 +82,6 @@ function AdminLogin({ setLogin }) {
         )
         setErrors(errorData);
     }
-    function handleclose() {
-        if (header === "Success") {
-            history.push('/adminpage');
-        }
-        setShow(false)
-    }
 
     async function login() {
 
@@ -111,8 +102,6 @@ function AdminLogin({ setLogin }) {
             res = await res.json();
 
             if (res.wentWrong) {
-                // alert(res.message);
-
                 setHeader("Something Wrong");
                 setMsg(res.message);
                 setShow(true);
@@ -120,7 +109,6 @@ function AdminLogin({ setLogin }) {
             else {
                 if (res.stat) {
                     localStorage.setItem("admin", JSON.stringify(res.admin));
-                    // alert(res.message);
                     setHeader("Success");
                     setMsg(res.message);
                     setShow(true);
@@ -167,15 +155,13 @@ function AdminLogin({ setLogin }) {
                         )}
 
 
-                        <Button type='submit' variant="blue" style={{ borderRadius: "20px" ,color:"white"}} className='col-6 my-4' onClick={validateForm}>Log in</Button>
+                        <Button type='submit' variant="blue" style={{ borderRadius: "20px", color: "white" }} className='col-6 my-4' onClick={validateForm}>Log in</Button>
                     </form>
                     <ModalInterface show={show} setShow={setShow} header={header} msg={msg} />
 
                 </div>
             </div>
         </div>
-
-
     )
 }
 

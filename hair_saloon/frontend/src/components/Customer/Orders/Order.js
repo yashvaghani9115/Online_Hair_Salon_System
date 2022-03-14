@@ -1,16 +1,14 @@
 import React from 'react';
-import { MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBRow, MDBCol, MDBCardText, MDBBadge, MDBBtn } from 'mdb-react-ui-kit'
+import { MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBRow, MDBCol, MDBCardText, MDBBadge } from 'mdb-react-ui-kit'
 import CustomerRating from '../CustomerRating/CustomerRating';
 
-function Order({ o,prefixLink, cust ,fetchOrders}) {
+function Order({ o, prefixLink, cust, fetchOrders }) {
     return (
-        <div  className='my-2'>
+        <div className='my-2'>
             <MDBCard >
                 <MDBRow className='g-0'>
                     <MDBCol md='3'>
-
                         <MDBCardImage className='m-2' src={prefixLink + o.shop.images_pub_ids[0] + ".png"} height="180px" width="200px" />
-
                     </MDBCol>
                     <MDBCol md='5'>
                         <MDBCardBody>
@@ -20,8 +18,8 @@ function Order({ o,prefixLink, cust ,fetchOrders}) {
                                 Stylist :{o.barber.name}
                                 <br />
                                 Email:{o.barber.email}
-                                {o.status=="completed" &&
-                                    <div className='mt-3'><CustomerRating o={o} fetchOrders={fetchOrders}/></div>
+                                {o.status == "completed" &&
+                                    <div className='mt-3'><CustomerRating o={o} fetchOrders={fetchOrders} /></div>
                                 }
                             </MDBCardText>
                         </MDBCardBody>
@@ -37,25 +35,20 @@ function Order({ o,prefixLink, cust ,fetchOrders}) {
                                         <MDBBadge color='success'>{o.status}</MDBBadge> :
                                         o.status == "waiting" ?
                                             <>
-
                                                 <MDBBadge color="warning">{o.status}</MDBBadge>
                                                 <MDBBadge notification pill color='danger'>
                                                     <span style={{ fontSize: "15px" }}> {o.barber.customer_ids.indexOf(cust._id) + 1}</span>
                                                 </MDBBadge>
-
                                             </>
                                             :
                                             o.status == "cancel" ? <MDBBadge color='danger'>{o.status}</MDBBadge> :
                                                 <span ><MDBBadge>{o.status}</MDBBadge></span>
-
                                 }
                             </div>
                         </h2>
-
                     </MDBCol>
                 </MDBRow>
             </MDBCard>
-
         </div>
     );
 }

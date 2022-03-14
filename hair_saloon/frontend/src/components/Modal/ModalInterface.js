@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
-function ModalInterface({ show, setShow , header , msg }) {
+function ModalInterface({ show, setShow, header, msg }) {
     return (
         <Modal
             size="md"
             show={show}
             onHide={() => setShow(false)}
-
         >
             <Modal.Header closeButton>
                 <Modal.Title id="example-modal-sizes-title-sm">

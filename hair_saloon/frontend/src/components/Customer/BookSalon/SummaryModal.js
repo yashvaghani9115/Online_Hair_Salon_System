@@ -3,10 +3,11 @@ import { Modal, Button } from "react-bootstrap";
 import ModalInterface from "../../Modal/ModalInterface";
 
 function SummaryModal({ show, setShow, selectedSalon, selectedBarber }) {
-    const [modalheader,setModalheader] = useState("");
-    const [modalmsg,setModalmsg] = useState("");
+    const [modalheader, setModalheader] = useState("");
+    const [modalmsg, setModalmsg] = useState("");
     const [modalshow, setModalshow] = useState(false);
     const customer = JSON.parse(localStorage.getItem("customer"))
+
     async function BookBarber() {
         setShow(false);
         var res = await fetch("http://localhost:9700/customer/bookbarber", {
@@ -52,16 +53,15 @@ function SummaryModal({ show, setShow, selectedSalon, selectedBarber }) {
             body: JSON.stringify({
                 otp: -1,
                 cust_mail: customer.email,
-                customer_name:customer.name,
-                salon_name:selectedSalon.shop_name,
-                salon_add:selectedSalon.address,
-                barber_name:selectedBarber.name,
-                barber_email:selectedBarber.email,
-                turn:selectedBarber.customer_ids.length + 1
+                customer_name: customer.name,
+                salon_name: selectedSalon.shop_name,
+                salon_add: selectedSalon.address,
+                barber_name: selectedBarber.name,
+                barber_email: selectedBarber.email,
+                turn: selectedBarber.customer_ids.length + 1
             })
         })
         res = await res.json();
-        console.log(res)
         if (res.wentWrong) {
             setModalheader("Something Wrong");
             setModalmsg(res.message);
@@ -81,7 +81,6 @@ function SummaryModal({ show, setShow, selectedSalon, selectedBarber }) {
         }
     }
 
-
     return (
         <>
             <Modal show={show} onHide={() => { setShow(false); }}>
@@ -89,14 +88,13 @@ function SummaryModal({ show, setShow, selectedSalon, selectedBarber }) {
                     <Modal.Title>Summary</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Your Name : {customer.name}<br/>
+                    Your Name : {customer.name}<br />
                     Shop Name : {selectedSalon.shop_name}<br />
                     Address : {selectedSalon.address}<br />
                     Stylist Name : {selectedBarber.name}<br />
                     Stylist Email : {selectedBarber.email}<br />
                     Number In Queue :<strong> {selectedBarber.customer_ids.length + 1}</strong><br />
-                    <hr/>
-                    
+                    <hr />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={BookBarber}>
@@ -105,10 +103,8 @@ function SummaryModal({ show, setShow, selectedSalon, selectedBarber }) {
                 </Modal.Footer>
             </Modal>
             <ModalInterface show={modalshow} setShow={setModalshow} header={modalheader} msg={modalmsg} />
-
         </>
     );
 }
-
 
 export default SummaryModal;
